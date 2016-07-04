@@ -1,0 +1,63 @@
+			ENVIO DE E-MAILS
+
+Objetivo:
+Disparar um email para os usuarios envolvidos na tarefa.
+Quando:
+No momento em que a tarefa é salva.
+O que vai ter nela?
+Assunto: Você esta envolvido em uma nova tarefa: $titulo
+Mensagem: 
+        no dia: $hoje 
+        foi aberta a tarefas: $titulo, link da tarefa: $link, 
+        usuarios envolvidos: $nomes, 
+        data inicio da tarefa: data_inicio
+        data fim da tarefa: $data_fim, 
+        empresas envolvidas: $empresas_envolvidas]
+        usuario que abriu a tarefa.
+
+To: $Emails_envolvidos separados por virgula
+From: $email_usuario_abriu
+
+- Passo 0: partindo do principio que ja temos a função de adicionar/editar funcionando.
+
+- 1 Passo: Tratar ids de usuarios:
+    1.1 -   utilizar resultado do foreach usuarios para consultar no banco de dados "usuarios" 
+            que utiliza classe "usuarios_model" function "get_item" utilizando o "id_usuario", 
+            para retornar os dados do usuario propriamente dito.
+
+    1.2 - alimentar a array nome_usuarios e email_usuarios com os dados de nome e email que foi retornado do banco de dados, com chave livre.
+    
+    1.3 - Captar os dados do usuario principal.
+
+- 2 Passo: Tratar dados das empresas envolvidas:
+    2.1 -   Utilizar o resultado do foreach empresas para consultar o banco de dados "empresas"
+            que utiliza a classe "empresas_model" com a function "get_item" utilizando o "id_empresa"
+            para retornar os dados da empresa
+
+    2.2 - alimentar array empresa_nome
+
+3 - Montar mensagem:
+    3.1 - Inicia a mensagem com os dados que vc tem de post: 
+        3.1.1 - "Você tem uma nova tarefa "id_tarefa", "link_tarefa" que deve seguir o modelo: http://www.guiasjp.com/admin2_0/tarefas/editar/"id_tarefa" e o titulo da tarefa post['titulo']
+        3.1.2 - "Envolvidos: " concatena nome_usuarios com "," implode()
+        3.1.3 - Dat inicio e datafim que tem no post
+        3.1.4 - Empresas envolvidas concatenas por ' - '
+        3.1.5 - Dados do usuario que abriu a tarefa. Nome e email.
+    3.2 - Salva estas informações dentro de um string que pode ser $mensagem
+        
+4 - Monta assunto:
+    4.1 - Cria uma variavel $assunto e coloca dentro dela: Você esta envolvido em uma nova tarefa: $post['titulo']
+
+5 - Preparar TO
+    5.1 - Cria a variavel $to concatenando por ", " os dados da array email_usuarios
+
+6 - Preparar From
+    6.1 - Cria a variavel $from com o email do usuario principal.
+
+7 - Enviar o email utilizando a function "envio" que leva o parametro $dados_envio
+    7.1 - montar dados_envio : 
+        7.1.1 - $dados_envio['message'] = $mensagem;
+
+8 - Disparo:
+    $this->envio($dados_envio);
+

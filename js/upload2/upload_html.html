@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>upload_class</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="http://www.pow.com.br/js/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="funcs.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                upload.funcao_acao = window.parent.upload.funcao_acao;
+                upload.classe = window.parent.upload.classe;
+                upload.acao = window.parent.upload.acao;
+                upload.input = window.parent.upload.input;
+                upload.multiple = window.parent.upload.multiple;
+                upload.resposta_type = window.parent.upload.resposta_type;
+                upload.resposta_classe = window.parent.upload.resposta_classe;
+                upload.pasta = window.parent.upload.pasta
+                upload.extra = window.parent.upload.extra
+                upload.limite_kb = window.parent.upload.limite_kb;
+                upload.type = window.parent.upload.type;
+                upload.type_array = window.parent.upload.type_array;
+                
+                $('.formulario form').addClass('form-' + upload.input);
+                $('.formulario input').addClass('upload-input-' + upload.input);
+                $('.formulario div').addClass(upload.funcao_acao);
+                
+                $('.form-' + upload.input).attr('action', upload.acao);
+                if ( upload.multiple )
+                {
+                    $('.upload-input-' + upload.input).attr('name',upload.input + '[]');
+                    $('.upload-input-' + upload.input).attr('multiple','multiple');
+                }
+                else
+                {
+                    $('.upload-input-' + upload.input).attr('name',upload.input);
+                }
+                $('form').append(upload.extra);
+                $('form').append('<input type="hidden" name="limite_kb" value="' + upload.limite_kb + '">');
+                $('form').append('<input type="hidden" name="type" value="' + upload.type + '">');
+                $('form').append('<input type="hidden" name="resposta_type" value="' + upload.resposta_type + '">');
+                $('form').append('<input type="hidden" name="input" value="' + upload.input + '">');
+            });
+            $(function(){
+                $('.form-' + upload.input).on('submit',function(){ 
+                    window.parent.upload.verifica_status();
+                });
+                $('.upload-input-' + upload.input).on('change',function(){ 
+                    var s = upload.pega_arquivos($(this)[0]);
+                    var a = upload.carrega_espaco_arquivos(s); 
+                    window.parent.upload.pega_espaco_arquivos(); 
+                    //window.parent.console.log('text');
+                    $('.form-' + upload.input).submit(); 
+                    
+                });
+            });
+            var definicoes = {
+                            classe          : '',
+                            acao            : '',
+                            input           : '',
+                            multiple        : '',
+                            resposta_type   : '',
+                            resposta_classe : '',
+                            pasta           : '',
+                            extra           : '',
+                            limite_kb       : '',
+                            type            : '',
+                            type_array      : '',
+            };
+        </script>
+    </head>
+    <body>
+        <div class="formulario">
+            <form class="" enctype="multipart/form-data" method="post" action="">
+                <input type="file" name="" class="" >
+                <div class=""></div>
+            </form>
+        </div>
+    </body>
+</html>

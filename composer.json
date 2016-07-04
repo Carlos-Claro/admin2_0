@@ -1,0 +1,13 @@
+{
+	"description": "Sistema administrativo Portal Orion Web",
+	"name": "pow/admin",
+	"type": "project",
+	"homepage": "http://guiasjp.com",
+	"license": "MIT",
+	"support": {
+		"source": "http://powinternet.com.br/"
+	},
+	"require": {
+		"php": ">=5.6.0"
+	},
+}

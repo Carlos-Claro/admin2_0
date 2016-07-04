@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="http://www.guiasjp.com/css/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="http://www.guiasjp.com/css/estilo.css" type="text/css" />
+        <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="http://www.guiasjp.com/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="funcs.js"></script>
+        <script type="text/javascript" >
+            $(document).ready(function(){
+                var data = new Array();
+                data.classe = '.upload';
+                data.acao = 'upload.php';
+                data.multiple = true;
+                data.resposta_classe = '.status';
+                data.resposta_type = 'html';
+                upload.inicia(data);
+            });    
+            var arquivo = {
+                completo: function( data ) {
+                    console.log('arquivo');
+                    console.log(data);
+                },
+            };
+        </script>
+        
+    </head>
+    <body>
+        <div class="container">
+            <div class="alert alert-danger">
+                <h1>Texto mãe.</h1>
+            </div>
+            <div class="alert alert-success">
+                <div class="upload"></div>
+                <div class="status"></div>
+            </div>
+        </div>
+        
+    </body>
+</html>

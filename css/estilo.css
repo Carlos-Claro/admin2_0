@@ -1,0 +1,248 @@
+/* 
+    Document   : estilo
+    Created on : 16/09/2013, 11:32:08
+    Author     : Carlos Claro
+    Description:
+*/
+
+@media (max-width: 767px) {
+    
+}
+@media (max-width: 768px) {
+    
+}
+@media (min-width: 1200px) {
+    .container {
+        max-width: 100%;
+    }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+    
+}
+@media (min-width: 992px) {
+    
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+    
+}
+@media screen and (max-width: 400px) {
+    
+}
+@media screen and (min-width: 768px) {
+    
+}
+@media print{
+    
+}
+.arquivo-exibe-upload {
+    height: 200px;
+    width: auto;
+}
+.font-maior {
+    font-size: 20px;
+}
+
+.erro-interacoes {
+    color:#D71C22;
+    font-weight: bold;
+}
+
+.editavel{
+    cursor: pointer;
+}
+
+.atividade h3 {
+    margin-top: 0px;
+}
+
+form .row {
+    margin-top: 5px;
+}
+table {
+    margin-top: 10px;
+}
+.resposta-endereco {
+    z-index: 10;
+}
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 999px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+#news-letter{
+    font-size: arial;
+    color:#ffffff;
+    box-shadow: 0 0 10px 1 px rgba(0,0,0,0.3);
+    display:block;
+    margin:21% 0px;
+    padding: 0px;
+    position: fixed;
+    right:0px;
+    top:0px;
+    z-index: 999999;
+}
+#news-letter .nw-content{
+    margin: 0;
+    width: auto;
+    z-index: 1;
+    height:auto;
+}
+#news-letter .nw-content .nw-passo1{
+    vertical-align: top;
+}
+#news-letter .nw-content .nw-passo1 a{
+    text-decoration: none;
+}
+#news-letter .nw-content img.nw-sentence{
+    color: #ffffff;
+    font-family: Arial;
+    display: block;
+    margin: 0px;
+    padding: 0;
+    margin-left:10px;
+    margin-top:10px;
+    vertical-align: top;
+    font-size: 12px;
+    cursor: pointer;
+    height:auto;
+}
+#news-letter .nw-content .nw-passo2 {
+    position: relative;
+    padding: 10px 10px 10px 10px;
+    background-color: #1E3385;
+}
+#news-letter .nw-content .nw-passo1,  #news-letter .nw-content .nw-passo2 {
+    display: inline-block;
+}
+#news-letter .nw-content .nw-passo2 input {
+    min-width: 180px;
+}
+#news-letter .nw-content input {
+    background: none repeat scroll 0 0 #fff;
+    border: 0 none;
+    border-radius: 3px;
+    color: #333;
+    font-size: 12px;
+    height: 30px;
+    line-height: 30px;
+    margin: 10px 0;
+    padding: 0 11px;
+    vertical-align: top;
+    width: 90%;
+}
+#news-letter input[type="email"] {
+    display: inline;
+}
+#news-letter .nw-content button {
+    border: 0 none;
+    border-radius: 3px;
+    color: #fff;
+    background-color:#D71C22!important;
+    cursor: pointer;
+    float: none;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 30px;
+    margin-left:0px;
+    padding: 0 18px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    vertical-align: top;
+    width: auto;
+}
+.btn-close{
+    margin-left:20px;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:arial;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    vertical-align: center;
+    line-height: 30px;
+}
+.elementos-nw{
+    width: 220px;
+    color: #ffffff;
+    font-family: Arial;
+    display: block;
+    font-size: 12px;
+    cursor: pointer;
+    height:auto;
+}
+.nw-passo1 #open-nw
+{
+    background-color: #1E3385;
+    padding: 5px 10px;
+    letter-spacing: 2;
+    margin-right: -40px;
+    border-radius: 5px 5px 0px 0px;
+    cursor: pointer;
+    transform: rotate(270deg);
+}
+.alert-oc-in{
+    display: none;
+    color: #000;
+    border: 1px solid #cccccc;
+    background-color: #fff;
+    padding: 5px 0px;
+    margin: 5px 0px;
+}
+.ocorrencia{
+    display: none;
+}
+.oc-play{
+    cursor: pointer;
+    margin-right: 15px;
+}
+#sandbox-container, .datepicker-dropdown{
+    z-index: 999999;
+}
+.modal-pesquisa{
+    width:auto;
+}
+.modal-dialog {
+    width: 1000px;
+}
+.modal-dialog a, .empresas-selecionaveis, .remover-selecionados{
+    cursor: pointer;
+    
+}
+.empresas-selecionaveis{
+    cursor: pointer;
+}
+/* habilitar hover em dropdown
+.dropdown:hover .dropdown-menu {
+display: block;
+}*/
+
+
+.demo-placeholder {
+	width: 500px;
+	height: 300px;
+	font-size: 14px;
+	line-height: 1.2em;
+}
+
+.administrar-email .tab-content>.tab-pane{
+    min-height: 500px;
+}
