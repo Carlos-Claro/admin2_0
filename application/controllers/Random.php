@@ -85,6 +85,17 @@ class Random extends MY_Controller
                 }
             }
         }
+        ob_start();
+        echo 'Hora inicio '.$hora_inicio.PHP_EOL.'---------------------------------------------------------';
+        echo 'Hora fim '.date('Y-m-d h:i').PHP_EOL.'--------------------------------------------------------------------------------------------------------------------';
+        var_dump($edicao);
+        $output = ob_get_contents();
+        ob_clean();
+        $resumo = fopen( getcwd().'/relatorios/'.$id_cidade.'_resumo_ordem.txt','c');
+        fwrite($resumo, $output);
+        fclose($resumo);
+        echo 'editados: '.count($edicao);
+        $edicao = NULL;
         
     }
     
