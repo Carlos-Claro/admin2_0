@@ -201,7 +201,7 @@ class Random extends MY_Controller
         }
         if ( $pontos )
         {
-            $valor_max = 2499999 - ( $pontos * 500000 );
+            $valor_max = 1499999 - ( $pontos * 500000 );
             $fatores['max'] = $valor_max > 0 ? $valor_max : 500000;
             $valor_min = $fatores['max'] - 500000;
             $fatores['min'] = $valor_min >= 0 ? $valor_min : 0;
