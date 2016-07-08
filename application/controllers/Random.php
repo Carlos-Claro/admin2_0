@@ -221,7 +221,7 @@ class Random extends MY_Controller
         $editou['fatores'] = $fatores;
         $data_editar = array( 'ordem_rad' => $editou['valor'] );
         $data_filtro = array( 'id' => $id_imovel );
-        //$editou['editou'] = $this->imoveis_model->editar($data_editar,$data_filtro);
+        $editou['editou'] = $this->imoveis_model->editar($data_editar,$data_filtro);
         return $editou;
     }
 
