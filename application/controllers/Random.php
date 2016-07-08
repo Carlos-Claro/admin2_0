@@ -94,7 +94,7 @@ class Random extends MY_Controller
         $resumo = fopen( getcwd().'/relatorios/'.$id_cidade.'_resumo_ordem.txt','c');
         fwrite($resumo, $output);
         fclose($resumo);
-        echo 'editados: '.count($edicao);
+        echo 'editados: '.count($edicao[0]);
         $edicao = NULL;
         
     }
