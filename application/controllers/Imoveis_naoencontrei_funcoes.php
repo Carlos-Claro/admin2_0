@@ -141,7 +141,7 @@ class Imoveis_Naoencontrei_funcoes extends MY_Controller
         {
             
             //$nao_encontrei = $this->imoveis_naoencontrei_model->get_itens_email_automatico('imoveis_naoencontrei.enviado = 0');
-            $nao_encontrei = $this->imoveis_naoencontrei_model->get_itens_email_automatico('imoveis_naoencontrei.enviado = 0 AND imoveis_naoencontrei.data < '.strtotime( '-2 day'.date('d M Y') ).' AND imoveis_naoencontrei.data > '.strtotime( '-5 day'.date('d M Y') ) );
+            $nao_encontrei = $this->imoveis_naoencontrei_model->get_itens_email_automatico('imoveis_naoencontrei.enviado = 0 AND imoveis_naoencontrei.data < '.strtotime( '-2 day'.date('d M Y') ).' AND imoveis_naoencontrei.data > '.strtotime( '-30 day'.date('d M Y') ) );
             $cidades = $this->_pesquisar_cidades_nao_encontrei($nao_encontrei);
             $empresas = $this->_pesquisar_empresas_nao_encontrei($cidades);
             $emails = $this->_enviar_email($empresas);
@@ -322,6 +322,7 @@ class Imoveis_Naoencontrei_funcoes extends MY_Controller
                     
                     //$email['to'] é o email da imobiliaria
                     $email['to'] = $item->dados_empresa->autorizador_email;
+                    $email['iagente'] = TRUE;
                     //$email['to'] = 'programacao01@pow.com.br';
                     $envio = $this->envio($email);
                     if($envio)

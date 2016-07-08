@@ -53,7 +53,41 @@ class Random extends MY_Controller
 
     private $min = 1;
     private $max = 4000000;
+    
+    public function ordem_por_cidade( $id_cidade = 2 )
+    {
+        $this->load->model(array('imoveis_model', 'empresas_model', 'cidades_model'));
+        $filtro = implode(' AND ', $this->_filtro_json() );
+        $filtro_ = $filtro.' AND imoveis.id_cidade = '.$id_cidade;
+        if ( $cidade->qtde <= 20 )
+        {
+            $edicao[] = $this->set_imoveis( $filtro_ );
+        }
+        else
+        {
+            $tipos = $this->imoveis_model->get_tipos_cidades_com_imoveis( $filtro_ );
+            foreach( $tipos['itens'] as $tipo )
+            {
+                $filtro__ = $filtro_.' AND imoveis.id_tipo = '.$tipo->id_tipo;
+                if ( $tipo->qtde <= 20 )
+                {
+                    $edicao[] = $this->set_imoveis( $filtro__ );
+                }
+                else
+                {
+                    $empresas = $this->imoveis_model->get_tipos_empresas_cidades_com_imoveis( $filtro__ );
+                    foreach( $empresas['itens'] as $empresa )
+                    {
+                        $filtro___ = $filtro__.' AND imoveis.id_empresa = '.$empresa->id_empresa;
+                        $edicao[] = $this->set_imoveis( $filtro___ );
 
+                    }
+                }
+            }
+        }
+        
+    }
+    
     public function ordenacao_por_relevancia()
     {
         $this->load->model(array('imoveis_model', 'empresas_model', 'cidades_model'));
@@ -155,7 +189,7 @@ class Random extends MY_Controller
         }
         if ( $pontos )
         {
-            $valor_max = 2999999 - ( $pontos * 500000 );
+            $valor_max = 2499999 - ( $pontos * 500000 );
             $fatores['max'] = $valor_max > 0 ? $valor_max : 500000;
             $valor_min = $fatores['max'] - 500000;
             $fatores['min'] = $valor_min >= 0 ? $valor_min : 0;
@@ -187,7 +221,7 @@ class Random extends MY_Controller
         $editou['fatores'] = $fatores;
         $data_editar = array( 'ordem_rad' => $editou['valor'] );
         $data_filtro = array( 'id' => $id_imovel );
-        $editou['editou'] = $this->imoveis_model->editar($data_editar,$data_filtro);
+        //$editou['editou'] = $this->imoveis_model->editar($data_editar,$data_filtro);
         return $editou;
     }
 
