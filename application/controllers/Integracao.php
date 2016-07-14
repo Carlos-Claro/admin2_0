@@ -65,6 +65,7 @@ class Integracao extends MY_Controller
         
         public function por_empresa ( $empresa = FALSE )
         {
+            var_dump($empresa);die();
             if ( $empresa )
             {
                 $empresas = $this->empresas_model->get_valores_por_empresa($empresa);

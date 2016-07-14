@@ -359,6 +359,7 @@ class Funcoes extends MY_Controller
          */
         public function atualiza_lista_ip()
         {
+            error_reporting(E_ALL);
             $this->load->model(array('registro_ip_model','ip_robot_model'));
             $filtro = '(user_agent like "%bot%" OR user_agent like "%baidu%" OR user_agent like "%crawler%" ) AND data between "'.date("Y-m-d H:i",mktime (0, 0, 0, date("m")  , date("d")-30, date("Y") ) ).'" and "'.date("Y-m-d H:i").'" AND ip_robot.id IS NULL';
             $registros = $this->registro_ip_model->get_item_robot($filtro);
