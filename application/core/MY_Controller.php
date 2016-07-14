@@ -37,6 +37,7 @@ class MY_Controller extends CI_Controller
         $this->load->library('email');
         $this->load->library('menu');
         $this->load->model(array('usuario_model'));
+        date_default_timezone_set('America/Sao_Paulo');
         if ( $db )
         {
             //$this->requisita_bd_sessao($db);		
