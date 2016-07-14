@@ -27,6 +27,19 @@ class Logs_Model extends MY_Model {
         return $this->excluir_($database, $filtro);
     }
     
+    public function get_min_date()
+    {
+    	$data['coluna'] = '	
+                            MIN(logs_insert.data, ,"%Y-%m-%d") as data,
+                            ';
+    	$data['tabela'] = array(
+                                array('nome' => 'logs_insert'),
+                                );
+    	$data['group'] = 'logs_insert.data';
+    	$retorno = $this->get_itens_($data);
+    	return $retorno['itens'][0]->data;
+        
+    }
     
     public function get_itens_insert_dia( $dia )
     {
@@ -40,14 +53,13 @@ class Logs_Model extends MY_Model {
     	$data['tabela'] = array(
                                 array('nome' => 'logs_insert'),
                                 );
-    	$data['filtro'] = 'logs_insert.data < NOW()';;
+    	$data['filtro'] = 'logs_insert.data < "'.$dia.'"';
         $data['off_set'] = 0;
         $data['qtde_itens'] = 10000000;
     	$data['group'] = 'logs_insert.id_tabela, logs_insert.id_local';
     	$data['col'] = 'logs_insert.id_tabela';
     	$data['ordem'] = 'ASC';
-    	$retorno = $this->get_itens_($data,1);
-    	var_dump($retorno);die();
+    	$retorno = $this->get_itens_($data);
     	return $retorno;
     }
     

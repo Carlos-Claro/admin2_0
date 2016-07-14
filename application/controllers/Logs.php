@@ -104,11 +104,13 @@ class Logs extends MY_Controller
             
         }
         
-        public function set_por_dia( )
+        public function set_correcao_dias()
         {
-            $dia = date('Y-m-d',mktime(0, 0, 0, date('m'), date('d')-1, date('Y')));
+            $menor_dia = $this->logs_model->get_min_date($dia);
+            var_dump($menor_dia);die();
+            $dia = $menor_dia;
+            
             $logs = $this->logs_model->get_itens_insert_dia($dia);
-            //var_dump($logs);die();
             if ( isset($logs['itens']) && $logs['qtde'] > 0 )
             {
                 foreach ( $logs['itens'] as $item )
@@ -117,7 +119,26 @@ class Logs extends MY_Controller
                 }
                 $this->logs_model->adicionar_dia($add);
             }
-            $filtro_deleta = 'logs_insert.data < NOW()';
+            $filtro_deleta = 'logs_insert.data = "'.$dia.'"';
+            $deletados_ = $this->logs_model->excluir_insert($filtro_deleta);
+            var_dump($deletados);
+        }
+        
+        public function set_por_dia( )
+        {
+            $menor_dia = $this->logs_model->get_itens_insert_dia($dia);
+            $dia = date('Y-m-d',mktime(0, 0, 0, date('m'), date('d')-1, date('Y')));
+            
+            $logs = $this->logs_model->get_itens_insert_dia($dia);
+            if ( isset($logs['itens']) && $logs['qtde'] > 0 )
+            {
+                foreach ( $logs['itens'] as $item )
+                {
+                    $add[] = (array)$item;
+                }
+                $this->logs_model->adicionar_dia($add);
+            }
+            $filtro_deleta = 'logs_insert.data < "'.$dia.'"';
             $this->logs_model->excluir_insert($filtro_deleta);
         }
         
