@@ -126,7 +126,6 @@ class Logs extends MY_Controller
         
         public function set_por_dia( )
         {
-            $menor_dia = $this->logs_model->get_itens_insert_dia($dia);
             $dia = date('Y-m-d',mktime(0, 0, 0, date('m'), date('d')-1, date('Y')));
             
             $logs = $this->logs_model->get_itens_insert_dia($dia);
