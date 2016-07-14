@@ -137,7 +137,7 @@ class Logs extends MY_Controller
                 }
                 $this->logs_model->adicionar_dia($add);
             }
-            $filtro_deleta = 'logs_insert.data < "'.$dia.'"';
+            $filtro_deleta = 'logs_insert.data < NOW()';
             $this->logs_model->excluir_insert($filtro_deleta);
         }
         
