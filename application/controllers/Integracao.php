@@ -69,10 +69,10 @@ class Integracao extends MY_Controller
             if ( $empresa )
             {
                 $empresas = $this->empresas_model->get_valores_por_empresa($empresa);
-                var_dump($empresas);die();
                 if ( $empresas && count($empresas) > 0 )
                 {
                     $respostas = $this->my_xml->get_por_empresas( $empresas );
+                    var_dump($empresas, $respostas);die();
                     sleep(10);
                     $this->my_xml->altera_arquivos();
                     sleep(10);
