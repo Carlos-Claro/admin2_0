@@ -36,7 +36,7 @@ class Logs_Model extends MY_Model {
                                 array('nome' => 'logs_insert'),
                                 );
     	$data['group'] = 'logs_insert.data';
-    	$retorno = $this->get_itens_($data);
+    	$retorno = $this->get_itens_($data,1);
     	return $retorno['itens'][0]->data;
         
     }
