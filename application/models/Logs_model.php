@@ -53,7 +53,7 @@ class Logs_Model extends MY_Model {
     	$data['tabela'] = array(
                                 array('nome' => 'logs_insert'),
                                 );
-    	$data['filtro'] = 'logs_insert.data < "'.$dia.'"';
+    	$data['filtro'] = 'logs_insert.data BETWEEN "2016-07-03" AND "'.$dia.'"';
         $data['off_set'] = 0;
         $data['qtde_itens'] = 10000000;
     	$data['group'] = 'logs_insert.id_tabela, logs_insert.id_local';
