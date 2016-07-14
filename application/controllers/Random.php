@@ -210,7 +210,7 @@ class Random extends MY_Controller
         }
         else
         {
-            if ( $primeiro[($venda ? 'venda' : 'locacao')] )
+            if ( isset($primeiro[($venda ? 'venda' : 'locacao')]) && $primeiro[($venda ? 'venda' : 'locacao')] )
             {
                 $fatores['min'] = 3000000;
                 $fatores['max'] = 3499999;

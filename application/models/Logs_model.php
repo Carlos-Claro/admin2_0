@@ -46,8 +46,8 @@ class Logs_Model extends MY_Model {
     	$data['group'] = 'logs_insert.id_tabela, logs_insert.id_local';
     	$data['col'] = 'logs_insert.id_tabela';
     	$data['ordem'] = 'ASC';
-    	$retorno = $this->get_itens_($data);
-    	
+    	$retorno = $this->get_itens_($data,1);
+    	var_dump($retorno);die();
     	return $retorno;
     }
     
