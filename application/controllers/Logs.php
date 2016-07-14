@@ -107,7 +107,7 @@ class Logs extends MY_Controller
         public function set_correcao_dias()
         {
             $menor_dia = $this->logs_model->get_min_date();
-            var_dump($menor_dia);die();
+            var_dump($menor_dia);die('dia');
             $dia = $menor_dia;
             
             $logs = $this->logs_model->get_itens_insert_dia($dia);
