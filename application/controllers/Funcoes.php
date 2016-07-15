@@ -36,14 +36,34 @@ class Funcoes extends MY_Controller
             }
             else
             {
-                $valida = ( isset($_GET['usuario'] ) && $_GET['usuario'] == '41be7336a7f841675f5ac0ae4317ae86' ) ? FALSE : TRUE;
+                if ( isset($_GET['own']) )
+                {
+                    $valida = FALSE;
+                    
+                }
+                else
+                {
+                    $valida = ( isset($_GET['usuario'] ) && $_GET['usuario'] == '41be7336a7f841675f5ac0ae4317ae86' ) ? FALSE : TRUE;
+                    
+                }
             }
             parent::__construct($valida);
             $this->load->model(array('subcategorias_model', 'status_atualizada_model'));
 	}
         
         
-        
+        public function atualiza_ip_pow()
+        {
+            $this->load->model( array('ip_pow_model') );
+            $ip = $this->ip_pow_model->get_item();
+            if ( $ip->id !== $_SERVER['REMOTE_ADDR'] )
+            {
+                $data = array('id' => $_SERVER['REMOTE_ADDR']);
+                $filtro = array('id' => $ip->id );
+                $this->ip_pow_model->editar($data, $filtro);
+            }
+            
+        }
         
         public function envia_mail_aws()
         {
