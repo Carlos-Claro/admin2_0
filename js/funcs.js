@@ -51,6 +51,7 @@ $(document).ready(function(){
     $('.carousel').carousel();
     tarefa.verificar_trabalhando();
     tarefa.tarefas_hoje();
+    iteracao.iteracoes_abertas();
      //CKEDITOR.replace( 'ckeditor' );
 });
 

@@ -243,6 +243,7 @@ class Layout {
                 ->set_include('js/datetimepicker/moment.js', TRUE)
                 ->set_include('js/datetimepicker/bootstrap-datetimepicker.min.js', TRUE)
                 ->set_include('js/tarefas.js', TRUE)
+                ->set_include('js/iteracoes.js', TRUE)
                 ->set_include('js/funcs.js', TRUE)
                 ->set_include('css/datetimepicker/bootstrap-datetimepicker.min.css', TRUE)
                 ->set_include('css/estilo.css', TRUE);				

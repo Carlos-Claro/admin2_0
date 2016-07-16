@@ -442,21 +442,38 @@ class Tarefas_projetos extends MY_Controller
             $data['data'] = date('Y-m-d H:i');
             if ( isset($data) )
             {
+                // adiciona a iteração
                 $model = 'tarefas_projetos_iteracao_model';
                 $this->load->model($model);
                 $add = $this->$model->adicionar($data);
+
+                // se a iteração foi adicionada, lista os usuarios avisados pra mandar email
                 if ( $add )
                 {
-                    $this->load->model(array('usuario_model'));
+                    // le os usuarios e tarefas_projetos_iteracao_has_usuarios_model
+                    $this->load->model(array('usuario_model', 'tarefas_projetos_iteracao_has_usuarios_model'));
+                    
+                    // filtra os usuarios pelo id
                     $filtro_usuarios = 'usuarios.id IN ('.  implode(',', $avisados).')';
                     $usuarios = $this->usuario_model->get_select($filtro_usuarios);
+                    
+                    // usuario que fez a iteração
                     $filtro_usuario = 'usuarios.id = ' . $data['id_usuario'];
                     $usuario = $this->usuario_model->get_select($filtro_usuario);
                     $data['usuario_nome'] = $usuario[0]->descricao;
                     foreach($usuarios as $usuario)
                     {
+                        // adiciona o usuario a iteração
+                        $this->tarefas_projetos_iteracao_has_usuarios_model->adicionar([
+                            'id_tarefas_projetos_iteracao' => $add,
+                            'id_usuario' => $usuario->id
+                        ]);
+                        
+                        // captura o email do usuario
                         $email_usuarios[] = $usuario->email;
                     }
+
+                    // monta o email
                     $to = implode(",", $email_usuarios);
                     $from = 'noreply@pow.com.br';
                     $item = $this->tarefas_projetos_model->get_item($data['id_tarefas_projetos']);
@@ -465,6 +482,8 @@ class Tarefas_projetos extends MY_Controller
                     $l = $assunto.'<br>';
                     $l .= $data['message'].'<br><br>';
                     $l .= '<a href="'.base_url().'tarefas_projetos/editar/'.$item->id_tarefas_portfolio.'/'.$item->id.'">clique aqui para ir ao projeto</a>';
+
+                    // envia o email
                     $dados_envio = array(
                                         'to' => $to,
                                         'email' => $from,
@@ -480,12 +499,7 @@ class Tarefas_projetos extends MY_Controller
             }
             echo json_encode( $retorno );
         }
-        
-        
-        
-        
-        
-        
+    
         public function requisita_iteracao($id_projeto = FALSE, $id_pai = FALSE)
         {
             $this->load->model('tarefas_projetos_iteracao_model');

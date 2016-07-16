@@ -1,0 +1,16 @@
+Instalação:
+
+- phpX-dev
+- phpX-mongo
+
+-- instruções em : https://github.com/mongodb/mongo-php-library
+- 
+$ pecl install mongodb
+
+
+Inserir no fim do arquivo php.ini >> "extension=mongodb.so"
+
+
+-- Coloca os arquivo do cimongo em libraries
+-- Cria arquivo de cimongo > config
+-- autoload cimongo

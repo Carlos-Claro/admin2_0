@@ -586,4 +586,100 @@ class Imoveis_Model extends MY_Model
 
     }
 
+    public function get_itens_com_foto( $filtro = array(), $coluna = 'ordem_rad', $ordem = 'DESC', $off_set = 0, $quantidade = N_ITENS, $destaque = FALSE )
+    {
+        /**
+         * 
+         */
+    	$data['coluna'] = '	
+                            imoveis.id as _id, 
+                            imoveis.nome as nome,
+                            IF ( imoveis.preco_venda > 0, imoveis.preco_venda , IF ( imoveis.preco_locacao > 0 , imoveis.preco_locacao, imoveis.preco_locacao_dia )   ) as preco,
+                            imoveis.preco_venda as preco_venda,
+                            imoveis.preco_locacao as preco_locacao,
+                            imoveis.preco_locacao_dia as preco_locacao_dia,
+                            imoveis.logradouro as logradouro,
+                            IF( imoveis.video, 1, 0 ) as video,
+                            imoveis.condominio as terreno,
+                            imoveis.quartos as quartos,
+                            imoveis.garagens as garagens,
+                            imoveis.banheiros as banheiros,
+                            imoveis.area as area, 
+                            imoveis.area_terreno as area_terreno,
+                            imoveis.area_util as area_util,
+                            empresas.mudou as mudou,
+                            IF ( imoveis.bairro <> bairros.nome, imoveis.bairro, "")  as vila,
+                            bairros.nome as bairro,
+                            bairros.link as bairros_link,
+                            imoveis_tipos.nome as imoveis_tipos_titulo,
+                            imoveis_tipos.english as imoveis_tipos_english,
+                            imoveis_tipos.link as imoveis_tipos_link,
+                            cidades.link as cidades_link,
+                            IF ( imoveis.venda = 1, "venda" , IF ( imoveis.locacao = 1 , "locacao", "locacao_dia" )   ) as tipo,
+                            imoveis.venda as tipo_venda,
+                            imoveis.locacao as tipo_locacao,
+                            imoveis.locacao_dia as tipo_locacao_dia,
+                            empresas.id as id_empresa,
+                            imoveis.views as views,
+                            imoveis.id_cidade as imovel_id_cidade,
+                            bairros.cidade as bairro_cidade,
+                            cidades.id as cidades_id,
+                            cidades.nome as cidade_nome,
+                            cidades.uf as uf,
+                            imoveis.bairro_combo as bairro_combo,
+                            empresas.empresa_nome_fantasia as nome_empresa,
+                            empresas.nome_seo as imobiliaria_nome_seo,
+                            imoveis.longitude as longitude,
+                            imoveis.latitude as latitude,
+                            logradouros.logradouro as logradouro_,
+                            imoveis.descricao as descricao,
+                            imoveis.referencia as referencia, 
+                            imoveis.ordem_rad as ordem, 
+                           ';
+    	$data['tabela'] = array(
+                                array('nome' => 'imoveis'),
+                                array('nome' => 'empresas',	'where' => 'imoveis.id_empresa = empresas.id AND empresas.pagina_visivel = 1', 'tipo' => 'INNER'),
+                                array('nome' => 'imoveis_tipos','where' => 'imoveis.id_tipo = imoveis_tipos.id', 'tipo' => 'LEFT'),
+                                array('nome' => 'bairros',	'where' => 'imoveis.bairro_combo = bairros.id', 'tipo' => 'LEFT'),
+                                array('nome' => 'logradouros',	'where' => 'imoveis.id_logradouro = logradouros.id', 'tipo' => 'LEFT'),
+                                array('nome' => 'cidades',      'where' => 'cidades.id = imoveis.id_cidade'),
+                                );
+        $this->load->model('imoveis_images_model');
+    	$data['filtro'] = $filtro;
+        if ( $coluna == 'preco_venda' )
+        {
+            $data['filtro'][] = '( imoveis.preco_venda > 0 )';
+        }
+        if ( $coluna == 'preco_locacao' )
+        {
+            $data['filtro'][] = '( imoveis.preco_locacao > 0 )';
+        }
+        if ( $coluna == 'area_util' )
+        {
+            $data['filtro'][] = '( imoveis.area_util > 1 )';
+        }
+        if ( $coluna == 'bairros_link' )
+        {
+            $data['filtro'][] = '( imoveis.bairro_combo > 0 )';
+        }
+        $data['off_set'] = isset($off_set) ? $off_set : 0;
+        $data['qtde_itens'] = $quantidade;
+    	$data['col'] = $coluna;
+    	$data['ordem'] = $ordem; 
+    	$data['group'] = 'imoveis.id'; 
+    	$retorno_db = $this->get_itens_($data);
+        $retorno = array('itens' => array(), 'qtde' => 0 );
+        if ( isset($retorno_db['itens']) && $retorno_db['qtde'] > 0 )
+        {
+            foreach ( $retorno_db['itens'] as $chave => $item )
+            {
+                $retorno['itens'][$chave] = $item;
+                $retorno['itens'][$chave]->images = $this->imoveis_images_model->get_itens('imoveis_images.id_imovel = '.$item->_id, 'imoveis_images.ordem', 'ASC', 0, 20);
+                //var_dump($retorno['itens'][$chave]->images);
+            }
+        }
+    	return $retorno;
+    }
+
+    
 }

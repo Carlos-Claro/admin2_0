@@ -66,6 +66,7 @@ class Tarefas_portfolio_Model extends MY_Model {
         $retorno = isset($tarefa['itens'][0]) ? $tarefa['itens'][0] : NULL;
     	return $retorno;
     }
+
     public function get_select( $filtro = array(), $coluna = 'titulo', $ordem = 'ASC' )
     {
     	$data['coluna'] = 'tarefas_portfolio.id as id, tarefas_portfolio.titulo as descricao';
