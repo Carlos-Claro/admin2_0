@@ -52,7 +52,7 @@ class Cimongo_base {
 	public function __construct(){
             if ( MONGODB_COMPOSER )
             {
-                
+                   
                 
             }
             else
