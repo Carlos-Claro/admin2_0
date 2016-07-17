@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('form_validation','session','Filtro', 'Cimongo', 'MY_Mongo');
+$autoload['libraries'] = array('form_validation','session','Filtro', 'MY_Mongo');
 
 /*
 | -------------------------------------------------------------------
