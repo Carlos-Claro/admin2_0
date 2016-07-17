@@ -53,7 +53,7 @@ class Cimongo_base {
             if ( MONGODB_COMPOSER )
             {
 		if (!class_exists('MongoDB')){
-			show_error("The MongoDB PECL extension has not been installed or enabled", 500);
+			show_error("The MongoDB PECL extension has not been installed or enabled Composer", 500);
 		}
                 
             }
