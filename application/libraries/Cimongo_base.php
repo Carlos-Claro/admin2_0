@@ -128,7 +128,15 @@ class Cimongo_base {
 	private function connect(){
 		$options = array();
 		try{
-			$this->connection = new MongoClient($this->connection_string, $options);
+                    if ( MONGODB_COMPOSER )
+                    {
+			$this->connection = new MongoDB\Client($this->connection_string, $options);
+                    }
+                    else
+                    {
+                        $this->connection = new MongoClient($this->connection_string, $options);
+                        
+                    }
 			$this->db = $this->connection->{$this->dbname};
 			return $this;
 		}catch (MongoConnectionException $e){

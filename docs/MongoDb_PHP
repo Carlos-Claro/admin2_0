@@ -1,10 +1,11 @@
 Instalação:
 
-- phpX-dev
-- phpX-mongo
+$ apt-get install phpX-dev
+$ apt-get install phpX-mongo
 
 -- instruções em : https://github.com/mongodb/mongo-php-library
 - 
+$ apt-get install pkg-config
 $ pecl install mongodb
 
 
