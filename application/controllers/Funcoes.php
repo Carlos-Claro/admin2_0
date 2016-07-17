@@ -57,7 +57,7 @@ class Funcoes extends MY_Controller
             $filtro = '(imoveis.vencimento = "0000-00-00" OR (imoveis.vencimento <> "0000-00-00" AND imoveis.vencimento >= "'.date('Y-m-d').'") ) '
                     . ' AND empresas.servicos_pagina_inicio < '.time().'  '
                     . 'AND empresas.servicos_pagina_termino > '.time().' '
-                    . 'AND  empresas.bloqueado = 0  AND imoveis.reservaimovel = 0  AND imoveis.vendido = 0  AND imoveis.locado = 0 AND imoveis.invisivel = 0 AND imoveis.id_cidade = 2';
+                    . 'AND  empresas.bloqueado = 0  AND imoveis.reservaimovel = 0  AND imoveis.vendido = 0  AND imoveis.locado = 0 AND imoveis.invisivel = 0 AND imoveis.id_cidade = 1';
             $itens = $this->imoveis_model->get_itens_com_foto($filtro,'imoveis.id','DESC',0,20000);
             $resultado_mongo = $this->imoveis_mongo_model->adicionar_multi($itens['itens']);
             var_dump($resultado_mongo);

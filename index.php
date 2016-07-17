@@ -61,7 +61,7 @@ if ( strstr($localhost,'localhost') )
     define('LOCALHOST', TRUE);
     define('COMMAND_LINE', FALSE);
     define('ENVIRONMENT', 'development');
-    define('MONGODB_COMPOSER', FALSE);
+    define('MONGODB_COMPOSER', TRUE);
     
 }
 elseif ( strstr($localhost,'base_line') ) 

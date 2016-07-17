@@ -1,11 +1,11 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class MY_Mongo extends Cimongo
+class MY_Mongo extends Mongo_db
 {	
+    
     public function __construct()	
     {		
-        $this->db = NULL;
-        parent::__construct();	
+        parent::__construct(0);	
     }	
     
     
@@ -31,7 +31,19 @@ class MY_Mongo extends Cimongo
             $this->order_by($data['ordem']);		
             
         }	
-        $retorno['itens'] = $this->get($data['tabela'],(isset($data['qtde_itens']) ? $data['qtde_itens'] : N_ITENS),(isset($data['off_set']) ? $data['off_set'] : NULL))->result();		
+        if (isset($data['qtde_itens'])) 
+        { 
+            $this->limit($data['qtde_itens']);
+        }
+        else
+        {
+            $this->limit(N_ITENS);
+        }
+        if (isset($data['off_set']) )
+        {
+            $this->offset($data['off_set']);
+        }
+        $retorno['itens'] = $this->get($data['tabela']);		
         $retorno['qtde'] = count($retorno['itens']);
         if ( $debug )
         {
