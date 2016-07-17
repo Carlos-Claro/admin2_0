@@ -144,9 +144,6 @@ $file_vendor = $cwd.'/composer/vendor/autoload.php';
 if (file_exists($file_vendor) )
 {
     $config['composer_autoload'] = $file_vendor;
-    include_once $file_vendor;
-    $connection = new MongoDB\Client("mongodb://localhost:27017");
-    var_dump($connection);
 }
 
 /*
