@@ -130,7 +130,6 @@ class Cimongo_base {
 		try{
                     if ( MONGODB_COMPOSER )
                     {
-                        echo 'mongo/composer';
 			$this->connection = new MongoDB\Client($this->connection_string, $options);
                     }
                     else

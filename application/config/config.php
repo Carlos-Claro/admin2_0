@@ -143,6 +143,7 @@ $cwd = $_SERVER['DOCUMENT_ROOT'];
 $file_vendor = $cwd.'/composer/vendor/autoload.php';
 if (file_exists($file_vendor) )
 {
+    echo $file_vendor;
     $config['composer_autoload'] = $file_vendor;
 }
 
