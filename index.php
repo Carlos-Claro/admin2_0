@@ -82,9 +82,9 @@ elseif ( strstr($localhost,'192.168') )
 }
 elseif ( strstr($localhost,'201.16.246.176') ) 
 {
-    define('LOCALHOST', TRUE);
+    define('LOCALHOST', FALSE);
     define('COMMAND_LINE', FALSE);
-    define('ENVIRONMENT', 'production');
+    define('ENVIRONMENT', 'testing');
     define('MONGODB_COMPOSER', TRUE);
     
 }
