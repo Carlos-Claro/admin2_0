@@ -50,9 +50,20 @@ class Cimongo_base {
 	 * @since v1.0.0
 	 */
 	public function __construct(){
+            if ( MONGODB_COMPOSER )
+            {
+		if (!class_exists('Mongod')){
+			show_error("The MongoDB PECL extension has not been installed or enabled", 500);
+		}
+                
+            }
+            else
+            {
 		if (!class_exists('Mongo')){
 			show_error("The MongoDB PECL extension has not been installed or enabled", 500);
 		}
+                
+            }
 		$this->CI =& get_instance();
 		$this->connection_string();
 		$this->connect();
