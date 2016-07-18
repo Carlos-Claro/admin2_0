@@ -54,8 +54,8 @@
                         </a>
                     </li>
                     <li class="ocorrencias">
-                        <a href="<?php echo base_url();?>ocorrencias/agenda" title="Acesse sua agenda de ocorrencias" class="btn btn-default btn-lg">
-                            <span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge qtde_ocorrencias_hoje"></span>
+                        <a href="<?php echo base_url();?>tarefas_portfolio/interacoes" title="Acesse sua agenda de ocorrencias" class="btn btn-default btn-lg">
+                            <span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge qtde_iteracoes"></span>
                         </a>
                     </li>
                     <li class="trabalhando"></li>

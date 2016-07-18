@@ -81,7 +81,7 @@ class Tarefas_portfolio extends MY_Controller
                         ->view('listar',$data);	
 	}
         /**
-         * 
+         *
          * @param int $id
          * @param bollean $ok
          * @version 1.0
@@ -286,6 +286,69 @@ class Tarefas_portfolio extends MY_Controller
                 }
 		return $dados;
 	}
+
+    public function interacoes( $coluna = 'tarefas_portfolio.titulo', $ordem = 'ASC', $off_set = 0)
+    {
+        // praticamente uma copia do listar, com alguns filtros adicionais para listar somente os portfolios necessários.
+        // talvez desse pra criar uma variavel adicionar em listar, e reaproveitar melhor a função ao inves de fazer
+        // essa.
+
+        $id_usuario = $this->sessao['id'];
+        $this->load->model('tarefas_projetos_iteracao_has_usuarios_model');
+
+        // retorna o id dos portfolios que possuem interação aberta
+        $ids = $this->tarefas_projetos_iteracao_has_usuarios_model->get_portfolios($id_usuario);
+
+        // caso não tenha nenhuma interação sem ler, redireciona para o listar
+        // isso acontece quando o usuario clica pra ver as interações não lidas, depois de marcar tudo como lido
+        // da um refresh
+        if (!isset($ids) || $ids['qtde'] == 0)
+            redirect(strtolower(__CLASS__));
+
+        // como o retorno de portfolio é um vetor de objetos, retiro somente o ID (pra fazer um filtro)
+        // mudar o model pra retornar da maneira 'correta'?
+        foreach ($ids['itens'] as $id)
+            $ids_portfolio[] = $id->id_portfolio;
+
+        // efetua a listagem
+        $off_set = ( (isset($_GET['per_page'])) ? $_GET['per_page'] : 0 );
+        $classe = strtolower(__CLASS__);
+        $function = strtolower(__FUNCTION__);
+        $url = base_url().$classe.'/'.$function.'/'.($coluna).'/'.$ordem.'/'.$off_set;
+        $valores = ( isset($_GET['b']) ? $_GET['b'] : array() );
+        $filtro = $this->_inicia_filtros( $url, $valores );
+        $filter =  $filtro->get_filtro();
+
+        // injeta os ids dos portfolios a serem filtrados diretamente no filtro!
+        // o correto seria fazer um novo método no tarefas_portfolio_model?
+        $filter[] = array('tipo' => 'where_in', 'campo' => 'tarefas_portfolio.id', 'valor' => $ids_portfolio);
+
+        $itens = $this->tarefas_portfolio_model->get_itens( $filter, $coluna, $ordem, $off_set );
+        $total = $this->tarefas_portfolio_model->get_total_itens( $filter );
+        $get_url = $filtro->get_url();
+        $url = $url.( (empty($get_url) ) ? '?' : ($get_url) );
+        $data['paginacao'] = $this->init_paginacao($total, $url);
+        $data['filtro'] = $filtro->get_html();
+        $extras['url'] = base_url().$classe.'/'.$function.'/[col]/[ordem]/'.$off_set.'/'.$filtro->get_url();
+        $extras['col'] = $coluna;
+        $extras['ordem'] = $ordem;
+        $extras['total_itens'] = $total;
+        $data['listagem'] = $this->_inicia_listagem( $itens, $extras );
+        
+        // zera o contador
+        // o correto seria 
+        $this->tarefas_projetos_iteracao_has_usuarios_model->zera_contador($id_usuario);
+        
+        $this->layout
+            ->set_classe( $classe )
+            ->set_function( $function )
+            ->set_include('js/listar.js', TRUE)
+            ->set_include('js/tarefas_portfolio.js', TRUE)
+            ->set_include('css/estilo.css', TRUE)
+            ->set_breadscrumbs('Painel', 'painel',0)
+            ->set_breadscrumbs('Portfolio', 'tarefas_portfolio', 1)
+            ->set_usuario()
+            ->set_menu($this->get_menu($classe, $function))
+            ->view('listar',$data);
+    }
 }
-
-

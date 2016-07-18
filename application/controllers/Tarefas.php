@@ -27,7 +27,8 @@ class Tarefas extends MY_Controller
 	public function __construct()
 	{
             parent::__construct();
-            $this->load->model(array('tarefas_model', 'tarefas_projetos_model','tarefas_status_model','usuario_model','images_model'));
+            $this->load->model(array('tarefas_model', 'tarefas_projetos_model', 'tarefas_status_model',
+                'usuario_model','images_model', 'tarefas_projetos_iteracao_has_usuarios_model'));
             $this->load->helper('ckeditor_helper');
             //$this->load->library('anexo_lib');
 	}
@@ -79,6 +80,13 @@ class Tarefas extends MY_Controller
             $id_usuario = $this->sessao['id'];
             $presente = $this->tarefas_model->get_tarefas_abertas($id_usuario,'presente');
             echo $presente['qtde'];
+        }
+
+        public function set_qtde_iteracoes()
+        {
+            $id_usuario = $this->sessao['id'];
+            $total = $this->tarefas_projetos_iteracao_has_usuarios_model->get_iteracoes_abertas($id_usuario);
+            echo $total;
         }
         
         private function _inicia_listagem_agenda( $itens, $extras = NULL, $ordenacao = TRUE )

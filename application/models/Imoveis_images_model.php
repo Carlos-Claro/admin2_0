@@ -151,6 +151,7 @@ class Imoveis_images_Model extends MY_Model {
                             imoveis_images.id as id,
                             imoveis_images.id_imovel as id_imovel, 
                             imoveis_images.id_empresa as id_empresa, 
+                            imoveis_images.arquivo as arquivo,
                             imoveis_images.titulo as titulo,
                             imoveis_images.data as data,
                             imoveis_images.ordem as ordem
@@ -171,7 +172,7 @@ class Imoveis_images_Model extends MY_Model {
         $data['group'] = 'imoveis_images.id';
     	$retorno = $this->get_itens_($data);
     	
-    	return isset($retorno['itens'][0]) ? $retorno['itens'][0] : NULL;
+    	return isset($retorno['itens']) ? $retorno['itens'] : NULL;
     }
     
     public function get_arquivo_chave_por_filtro( $filtro = array() )
