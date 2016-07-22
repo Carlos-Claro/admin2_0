@@ -27,8 +27,8 @@ class MY_Mongo extends Mongo_db
         if ( isset($data['coluna']) )
         {
             //$this->select($data['coluna']);		
-            
-        }
+    
+    }	
         if ( isset($data['filtro']) )		
         {			
             foreach ( $data['filtro'] as $f )				

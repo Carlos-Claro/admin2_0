@@ -1294,7 +1294,6 @@ Class Mongo_db{
 		try
 		{
 			$options = array_merge($options, array('w' => $this->write_concerns, 'j'=>$this->journal, 'multiple' => FALSE));
-                        var_dump($this->wheres);
 			$this->db->selectCollection($collection)->updateOne($this->wheres, $data, $options);
 			$this->_clear();
 			return (TRUE);

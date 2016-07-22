@@ -76,7 +76,11 @@ elseif ( strstr($localhost,'192.168') )
 {
     define('LOCALHOST', TRUE);
     define('COMMAND_LINE', FALSE);
+<<<<<<< HEAD
     define('ENVIRONMENT', 'production');
+=======
+    define('ENVIRONMENT', 'testing');
+>>>>>>> edf3ce3b082aa20606cdde79833af73583289658
     define('MONGODB_COMPOSER', FALSE);
     
 }
@@ -84,7 +88,11 @@ elseif ( strstr($localhost,'201.16.246.176') )
 {
     define('LOCALHOST', FALSE);
     define('COMMAND_LINE', FALSE);
+<<<<<<< HEAD
     define('ENVIRONMENT', 'production');
+=======
+    define('ENVIRONMENT', 'testing');
+>>>>>>> edf3ce3b082aa20606cdde79833af73583289658
     define('MONGODB_COMPOSER', TRUE);
     
 }
