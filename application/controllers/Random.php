@@ -32,7 +32,6 @@ class Random extends MY_Controller
     {
         $valida = FALSE;
         parent::__construct($valida);
-        $this->load->model(array('subcategorias_model', 'status_atualizada_model'));
     }
 
     private function _filtro_json()
@@ -168,7 +167,7 @@ class Random extends MY_Controller
 
     public function tira_pontos( $imovel, $primeiro )
     {
-        $array = array('descricao','bairro_combo','foto1', array( 'preco_venda', 'preco_locacao', 'preco_locacao_dia') );
+        $array = array('descricao','bairro_combo', array( 'preco_venda', 'preco_locacao', 'preco_locacao_dia') );
         $fatores['primeiro']['venda'] = FALSE;
         $fatores['primeiro']['locacao'] = FALSE;
         $pontos = 0;
@@ -210,6 +209,7 @@ class Random extends MY_Controller
         }
         else
         {
+            
             if ( isset($primeiro[($venda ? 'venda' : 'locacao')]) && $primeiro[($venda ? 'venda' : 'locacao')] )
             {
                 $fatores['min'] = 3000000;

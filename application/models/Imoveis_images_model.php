@@ -162,11 +162,8 @@ class Imoveis_images_Model extends MY_Model {
                                 array('nome' => 'empresas',         'where' => 'empresas.id = imoveis_images.id_empresa', 'tipo' => 'LEFT'),
                                 );
     	$data['filtro'] = $filtro;
-    	if ( isset($off_set) )
-    	{
-            $data['off_set'] = $off_set;
-            $data['qtde_itens'] = $qtde_itens;
-    	}
+        $data['off_set'] = $off_set;
+        $data['qtde_itens'] = $qtde_itens;
     	$data['col'] = $coluna;
     	$data['ordem'] = $ordem;
         $data['group'] = 'imoveis_images.id';

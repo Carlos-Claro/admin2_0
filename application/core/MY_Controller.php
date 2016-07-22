@@ -3,7 +3,7 @@
  * MY_Controller extende CI_Controller para usar suas libraries
  * @access public
  * @version 1.0
- * @author Luiz Eduardo Campos da Silva
+ * @author 
  * @package MY_Controller
  */
 class MY_Controller extends CI_Controller 

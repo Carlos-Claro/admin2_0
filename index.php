@@ -76,7 +76,7 @@ elseif ( strstr($localhost,'192.168') )
 {
     define('LOCALHOST', TRUE);
     define('COMMAND_LINE', FALSE);
-    define('ENVIRONMENT', 'testing');
+    define('ENVIRONMENT', 'production');
     define('MONGODB_COMPOSER', FALSE);
     
 }

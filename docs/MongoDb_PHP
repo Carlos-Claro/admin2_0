@@ -1,0 +1,19 @@
+Instalação:
+
+$ apt-get install phpX-dev
+$ apt-get install phpX-mongo
+
+-- instruções em : https://github.com/mongodb/mongo-php-library
+- 
+$ apt-get install pkg-config
+$ pecl install mongodb
+
+
+Inserir no fim do arquivo php.ini >> "extension=mongodb.so"
+
+
+-- Coloca os arquivo do cimongo em libraries
+-- Cria arquivo de cimongo > config
+-- autoload cimongo
+
+https://github.com/prooph/event-store-mongodb-adapter/blob/master/.travis.yml

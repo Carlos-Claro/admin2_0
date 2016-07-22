@@ -26,10 +26,12 @@ else
 define('CWD_PLOT', $root.'/admin2_0/relatorios/plot/');
 define('URL_IMAGE_PLOT','http://'.$_SERVER['HTTP_HOST'].'/admin2_0/relatorios/plot/');
 define('URL_IMAGE_PUBLICIDADE','http://'.$_SERVER['HTTP_HOST'].'/publicidade/');
-define('URL_INTEGRACAO_LOCAL', 'http://www.rededeportais.com.br/images/por_empresa/codEmpresa/');
+define('URL_INTEGRACAO_LOCAL', $root.'/portais_novo/images/por_empresa/codEmpresa/');
+define('URL_INTEGRACAO_BASE', '/images/por_empresa/codEmpresa/');
 define('LOCAL_IMAGE', $root);
 define('URL_IMAGE_MUDOU', 'http://www.pow.com.br/powsites/codEmpresa/imo/');
 define('URL_IMAGE_NAO_MUDOU', 'http://www.guiasjp.com/imoveis_imagens/');
+define('URL_RELATORIOS', $root.'/admin2_0/relatorios/');
 
 $keys_path = '../../json/keys.json';
 if ( file_exists($keys_path) )

@@ -1,0 +1,20 @@
+Criterios
+
+
+array('descricao', array( 'preco_venda', 'preco_locacao', 'preco_locacao_dia'), 'images', 'data_atualizacao', 'logradouro', array('latitude', 'longitude') );
+
+
+Range
+$pontos = 500.000
+max = 3.500.000
+min = 0
+
+primeira pagina max 4.000.000
+primeira pagina min 3.500.000
+
+não perdeu ponto
+max 3.499.999
+min 3.000.000
+
+perdeu ponto
+range comum 0 a 2.999.999 - ponto * 500.000

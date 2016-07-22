@@ -53,20 +53,29 @@ class Funcoes extends MY_Controller
         
         public function testa_mongo()
         {
-            $this->load->model(array('imoveis_mongo_model', 'imoveis_model'));
-            $filtro = '(imoveis.vencimento = "0000-00-00" OR (imoveis.vencimento <> "0000-00-00" AND imoveis.vencimento >= "'.date('Y-m-d').'") ) '
-                    . ' AND empresas.servicos_pagina_inicio < '.time().'  '
-                    . 'AND empresas.servicos_pagina_termino > '.time().' '
-                    . 'AND  empresas.bloqueado = 0  AND imoveis.reservaimovel = 0  AND imoveis.vendido = 0  AND imoveis.locado = 0 AND imoveis.invisivel = 0 AND imoveis.id_cidade = 1';
-            $itens = $this->imoveis_model->get_itens_com_foto($filtro,'imoveis.id','DESC',0,20000);
-            $resultado_mongo = $this->imoveis_mongo_model->adicionar_multi($itens['itens']);
+            $this->load->model(array('imoveis_mongo_model', 'imoveis_model','cidades_model'));
+            $cidades = $this->cidades_model->get_select(array(),'id','ASC');
+            foreach( $cidades as $cidade )
+            {
+                $filtro = '(imoveis.vencimento = "0000-00-00" OR (imoveis.vencimento <> "0000-00-00" AND imoveis.vencimento >= "'.date('Y-m-d').'") ) '
+                        . ' AND empresas.servicos_pagina_inicio < '.time().'  '
+                        . 'AND empresas.servicos_pagina_termino > '.time().' '
+                        . 'AND  empresas.bloqueado = 0  AND imoveis.reservaimovel = 0  AND imoveis.vendido = 0  AND imoveis.locado = 0 AND imoveis.invisivel = 0 AND imoveis.id_cidade = '.$cidade->id;
+                $itens = $this->imoveis_model->get_itens_com_foto($filtro,'imoveis.id','DESC',0,200000);
+                if ( isset($itens['itens']) )
+                {
+                    $resultado_mongo = $this->imoveis_mongo_model->adicionar_multi($itens['itens']);
+                }
+                
+            }
             var_dump($resultado_mongo);
         }
         
         public function get_itens_mongo()
         {
             $this->load->model(array('imoveis_mongo_model'));
-            $filtro[] = array('tipo' => 'where', 'valor' => array('imoveis_tipos_link' => 'apartamento'));
+            $filtro[] = array('tipo' => 'where', 'valor' => array('imoveis_tipos_link' => array('$eq' => 'apartamento')));
+            //$resultado_mongo = $this->imoveis_mongo_model->get_item('899930');
             $resultado_mongo = $this->imoveis_mongo_model->get_itens($filtro);
             var_dump($resultado_mongo);
             

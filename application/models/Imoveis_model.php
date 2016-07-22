@@ -595,6 +595,7 @@ class Imoveis_Model extends MY_Model
                             imoveis.id as _id, 
                             imoveis.nome as nome,
                             IF ( imoveis.preco_venda > 0, imoveis.preco_venda , IF ( imoveis.preco_locacao > 0 , imoveis.preco_locacao, imoveis.preco_locacao_dia )   ) as preco,
+                            imoveis.data_atualizacao as data_atualizacao,
                             imoveis.preco_venda as preco_venda,
                             imoveis.preco_locacao as preco_locacao,
                             imoveis.preco_locacao_dia as preco_locacao_dia,
@@ -614,6 +615,7 @@ class Imoveis_Model extends MY_Model
                             imoveis_tipos.nome as imoveis_tipos_titulo,
                             imoveis_tipos.english as imoveis_tipos_english,
                             imoveis_tipos.link as imoveis_tipos_link,
+                            imoveis_tipos.id as imoveis_tipos_id,
                             cidades.link as cidades_link,
                             IF ( imoveis.venda = 1, "venda" , IF ( imoveis.locacao = 1 , "locacao", "locacao_dia" )   ) as tipo,
                             imoveis.venda as tipo_venda,
@@ -674,8 +676,8 @@ class Imoveis_Model extends MY_Model
             foreach ( $retorno_db['itens'] as $chave => $item )
             {
                 $retorno['itens'][$chave] = $item;
-                $retorno['itens'][$chave]->images = $this->imoveis_images_model->get_itens('imoveis_images.id_imovel = '.$item->_id, 'imoveis_images.ordem', 'ASC', 0, 20);
-                //var_dump($retorno['itens'][$chave]->images);
+                $filtro_image = 'imoveis_images.id_imovel = '.$item->_id;
+                $retorno['itens'][$chave]->images = $this->imoveis_images_model->get_itens($filtro_image, 'imoveis_images.ordem', 'ASC', 0, 5);
             }
         }
     	return $retorno;
