@@ -532,7 +532,8 @@ class XML_formatos {
                             //'chave'     => 'imoveis',
                             'subchave'  => 'imovel',
                             'campos'    => array(
-                                                'id'            => array('equivalente' => array('id','ref'), 'tratamento' => FALSE),
+                                                'id'            => array('equivalente' => 'id',                                                         'tratamento' => FALSE),
+                                                'ref'           => array('equivalente' => 'ref',                                                        'tratamento' => FALSE),
                                                 'destacado'     => array('equivalente' => 'destaque_tipo', 'tratamento' => 'verifica_sim_nao'),
                                                 'dominio'       => FALSE,
                                                 'url'           => FALSE,
