@@ -677,7 +677,7 @@ class Imoveis_Model extends MY_Model
             {
                 $retorno['itens'][$chave] = $item;
                 $filtro_image = 'imoveis_images.id_imovel = '.$item->_id;
-                $retorno['itens'][$chave]->images = $this->imoveis_images_model->get_itens($filtro_image, 'imoveis_images.ordem', 'ASC', 0, 5);
+                $retorno['itens'][$chave]->images = $this->imoveis_images_model->get_itens($filtro_image, 'imoveis_images.ordem', 'ASC', 0, 20);
             }
         }
     	return $retorno;

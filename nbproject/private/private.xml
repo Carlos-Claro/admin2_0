@@ -3,21 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/var/www/html/admin2_0/application/controllers/Funcoes.php</file>
             <file>file:/var/www/html/admin2_0/application/models/Imoveis_model.php</file>
+            <file>file:/var/www/html/admin2_0/application/libraries/MY_Mongo.php</file>
+            <file>file:/var/www/html/admin2_0/application/models/Imoveis_mongo_model.php</file>
+            <file>file:/var/www/html/admin2_0/docs/MongoDb_PHP</file>
             <file>file:/var/www/html/admin2_0/application/controllers/Mongo.php</file>
-=======
-            <file>file:/var/www/html/admin2_0/application/controllers/Email_mkt.php</file>
-            <file>file:/var/www/html/admin2_0/application/controllers/Funcoes.php</file>
-            <file>file:/var/www/html/admin2_0/application/views/layout/layout.php</file>
-            <file>file:/var/www/html/admin2_0/application/libraries/MY_XML.php</file>
-            <file>file:/var/www/html/admin2_0/js/auto_save.js</file>
-            <file>file:/var/www/html/admin2_0/application/controllers/Integracao.php</file>
-            <file>file:/var/www/html/admin2_0/js/tarefas_projetos.js</file>
-            <file>file:/var/www/html/admin2_0/application/libraries/Xml_formatos.php</file>
-            <file>file:/var/www/html/admin2_0/js/funcs.js</file>
->>>>>>> edf3ce3b082aa20606cdde79833af73583289658
+            <file>file:/var/www/html/admin2_0/application/config/mongo_db.php</file>
+            <file>file:/var/www/html/admin2_0/application/libraries/Mongo_db.php</file>
         </group>
     </open-files>
 </project-private>
