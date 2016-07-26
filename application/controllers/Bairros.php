@@ -323,6 +323,39 @@ class Bairros extends MY_Controller
                 unset($data['busca_cidade']);
 		return $data;
 	}
+        
+        public function get_select( $id_cidade = FALSE, $tipo_retorno = 'json' )
+        {
+            if ( $id_cidade )
+            {
+                $filtro = 'cidades.id = '.$id_cidade;
+                $valores = $this->bairros_model->get_select($filtro,'bairros.nome','ASC',FALSE);
+                if ( isset($valores) )
+                {
+                    $retorno['status'] = TRUE;
+                    $config['valor'] = $valores; 
+                    $config['nome'] = 'id_bairro'; 
+                    $config['extra'] = 'class="form-control"'; 
+                    $retorno['valores'] = form_select($config, 0 ); 
+                }
+                else
+                {
+                    $retorno['status'] = FALSE;
+                }
+            }
+            else
+            {
+                $retorno['status'] = FALSE;
+            }
+            if ( $tipo_retorno =='json' )
+            {
+                echo json_encode($retorno);
+            }
+            else
+            {
+                return $retorno;
+            }
+        }
 }
 
 

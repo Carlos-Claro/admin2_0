@@ -528,6 +528,10 @@ class XML_formatos {
                                                 ),
                                     );
     
+    /**
+     *
+     * @var array funcao dela é espelhar  o modelo imobbrasil.
+     */
     public $imobibrasil = array(
                             //'chave'     => 'imoveis',
                             'subchave'  => 'imovel',

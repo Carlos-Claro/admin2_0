@@ -67,9 +67,18 @@ class Bairros_Model extends MY_Model {
     	return $retorno;
     }
     
-    public function get_select( $filtro = array(),$coluna = 'cidades.nome', $ordem = 'ASC' )
+    public function get_select( $filtro = array(),$coluna = 'bairros.nome', $ordem = 'ASC',$concat = TRUE)
     {
-    	$data['coluna'] = 'bairros.id as id, CONCAT(bairros.nome, " - ", cidades.nome, "/", cidades.uf) as descricao, bairros.link as link ';
+        $data['coluna'] = 'bairros.id as id, ';
+        if ( $concat )
+        {
+            $data['coluna'] .= 'CONCAT(bairros.nome, " - ", cidades.nome, "/", cidades.uf) as descricao, ';
+        }
+        else
+        {
+            $data['coluna'] .= ' bairros.nome as descricao,';
+        }
+    	//$data['coluna'] = 'bairros.id as id, CONCAT(bairros.nome, " - ", cidades.nome, "/", cidades.uf) as descricao, bairros.link as link ';
     	$data['tabela'] = array(
                                 array('nome' => 'bairros'),
                                 array('nome' => 'cidades', 'where' => 'bairros.cidade = cidades.id', 'tipo' => 'LEFT'),

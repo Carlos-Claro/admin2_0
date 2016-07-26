@@ -1278,6 +1278,38 @@
                                     ?>
                                     <a href="<?php echo base_url();?>imoveis_dest_listagem/adicionar/<?php echo $item->id;?>" target="_blank" class="btn btn-primary add-banner">Adicionar destaque listagem</a>
                                 </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <h4>Destaques Bairro:</h4>
+                                    <?php 
+                                    if ( isset($destaques_bairro['itens']) && $destaques_bairro['qtde'] > 0 ) :
+                                        ?>
+                                    <ul class="list-group">
+                                        <?php 
+                                        foreach( $destaques_bairro['itens'] as $destaque_bairro ) :
+                                        ?>
+                                            <li class="list-group-item destaque destaque-<?php echo $destaque_bairro->id;?>" data-item="<?php echo $destaque_bairro->id;?>">
+                                                <?php echo $destaque_bairro->negocio_.' - '.$destaque_bairro->tipo.' - '.$destaque_bairro->cidade.'('.$destaque_bairro->bairro.') - ate '.$destaque_bairro->data_fim;?> 
+                                                <span class="pull-right">
+                                                    <a href="<?php echo base_url();?>imoveis_destaque_bairro/editar/<?php echo $destaque_bairro->id;?>" class="btn btn-warning" target="_blank">Editar</a>
+                                                    <!--<a href="<?php echo base_url();?>imoveis_destaque_bairro/estatiticas/<?php echo $destaque_bairro->id;?>" class="btn btn-default" target="_blank">estatisticas</a>-->
+                                                </span>
+                                            </li>
+                                            <?php
+                                        endforeach;
+                                        ?>
+                                    </ul>
+                                        <?php
+                                    else:
+                                        ?>
+                                    <ul class="list-group">
+                                        <li class="list-group-item">Nenhum item</li>
+                                    </ul>
+                                        <?php
+                                    endif;
+                                    ?>
+                                    <a href="<?php echo base_url();?>imoveis_destaque_bairro/adicionar/<?php echo $item->id;?>" target="_blank" class="btn btn-primary add-banner">Adicionar destaque bairro</a>
+                                </div>
+                                
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane alert alert-warning" id="pagina">

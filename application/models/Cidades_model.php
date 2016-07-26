@@ -77,7 +77,7 @@ class Cidades_model extends MY_Model {
     }
 	
 	
-    public function get_select( $filtro = array(), $coluna = 'nome', $ordem = 'ASC' )
+    public function get_select( $filtro = array(), $coluna = 'cidades.nome', $ordem = 'ASC' )
     {
     	$data['coluna'] = 'cidades.id as id, CONCAT(cidades.nome, "-",cidades.uf) as descricao ';
     	$data['tabela'] = array(

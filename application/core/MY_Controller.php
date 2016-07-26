@@ -253,52 +253,59 @@ class MY_Controller extends CI_Controller
     public function envio( $data )	
     {	
         $this->email->clear();
-        
-        if ( ! isset($data['iagente']) )
+        if ( ! LOCALHOST )
         {
-            $config['mailtype'] = 'html';
-            $config['useragent'] = 'GuiaSJP';
-            $config['protocol'] = 'smtp';
-            $config['smtp_host'] = 'smtp.pow.com.br';
-            $config['smtp_user'] = 'autenticacao@pow.com.br';
-            $config['smtp_pass'] = 'c2a0r1l2';
-            $config['smtp_port'] = '587';
+            
+            if ( ! isset($data['iagente']) )
+            {
+                $config['mailtype'] = 'html';
+                $config['useragent'] = 'GuiaSJP';
+                $config['protocol'] = 'smtp';
+                $config['smtp_host'] = 'smtp.pow.com.br';
+                $config['smtp_user'] = 'autenticacao@pow.com.br';
+                $config['smtp_pass'] = 'c2a0r1l2';
+                $config['smtp_port'] = '587';
+            }
+            else
+            {
+                $config['mailtype'] = 'html';
+                $config['useragent'] = 'GuiaSJP';
+                $config['protocol'] = 'smtp';
+                $config['smtp_host'] = 'smtp1.corporate-mail-us.com';
+                $config['smtp_user'] = 'programacao@pow.com.br';
+                $config['smtp_pass'] = 'powi2015';
+                $config['smtp_port'] = '587';
+            }
+            $mail = $this->email->initialize($config);
+            $subject = (isset($data['assunto']) && $data['assunto']) ? $data['assunto'] : 'GuiaSJP';		
+            $mensagem = (isset($data['mensagem']) && $data['mensagem']) ? $data['mensagem'] : '';
+            $from = (isset($data['email']) && $data['email']) ? $data['email'] : 'programacao@pow.com.br';
+            $to = (isset($data['to']) && $data['to']) ? $data['to'] : 'programacao@pow.com.br';
+            $bcc = (isset($data['bcc']) && $data['bcc']) ? $data['bcc'] : '';
+            $this->email
+                    ->from($from)
+                    ->to($to)
+                    ->bcc($bcc)
+                    ->subject($subject)
+                    ->message($mensagem);
+            if( isset($data['anexo']) && !empty($data['anexo']) )
+            {
+                $this->email->attach($data['anexo']);
+            }
+            $send['status'] = $this->email->send();
+            if ( isset($data['retorno']) && $data['retorno'] )
+            {
+                $send['debugger'] = $this->email->print_debugger();
+                $retorno = $send;
+            }
+            else
+            {
+                $retorno = $send['status'];
+            }
         }
         else
         {
-            $config['mailtype'] = 'html';
-            $config['useragent'] = 'GuiaSJP';
-            $config['protocol'] = 'smtp';
-            $config['smtp_host'] = 'smtp1.corporate-mail-us.com';
-            $config['smtp_user'] = 'programacao@pow.com.br';
-            $config['smtp_pass'] = 'powi2015';
-            $config['smtp_port'] = '587';
-        }
-        $mail = $this->email->initialize($config);
-        $subject = (isset($data['assunto']) && $data['assunto']) ? $data['assunto'] : 'GuiaSJP';		
-        $mensagem = (isset($data['mensagem']) && $data['mensagem']) ? $data['mensagem'] : '';
-        $from = (isset($data['email']) && $data['email']) ? $data['email'] : 'programacao@pow.com.br';
-        $to = (isset($data['to']) && $data['to']) ? $data['to'] : 'programacao@pow.com.br';
-        $bcc = (isset($data['bcc']) && $data['bcc']) ? $data['bcc'] : '';
-        $this->email
-                ->from($from)
-                ->to($to)
-                ->bcc($bcc)
-                ->subject($subject)
-                ->message($mensagem);
-        if( isset($data['anexo']) && !empty($data['anexo']) )
-        {
-            $this->email->attach($data['anexo']);
-        }
-        $send['status'] = $this->email->send();
-        if ( isset($data['retorno']) && $data['retorno'] )
-        {
-            $send['debugger'] = $this->email->print_debugger();
-            $retorno = $send;
-        }
-        else
-        {
-            $retorno = $send['status'];
+            $retorno = array();
         }
         return  $retorno;
     }

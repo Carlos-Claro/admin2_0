@@ -761,6 +761,10 @@ var autosave = {
             {
                 data.id_empresa = $('.id_empresa').val();
             }
+            else if( controller == 'Imoveis_destaque_bairro')
+            {
+                data.id_empresa = $('.id_empresa').val();
+            }
             data.campo = campo;
             data.valor = valor;
             $('input,select,textarea').attr('disabled','disabled');
@@ -798,7 +802,7 @@ var autosave = {
                 }
             },'json').fail(function(e,r){
                 $('input,select,textarea').removeAttr('disabled');
-                $('.status').html('erro ao salvar, tente de novo');
+                $('.status').html('erro ao salvar, tente novamente');
                 //alert('tente novamente');
                 if ( sequencia !== undefined && sequencia > 0)
                 {

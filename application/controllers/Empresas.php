@@ -420,6 +420,7 @@ class Empresas extends MY_Controller
                                     'publicidade_campanhas_model',
                                     'imoveis_destaques_model',
                                     'imoveis_dest_listagem_model',
+                                    'imoveis_destaque_bairro_model'
                                     )
                                 );
             if(isset($id) && $id)
@@ -452,6 +453,7 @@ class Empresas extends MY_Controller
             $retorno['publicidade'] = $this->publicidade_campanhas_model->get_select('publicidade_campanhas.id_empresa = '.$id);
             $retorno['destaques'] = $this->imoveis_destaques_model->get_select('imoveis_destaques.id_empresa = '.$id);
             $retorno['dest_listagem'] = $this->imoveis_dest_listagem_model->get_select('imoveis_dest_listagem.id_empresa = '.$id);
+            $retorno['destaques_bairro'] = $this->imoveis_destaque_bairro_model->get_itens('imoveis_destaque_bairro.id_empresa = '.$id);
             $retorno['largura'] = array(
                                         (object)array('id' => 772,'descricao' => 772),
                                         (object)array('id' => 950,'descricao' => 950),

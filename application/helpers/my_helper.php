@@ -323,18 +323,21 @@ function set_image_editavel ( $data )
 
 function converte_data_mysql($data)
 {
-	$data_explode = explode(' ', $data);
-	$data_i = explode('/',$data_explode[0]);
-	$data = $data_i[2].'-'.$data_i[1].'-'.$data_i[0].' '.( isset($data_explode[1]) ? $data_explode[1] : '00:00:00' );
-	return $data;
+    $data_explode = explode(' ', $data);
+    $data_i = explode('/',$data_explode[0]);
+    $data = $data_i[2].'-'.$data_i[1].'-'.$data_i[0].' '.( isset($data_explode[1]) ? $data_explode[1] : '00:00' );
+    return $data;
 }
 
 function reverte_data_mysql($data)
 {
+    if( ! empty( $data ))
+    { 
 	$data_explode = explode(' ', $data);
 	$data_i = explode('-',$data_explode[0]);
 	$data = $data_i[2].'/'.$data_i[1].'/'.$data_i[0].' '.( isset($data_explode[1]) ? $data_explode[1] : '' );
-	return $data;
+    }
+    return $data;
 }
 
 function converte_data_unixtime($data)

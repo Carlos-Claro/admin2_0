@@ -38,6 +38,7 @@ class Mongo extends MY_Controller
             }
         }
         parent::__construct($valida);
+        $this->load->library(array('Mongo_db', 'MY_Mongo'));
         $this->load->model( array('imoveis_mongo_model','cidades_mongo_model', 'imoveis_model', 'cidades_model', 'imoveis_relevancia_model') );
     }
         
@@ -223,8 +224,8 @@ class Mongo extends MY_Controller
                 . 'AND imoveis.vendido = 0 '
                 . 'AND imoveis.locado = 0 '
                 . 'AND imoveis.invisivel = 0 '
-                . 'AND imoveis.id_cidade = 2 '
-                . 'AND ISNULL(integra_mongo_db)';
+                . 'AND ( imoveis.id_cidade = 2 OR imoveis.id_cidade = 1 ) '
+                . 'AND imoveis.integra_mongo_db < "'.date( 'Y-m-d H:i', mktime(0, 0, 0,date("m"),date("d")-1,date("Y") ) ).'"';
         return $filtro;
     }
     
@@ -252,11 +253,8 @@ class Mongo extends MY_Controller
         var_dump($resultado_mongo);
 
     }
-
     
-
     
-
     /**
      * Redireciona para o painel
      * @version 1.0

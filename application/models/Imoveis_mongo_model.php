@@ -6,6 +6,11 @@ class Imoveis_mongo_model extends MY_Mongo {
         parent::__construct();
     }
     
+    /**
+     * 
+     * @param type $data
+     * @return type
+     */
     public function adicionar($data = array())
     {
         return $this->adicionar_('imoveis', $data);
@@ -35,6 +40,15 @@ class Imoveis_mongo_model extends MY_Mongo {
         return $retorno;
     }
     
+    /**
+     * 
+     * @param type $filtro
+     * @param type $coluna
+     * @param int $ordem girando entre -1 e 1
+     * @param int $off_set paginador
+     * @param int $qtde_itens limitador de resultado
+     * @return object com o conteudo dos itens
+     */
     public function get_itens( $filtro = array(), $coluna = 'ordem', $ordem = -1, $off_set = 0, $qtde_itens = 20 )
     {
         $data['tabela'] = 'imoveis';
