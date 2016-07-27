@@ -309,6 +309,20 @@ class Imoveis_destaque_bairro extends MY_Controller
  		return $filtro;
 		
 	}
+        /**
+         * 
+         * @param array $dados
+         */
+        private function _valida_data($dados) {
+            /**
+            * @param $dma = Data Mes e ano retornados do banco de dados
+            */
+            $array_sinal = array( 'data_fim' => '<' , 'data_inicio' => '>' );
+            $dados_campo = array( 'data_inicio' => 'data_fim', 'data_fim' => 'data_inicio' );
+            $filtro = 'imoveis_destaque_bairro.id = "'.$dados['id'].'" AND imoveis_destaque_bairro.'.$dados_campo[ $dados['campo'] ].$array_sinal[ $dados['campo'] ].' "'.$dados['valor'].'" AND imoveis_destaque_bairro.'.$dados['campo'].' IS NOT NULL';
+            $data_item = $this->imoveis_destaque_bairro_model->get_item_por_filtro( $filtro );
+            return (isset($data_item) ? TRUE : NULL);
+        }
         
         public function salvar_campo()
         {
@@ -316,16 +330,49 @@ class Imoveis_destaque_bairro extends MY_Controller
             $dados = $this->_post(FALSE);
             $data['id_empresa'] = $dados['id_empresa'];
             
+            $retorno['status'] = TRUE;
+            
             if ( isset($dados['id']) && ! empty($dados['id']) && $dados['id'] )
             {
-            
+                /**
+                 * Verifica se o campo vindo pelo post é data_fim
+                 */
+                if(isset($dados['campo']) && $dados['campo']==='data_fim')
+                {   
+                    $data_item = $this->_valida_data($dados);
+                    if($data_item)
+                    {
+                        $retorno['status'] = TRUE;
+                    }
+                    else
+                    {
+                        $retorno['status'] = FALSE;
+                        $retorno['mensagem'] = 'A data de fim maior que a data de inicio';
+                    }
+                }
+                /**
+                * Se o o campo for data_inicio
+                */
+                if(isset($dados['campo']) && $dados['campo']==='data_inicio')
+                {
+                    $data_item = $this->_valida_data($dados);
+                    if( ! isset($data_item))
+                    {
+                        $retorno['status'] = FALSE;
+                        $retorno['mensagem'] = 'A data de inicio maior que a data de fim';
+
+                    }
+                    else
+                    {
+                        $retorno['status'] = TRUE;
+                    }
+                }
                 if ( is_array($dados['campo']) )
                 {
                     $filtro = 'imoveis_destaque_bairro.id = '.$dados['id'];
                     for( $a = 0; $a < count($dados['campo']); $a++ )
                     {
                         $data[$dados['campo'][$a]] = $dados['valor'][$a];
-                        
                     }
                 }
                 else
@@ -333,18 +380,28 @@ class Imoveis_destaque_bairro extends MY_Controller
                     $filtro = 'imoveis_destaque_bairro.id = '.$dados['id'];
                     $data[$dados['campo']] = $dados['valor'];
                 }
-                $afetados = $this->imoveis_destaque_bairro_model->editar($data, $filtro);
-                if ( $afetados > 0 )
+                /**
+                 * Retorno é instanciado como True no começo da função
+                 * Se o campo for data_inicio ele faz uma verificação antes
+                 * pra ver se a data inicio é maior que a fim
+                 * se for menor o retorno é false.
+                 * (o mesmo se aplica para o data_fim)
+                 */
+                if($retorno['status'])
                 {
-                    $retorno['status'] = TRUE;
-                    $retorno['id'] = $dados['id'];
-                    $retorno['muda_url'] = FALSE;
-                }
-                else
-                {
-                    $retorno['status'] = TRUE;
-                    $retorno['id'] = $dados['id'];
-                    $retorno['muda_url'] = FALSE;
+                    $afetados = $this->imoveis_destaque_bairro_model->editar($data, $filtro);
+                    if ( $afetados > 0 )
+                    {
+                        $retorno['status'] = TRUE;
+                        $retorno['id'] = $dados['id'];
+                        $retorno['muda_url'] = FALSE;
+                    }
+                    else
+                    {
+                        $retorno['status'] = TRUE;
+                        $retorno['id'] = $dados['id'];
+                        $retorno['muda_url'] = FALSE;
+                    }
                 }
             }
             else

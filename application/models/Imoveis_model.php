@@ -593,6 +593,7 @@ class Imoveis_Model extends MY_Model
          */
     	$data['coluna'] = '	
                             imoveis.id as _id, 
+                            imoveis.id as id,
                             imoveis.nome as nome,
                             IF ( imoveis.preco_venda > 0, imoveis.preco_venda , IF ( imoveis.preco_locacao > 0 , imoveis.preco_locacao, imoveis.preco_locacao_dia )   ) as preco,
                             imoveis.data_atualizacao as data_atualizacao,
@@ -616,6 +617,7 @@ class Imoveis_Model extends MY_Model
                             imoveis_tipos.english as imoveis_tipos_english,
                             imoveis_tipos.link as imoveis_tipos_link,
                             imoveis_tipos.id as imoveis_tipos_id,
+                            imoveis.id_tipo as id_tipo,
                             cidades.link as cidades_link,
                             IF ( imoveis.venda = 1, "venda" , IF ( imoveis.locacao = 1 , "locacao", "locacao_dia" )   ) as tipo,
                             imoveis.venda as tipo_venda,
@@ -630,13 +632,94 @@ class Imoveis_Model extends MY_Model
                             cidades.uf as uf,
                             imoveis.bairro_combo as bairro_combo,
                             empresas.empresa_nome_fantasia as nome_empresa,
+                            empresas.empresa_nome_fantasia as imobiliaria_nome,
                             empresas.nome_seo as imobiliaria_nome_seo,
+                            empresas.empresa_telefone as imobiliaria_telefone,
+                            empresas.pagina_logo_pequeno as logo,
+                            end_empresa.logradouro as imobiliaria_logradouro,
+                            end_empresa.bairro as imobiliaria_bairro,
+                            end_empresa.cidade as imobiliaria_cidade,
+                            empresas.empresa_numero as imobiliaria_numero,
+                            empresas.empresa_email as empresa_email,
+                            empresas.empresa_emaillocacao as locacao_email,
+                            empresas.pagina_creci as creci,
                             imoveis.longitude as longitude,
                             imoveis.latitude as latitude,
                             logradouros.logradouro as logradouro_,
                             imoveis.descricao as descricao,
                             imoveis.referencia as referencia, 
                             imoveis.ordem_rad as ordem, 
+                            IF ( imoveis.comercial = 1, 
+                                    "Comercial",  
+                                    IF ( imoveis.residencial = 1, "Residencial", "Lazer")
+                                    ) as uso,
+                            IF( imoveis.latitude <> "", CONCAT( imoveis.latitude, ",", imoveis.longitude ), "" ) as mapa,
+                            if ( imoveis.venda = 1, 
+                                    "venda",  
+                                    IF ( imoveis.locacao = 1, "locação", 
+                                        IF ( imoveis.locacao_dia = 1, "locação temporada", NULL )
+                                    )
+                                ) as imovel_para, 
+                            
+
+
+
+
+                            if ( imoveis.venda = 1, 
+                                    "venda",  
+                                    IF ( imoveis.locacao = 1, "locacao", 
+                                        IF ( imoveis.locacao_dia = 1, "locacao_dia", NULL )
+                                    )
+                                ) as tipo_negocio, 
+                            imoveis.venda as venda,
+                            imoveis.locacao as locacao,
+                            imoveis.locacao_dia as locacao_dia, 
+                            imoveis.quartos as quartos,
+                            imoveis.suites as suites,
+                            imoveis.banheiros as banheiros,
+                            imoveis.garagens as garagens,
+                            imoveis.mobiliado as mobiliado,
+                            imoveis.cobertura as cobertura,
+                            imoveis.condominio as condominio,
+                            imoveis.condominio_valor as condominio_valor,
+                            imoveis.area_terreno as area_terreno,
+                            imoveis.area as area, 
+                            imoveis.area_util as area_util,
+                            imoveis.preco_venda as preco_venda,
+                            imoveis.preco_locacao as preco_locacao,
+                            imoveis.preco_locacao_dia as preco_locacao_dia,
+                            imoveis.id_cidade as id_cidade,
+                            bairros.nome as bairro,
+                            bairros.link as bairros_link,
+                            imoveis.bairro as vila,
+                            imoveis.cep as cep,
+                            IF ( imoveis.id_logradouro > 0, logradouros.logradouro, imoveis.logradouro  ) as logradouro,
+                            imoveis.numero as numero,
+                            imoveis.comercial as comercial,
+                            imoveis.residencial as residencial,
+                            imoveis.lazer as lazer,
+                            imoveis.video as video,
+                            imoveis.banheiros as banheiros,
+                            imoveis.mostramapa as mostramapa,
+                            cidades.link as cidades_link, 
+                            empresa_cidade.ddd as ddd, 
+                            cidades.nome as cidade,
+                            cidades.uf as uf,
+                            estados.nome as estado,
+                            cidades.link as cidade_link,
+                            IF ( imoveis_corretor.recebe_email = 1, imoveis_corretor.email, "") as email_corretor,
+                            imoveis_corretor.nome as nome_corretor,
+                            imoveis_corretor.sms as sms_corretor,
+                            imoveis_corretor.celular as celular_corretor,
+                            hotsite_parametros.sms_quem as sms_quem,
+                            empresas.servicos_sms_limite as sms_limite,
+                            empresas.empresa_fone_sms as empresa_telefone_sms,
+                            empresas.pagina_limite_ofertas as pagina_limite_ofertas,
+
+
+
+
+
                            ';
     	$data['tabela'] = array(
                                 array('nome' => 'imoveis'),
@@ -645,6 +728,13 @@ class Imoveis_Model extends MY_Model
                                 array('nome' => 'bairros',	'where' => 'imoveis.bairro_combo = bairros.id', 'tipo' => 'LEFT'),
                                 array('nome' => 'logradouros',	'where' => 'imoveis.id_logradouro = logradouros.id', 'tipo' => 'LEFT'),
                                 array('nome' => 'cidades',      'where' => 'cidades.id = imoveis.id_cidade'),
+                                array('nome' => 'logradouros empresa_logradouro','where' => 'empresas.id_logradouro = empresa_logradouro.id', 'tipo' => 'LEFT'),
+                                array('nome' => 'cidades empresa_cidade','where' => 'empresa_logradouro.id_cidade = empresa_cidade.id', 'tipo' => 'LEFT'),
+                                array('nome' => 'estados',          'where' => 'cidades.uf = estados.uf', 'tipo' => 'LEFT'),
+                                array('nome' => 'imoveis_corretor', 'where' => 'imoveis.id_corretor = imoveis_corretor.id', 'tipo' => 'LEFT'),
+                                array('nome' => 'logradouros end_empresa','where' => 'empresas.id_logradouro = end_empresa.id', 'tipo' => 'LEFT'),
+                                array('nome' => 'hotsite_parametros','where' => 'imoveis.id_empresa = hotsite_parametros.id_empresa', 'tipo' => 'LEFT'),
+                                
                                 );
         $this->load->model('imoveis_images_model');
     	$data['filtro'] = $filtro;

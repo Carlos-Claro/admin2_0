@@ -118,7 +118,6 @@ class MY_XML {
         $this->log_geral[$empresa->id]['empresa_nome_fantasia'] = $empresa->empresa_nome_fantasia;
         $log = $this->log[$empresa->id];
         $log_erro = FALSE;
-        //var_dump($log,$empresa);
         if ( isset($log['excedente']) )
         {
             $mensagem_excedente = '<tr><td colspan="3"><h3>Excedente</h3></td></tr>';
@@ -351,7 +350,7 @@ class MY_XML {
         			'mensagem'      => $mensagem_erro,
         			'to'            => 'vendas01@pow.com.br',
         	);
-        	if ( strstr($_SERVER['HTTP_HOST'],'localhost') )
+        	if ( LOCALHOST )
         	{
         		echo $mensagem_erro;
         	}
@@ -383,31 +382,39 @@ class MY_XML {
      */
     private function envio( $data )	
     {	
-        $this->CI->email->clear();
-        $config['mailtype'] = 'html';
-        $config['protocol'] = 'smtp';
-        $config['useragent'] = 'GuiaSJP';
-        $config['smtp_host'] = 'smtp.pow.com.br';
-        $config['smtp_user'] = 'autenticacao@guiasjp.com';
-        $config['smtp_pass'] = 'c2a0r1l2';
-        $config['smtp_port'] = '587';
-        $mail = $this->CI->email->initialize($config);
-        $subject = (isset($data['assunto']) && $data['assunto']) ? $data['assunto'] : 'GuiaSJP';		
-        $mensagem = (isset($data['mensagem']) && $data['mensagem']) ? $data['mensagem'] : '';
-        $from = (isset($data['email']) && $data['email']) ? $data['email'] : 'programacao@pow.com.br';
-        $to = (isset($data['to']) && $data['to']) ? $data['to'] : 'programacao@pow.com.br';
-        $bcc = (isset($data['bcc']) && $data['bcc']) ? $data['bcc'] : '';
-        $this->CI->email
-                ->from($from)
-                ->to($to)
-                ->bcc($bcc)
-                ->subject($subject)
-                ->message($mensagem);
-        if( isset($data['anexo']) && !empty($data['anexo']) )
+        if ( ! LOCALHOST )
         {
-            $this->CI->email->attach($data['anexo']);
+            
+            $this->CI->email->clear();
+            $config['mailtype'] = 'html';
+            $config['protocol'] = 'smtp';
+            $config['useragent'] = 'GuiaSJP';
+            $config['smtp_host'] = 'smtp.pow.com.br';
+            $config['smtp_user'] = 'autenticacao@guiasjp.com';
+            $config['smtp_pass'] = 'c2a0r1l2';
+            $config['smtp_port'] = '587';
+            $mail = $this->CI->email->initialize($config);
+            $subject = (isset($data['assunto']) && $data['assunto']) ? $data['assunto'] : 'GuiaSJP';		
+            $mensagem = (isset($data['mensagem']) && $data['mensagem']) ? $data['mensagem'] : '';
+            $from = (isset($data['email']) && $data['email']) ? $data['email'] : 'programacao@pow.com.br';
+            $to = (isset($data['to']) && $data['to']) ? $data['to'] : 'programacao@pow.com.br';
+            $bcc = (isset($data['bcc']) && $data['bcc']) ? $data['bcc'] : '';
+            $this->CI->email
+                    ->from($from)
+                    ->to($to)
+                    ->bcc($bcc)
+                    ->subject($subject)
+                    ->message($mensagem);
+            if( isset($data['anexo']) && !empty($data['anexo']) )
+            {
+                $this->CI->email->attach($data['anexo']);
+            }
+            return  $this->CI->email->send();
         }
-        return  $this->CI->email->send();
+        else
+        {
+            return TRUE;
+        }
     }
     
     /**

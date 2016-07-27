@@ -25,6 +25,11 @@ class Imoveis_relevancia_Model extends MY_Model {
         return $this->excluir_($this->database, $filtro);
     }
     
+    public function truncate()
+    {
+        return $this->truncate_($this->database);
+    }
+    
     public function get_item( $id = '' )
     {
     	$data['coluna'] = '*';

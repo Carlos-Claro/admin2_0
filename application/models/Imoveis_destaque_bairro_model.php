@@ -47,6 +47,30 @@ class Imoveis_destaque_bairro_Model extends MY_Model {
     	$retorno = $this->get_itens_($data);
     	return $retorno['itens'][0];
     }
+    
+    public function get_item_por_filtro( $filtro = array() )
+    {
+    	$data['coluna'] = '
+                            imoveis_destaque_bairro.id as id,
+                            imoveis_destaque_bairro.id_empresa as id_empresa,
+                            DATE_FORMAT(imoveis_destaque_bairro.data_inicio,"%d/%m/%Y %H:%i") as data_inicio,
+                            DATE_FORMAT(imoveis_destaque_bairro.data_fim,"%d/%m/%Y %H:%i") as data_fim,
+                            imoveis_destaque_bairro.id_tipo as id_tipo,
+                            imoveis_destaque_bairro.id_cidade as id_cidade,
+                            imoveis_destaque_bairro.id_bairro as id_bairro,
+                            imoveis_destaque_bairro.negocio as negocio,
+                            empresas.empresa_nome_fantasia as empresa_nome_fantasia,
+                            ';
+    	$data['tabela'] = array(
+                                array('nome' => 'imoveis_destaque_bairro'),
+                                array('nome' => 'empresas', 'where' => 'imoveis_destaque_bairro.id_empresa = empresas.id'),
+                                );
+    							
+    	$data['filtro'] = $filtro;
+    	$retorno = $this->get_itens_($data);
+        
+    	return (isset($retorno['itens'][0]) ? $retorno['itens'][0] : NULL);
+    }
 	
     public function get_select( $filtro = array(), $coluna = 'imoveis_destaque_bairro.data_fim', $ordem = 'DESC' )
     {

@@ -139,21 +139,21 @@ class Mongo extends MY_Controller
     public function sincroniza_imoveis()
     {
         $filtro = $this->filtro_padrao();
-        $itens = $this->imoveis_model->get_itens_com_foto($filtro,'imoveis.data_atualizacao','DESC',0,1000);
+        $itens = $this->imoveis_model->get_itens_com_foto($filtro,'imoveis.data_atualizacao','DESC',0,30);
         foreach( $itens['itens'] as $item )
         {
             $update = $item;
             if ( isset($item->images) )
             {
                 $a = 0;
+                $arquivos = array();
                 foreach( $item->images as $image )
                 {
                     if ( isset($image->id) )
                     {
-                        if ( ! $a  )
+                        if ( $a < 5  )
                         {
                             $arquivos[$image->id] = set_arquivo_image($item->_id, $image->arquivo, $item->id_empresa, 1, TRUE, $image->id, 'destaque');
-
                         }
                         else
                         {
@@ -162,7 +162,6 @@ class Mongo extends MY_Controller
                         $arquivos[$image->id]['titulo'] = (isset($image->titulo) && ! empty($image->titulo) ? $image->titulo : $item->nome );
                         $arquivos[$image->id]['id'] = $image->id;
                         $a++;
-                        
                     }
                 }
                 $update->images = $arquivos;
@@ -210,8 +209,8 @@ class Mongo extends MY_Controller
             $data = array('integra_mongo_db' => date('Y-m-d H:i'), 'ordem_rad' => $update->ordem );
             $filtro = array('id' => $item->_id);
             $update_imovel = $this->imoveis_model->editar($data,$filtro  );
+            var_dump($data,$filtro,$update_imovel);
         }
-        
     }
 
     private function filtro_padrao()
@@ -225,22 +224,30 @@ class Mongo extends MY_Controller
                 . 'AND imoveis.locado = 0 '
                 . 'AND imoveis.invisivel = 0 '
                 . 'AND ( imoveis.id_cidade = 2 OR imoveis.id_cidade = 1 ) '
-                . 'AND imoveis.integra_mongo_db < "'.date( 'Y-m-d H:i', mktime(0, 0, 0,date("m"),date("d")-1,date("Y") ) ).'"';
+                . 'AND ( imoveis.integra_mongo_db < "'.date( 'Y-m-d H:i', mktime(0, 0, 0,date("m"),date("d")-1,date("Y") ) ).'" OR imoveis.integra_mongo_db IS NULL )';
         return $filtro;
     }
     
     public function deleta_historico()
     {
         $this->load->model('imoveis_historico_model');
-        $filtro = 'data_deleta BETWEEN "'.date( 'Y-m-d H:i', mktime(0, 0, 0,date("m")-2,date("d"),date("Y") ) ).'" AND "'.date('Y-m-d').'"';
-        $itens = $this->imoveis_historico_model->get_select($filtro);
-        foreach ( $itens as $item )
+        $filtro = 'data_deleta BETWEEN "'.date( 'Y-m-d H:i', mktime(0, 0, 0,date("m"),date("d")-2,date("Y") ) ).'" AND "'.date('Y-m-d H:i').'"';
+        $itens = $this->imoveis_historico_model->get_itens($filtro);
+        foreach ( $itens['itens'] as $item )
         {
+            $images = str_replace('codEmpresa', $item->id_empresa, URL_INTEGRACAO_LOCAL).'destaque_'.$item->id.'*.*';
+            shell_exec('rm -f '.$images);
             $filtro_[] = array('tipo' => 'where', 'campo' => '_id', 'valor' => $item->id);
             $this->imoveis_mongo_model->excluir($filtro_);
             unset($filtro);
         }
     }
+    
+    public function limpa_relevancia()
+    {
+        $this->imoveis_relevancia_model->truncate();
+    }
+    
     
     public function get_itens_mongo()
     {

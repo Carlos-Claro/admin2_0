@@ -146,4 +146,16 @@ class MY_Model extends CI_Model
         return $this->db[$database['db']]->affected_rows();
     }
     
+    /**
+     * 
+     * limpa a tabela ao banco de dados com base em db, table, filtro
+     * @param array $database -> [db] = guiasjp, [table] = deifinido pelo usuario
+     */
+    public function truncate_($database)
+    {
+        $database['db'] = isset($database['db']) ? $database['db'] : 'guiasjp';
+        $this->db[$database['db']]->truncate($database['table']);
+        return TRUE;
+    }
+    
 }

@@ -119,7 +119,7 @@ class Imoveis_historico_Model extends MY_Model {
                             imoveis_historico.clicks as clicks,
                             ';
     	$data['tabela'] = array(
-                                array('nome' => 'imoveis'),
+                                array('nome' => 'imoveis_historico'),
                                 );
     	$data['filtro'] = $filtro;
     	if ( isset($off_set) )
