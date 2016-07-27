@@ -303,7 +303,7 @@ class Imoveis_destaque_bairro extends MY_Controller
  		//$config['botoes']  = ' <a href="'.base_url().strtolower(__CLASS__).'/adicionar'.'" class="btn btn-primary" >Add Novo</a>';
  		$config['botoes']  = ' <button type="button" class="btn btn-warning">Para adicionar novas campanhas utilize o cadastro da empresa</button>';
  		$config['botoes'] .= ' <a href="'.base_url().strtolower(__CLASS__).'/exportar[filtro]'.'" class="btn btn-default">Exportar</a>';
- 		$config['botoes'] .= ' <a class="btn  btn-danger deletar">Deletar Selecionados</a>';
+ 		//$config['botoes'] .= ' <a class="btn  btn-danger deletar">Deletar Selecionados</a>';
  		
  		$filtro = $this->filtro->inicia($config);
  		return $filtro;

@@ -1248,7 +1248,7 @@
                                     ?>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <h4>Destaques Listagem:</h4>
+                                    <h4>Vitrine de tipo:</h4>
                                     <?php 
                                     if ( isset($dest_listagem) && count($dest_listagem) > 0 ) :
                                         ?>
@@ -1276,10 +1276,10 @@
                                         <?php
                                     endif;
                                     ?>
-                                    <a href="<?php echo base_url();?>imoveis_dest_listagem/adicionar/<?php echo $item->id;?>" target="_blank" class="btn btn-primary add-banner">Adicionar destaque listagem</a>
+                                    <a href="<?php echo base_url();?>imoveis_dest_listagem/adicionar/<?php echo $item->id;?>" target="_blank" class="btn btn-primary add-banner">Adicionar vitrine de tipo</a>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <h4>Destaques Bairro:</h4>
+                                    <h4>Vitrine de Bairro:</h4>
                                     <?php 
                                     if ( isset($destaques_bairro['itens']) && $destaques_bairro['qtde'] > 0 ) :
                                         ?>
@@ -1307,7 +1307,7 @@
                                         <?php
                                     endif;
                                     ?>
-                                    <a href="<?php echo base_url();?>imoveis_destaque_bairro/adicionar/<?php echo $item->id;?>" target="_blank" class="btn btn-primary add-banner">Adicionar destaque bairro</a>
+                                    <a href="<?php echo base_url();?>imoveis_destaque_bairro/adicionar/<?php echo $item->id;?>" target="_blank" class="btn btn-primary add-banner">Adicionar vitrine de bairro</a>
                                 </div>
                                 
                             </div>

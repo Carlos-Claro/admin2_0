@@ -3,13 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/var/www/html/admin2_0/application/controllers/Mongo.php</file>
-            <file>file:/var/www/html/admin2_0/application/models/Imoveis_model.php</file>
-            <file>file:/var/www/html/admin2_0/application/libraries/MY_Mongo.php</file>
-            <file>file:/var/www/html/admin2_0/docs/MongoDb_PHP</file>
-            <file>file:/var/www/html/admin2_0/application/libraries/Mongo_db.php</file>
             <file>file:/var/www/html/admin2_0/application/models/Imoveis_mongo_model.php</file>
+            <file>file:/var/www/html/admin2_0/application/libraries/Mongo_db.php</file>
             <file>file:/var/www/html/admin2_0/application/config/mongo_db.php</file>
+            <file>file:/var/www/html/admin2_0/application/models/Imoveis_model.php</file>
+            <file>file:/var/www/html/admin2_0/application/controllers/Mongo.php</file>
+            <file>file:/var/www/html/admin2_0/application/libraries/MY_Mongo.php</file>
         </group>
     </open-files>
 </project-private>

@@ -159,6 +159,7 @@ class Mongo extends MY_Controller
                         {
                             $arquivos[$image->id]['arquivo'] = $image->arquivo;
                         }
+                        $arquivos[$image->id]['original'] = $image->arquivo;
                         $arquivos[$image->id]['titulo'] = (isset($image->titulo) && ! empty($image->titulo) ? $image->titulo : $item->nome );
                         $arquivos[$image->id]['id'] = $image->id;
                         $a++;
