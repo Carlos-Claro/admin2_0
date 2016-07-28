@@ -743,7 +743,7 @@ function set_arquivo_image( $id, $arquivo, $id_empresa, $mudou = FALSE, $fs = ''
     }
     else
     {
-        $endereco_base = str_replace('admin2_0/', '', base_url());
+        $endereco_base = str_replace('admin2_0/', 'portais_novo/', base_url());
     }
     // 120 x 90 -> TM -> só faz da foto 1
     // 60 x 45 -> t3 -> faz todas
