@@ -780,9 +780,9 @@ function set_arquivo_image( $id, $arquivo, $id_empresa, $mudou = FALSE, $fs = ''
                 $curl = curl_executavel($arquivo);
                 if ( $curl['info']['http_code'] == 200 )
                 {
-                    $propriedades_image = getimagesize($arquivo);
+                    //$propriedades_image = getimagesize($arquivo);
                     $tamanho = $array_tamanho[$tipo];
-                    $gerou = gera_image($arquivo, $pasta_local.$nome_arquivo, $propriedades_image, $tamanho['width'], $tamanho['height'], $tamanho['crop']);
+                    $gerou = FALSE;//gera_image($arquivo, $pasta_local.$nome_arquivo, $propriedades_image, $tamanho['width'], $tamanho['height'], $tamanho['crop']);
                     if ( $gerou )
                     {
                         $a = $endereco_base.str_replace('codEmpresa', $id_empresa, substr(URL_INTEGRACAO_BASE, 1)).$nome_arquivo;
@@ -828,9 +828,9 @@ function set_arquivo_image( $id, $arquivo, $id_empresa, $mudou = FALSE, $fs = ''
                 $curl = curl_executavel($a);
                 if ( $curl['info']['http_code'] == 200 )
                 {
-                    $propriedades_image = getimagesize($a);
+                    //$propriedades_image = getimagesize($a);
                     $tamanho = $array_tamanho[$tipo];
-                    $gerou = gera_image($a, $pasta_local.$nome_arquivo, $propriedades_image, $tamanho['width'], $tamanho['height'], $tamanho['crop']);
+                    $gerou = FALSE;//gera_image($a, $pasta_local.$nome_arquivo, $propriedades_image, $tamanho['width'], $tamanho['height'], $tamanho['crop']);
                     if ( $gerou )
                     {
                         $a_ = '/'.str_replace('codEmpresa', $id_empresa, substr(URL_INTEGRACAO_LOCAL, 1)).$nome_arquivo;

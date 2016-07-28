@@ -74,6 +74,10 @@ class Mongo extends MY_Controller
         {
             $pontos++;
         }
+        if ( ! ( isset($imovel->imoveis_tipos_id) && $imovel->imoveis_tipos_id ) )
+        {
+            $pontos++;
+        }
         /*
         $time = time() - 31536000;
         if ( $time > $imovel->data_atualizacao )
@@ -86,10 +90,13 @@ class Mongo extends MY_Controller
         {
             $pontos++;
         }
+        /*
         if ( ! ( isset($imovel->latitude) && isset($imovel->longitude) ) || ! ( empty($imovel->latitude)  && empty($imovel->longitude) )  )
         {
             $pontos++;
         }
+         * 
+         */
         return $pontos;
     }
     
@@ -136,10 +143,12 @@ class Mongo extends MY_Controller
         return $ordem;
     }
     
+    
+    
     public function sincroniza_imoveis()
     {
         $filtro = $this->filtro_padrao();
-        $itens = $this->imoveis_model->get_itens_com_foto($filtro,'imoveis.data_atualizacao','DESC',0,30);
+        $itens = $this->imoveis_model->get_itens_com_foto($filtro,'imoveis.data_atualizacao','DESC',0,50);
         foreach( $itens['itens'] as $item )
         {
             $update = $item;
@@ -151,7 +160,7 @@ class Mongo extends MY_Controller
                 {
                     if ( isset($image->id) )
                     {
-                        if ( $a < 5  )
+                        if ( $a < 21  )
                         {
                             $arquivos[$image->id] = set_arquivo_image($item->_id, $image->arquivo, $item->id_empresa, 1, TRUE, $image->id, 'destaque');
                         }
@@ -197,6 +206,14 @@ class Mongo extends MY_Controller
             {
                 $update->banheiros = (int)$item->banheiros;
             }
+            if ( isset($item->latitude) && ! empty($item->latitude) )
+            {
+                $update->latitude = (int)$item->latitude;
+            }
+            if ( isset($item->longitude) && ! empty($item->longitude) )
+            {
+                $update->longitude = (int)$item->longitude;
+            }
             $update->ordem = $this->_set_ordem($item);
             $tem = $this->imoveis_mongo_model->get_item($item->_id);
             if ( isset($tem) && $tem )
@@ -224,8 +241,10 @@ class Mongo extends MY_Controller
                 . 'AND imoveis.vendido = 0 '
                 . 'AND imoveis.locado = 0 '
                 . 'AND imoveis.invisivel = 0 '
-                . 'AND ( imoveis.id_cidade = 2 OR imoveis.id_cidade = 1 ) '
-                . 'AND ( imoveis.integra_mongo_db < "'.date( 'Y-m-d H:i', mktime(0, 0, 0,date("m"),date("d")-1,date("Y") ) ).'" OR imoveis.integra_mongo_db IS NULL )';
+                //. 'AND ( imoveis.id_cidade = 2 OR imoveis.id_cidade = 1 ) '
+                //. 'AND ( imoveis.latitude is not null AND imoveis.latitude != "" ) '
+                . 'AND ( imoveis.integra_mongo_db < "'.date( 'Y-m-d H:i', mktime(0, 0, 0,date("m"),date("d")-1,date("Y") ) ).'" OR imoveis.integra_mongo_db IS NULL )'
+                ;
         return $filtro;
     }
     
