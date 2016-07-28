@@ -734,7 +734,7 @@ function gera_image( $local, $arquivo, $propriedades, $width, $height, $crop = F
  * @param string $tipo -> tipo do arquivo, tm, t5, t3
  * @return string -> endereço completo do arquivo.
  */
-function set_arquivo_image( $id, $arquivo, $id_empresa, $mudou = FALSE, $fs = '', $sequencia = 1, $tipo = 'TM')
+function set_arquivo_image( $id, $arquivo, $id_empresa, $mudou = FALSE, $fs = '', $sequencia = 1, $tipo = 'TM', $gera = FALSE)
 {
     $endereco_base = '';
     if ( LOCALHOST )
@@ -777,12 +777,18 @@ function set_arquivo_image( $id, $arquivo, $id_empresa, $mudou = FALSE, $fs = ''
         {
             if ( strstr($tipo,'destaque') )
             {
-                $curl = curl_executavel($arquivo);
+                $curl = $gera ? curl_executavel($arquivo) : array('info' => array('http_code' => 200));
                 if ( $curl['info']['http_code'] == 200 )
                 {
-                    $propriedades_image = getimagesize($arquivo);
-                    $tamanho = $array_tamanho[$tipo];
-                    $gerou = gera_image($arquivo, $pasta_local.$nome_arquivo, $propriedades_image, $tamanho['width'], $tamanho['height'], $tamanho['crop']);
+                    $gerou = FALSE;
+                    if ( $gera )
+                    {
+                        $propriedades_image = getimagesize($arquivo);
+                        $tamanho = $array_tamanho[$tipo];
+                        $gerou = gera_image($arquivo, $pasta_local.$nome_arquivo, $propriedades_image, $tamanho['width'], $tamanho['height'], $tamanho['crop']);
+                        
+                    }
+                    
                     if ( $gerou )
                     {
                         $a = $endereco_base.str_replace('codEmpresa', $id_empresa, substr(URL_INTEGRACAO_BASE, 1)).$nome_arquivo;
@@ -825,12 +831,18 @@ function set_arquivo_image( $id, $arquivo, $id_empresa, $mudou = FALSE, $fs = ''
             {
                 $a = ( ( $mudou == 1 ) ? str_replace('codEmpresa', $id_empresa, URL_IMAGE_MUDOU) : URL_IMAGE_NAO_MUDOU);
                 $a .= $arquivo;
-                $curl = curl_executavel($a);
+                //$curl = curl_executavel($a);
+                $curl = $gera ? curl_executavel($a) : array('info' => array('http_code' => 200));
                 if ( $curl['info']['http_code'] == 200 )
                 {
-                    //$propriedades_image = getimagesize($a);
-                    $tamanho = $array_tamanho[$tipo];
-                    $gerou = FALSE;//gera_image($a, $pasta_local.$nome_arquivo, $propriedades_image, $tamanho['width'], $tamanho['height'], $tamanho['crop']);
+                    $gerou = FALSE;
+                    if ( $gera )
+                    {
+                        $propriedades_image = getimagesize($a);
+                        $tamanho = $array_tamanho[$tipo];
+                        $gerou = gera_image($a, $pasta_local.$nome_arquivo, $propriedades_image, $tamanho['width'], $tamanho['height'], $tamanho['crop']);
+                        
+                    }
                     if ( $gerou )
                     {
                         $a_ = '/'.str_replace('codEmpresa', $id_empresa, substr(URL_INTEGRACAO_LOCAL, 1)).$nome_arquivo;

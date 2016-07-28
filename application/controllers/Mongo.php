@@ -160,13 +160,14 @@ class Mongo extends MY_Controller
                 {
                     if ( isset($image->id) )
                     {
-                        if ( $a < 21  )
+                        if ( $a < 5  )
                         {
-                            $arquivos[$image->id] = set_arquivo_image($item->_id, $image->arquivo, $item->id_empresa, 1, TRUE, $image->id, 'destaque');
+                            $arquivos[$image->id] = set_arquivo_image($item->_id, $image->arquivo, $item->id_empresa, 1, TRUE, $image->id, 'destaque', TRUE);
                         }
                         else
                         {
-                            $arquivos[$image->id]['arquivo'] = $image->arquivo;
+                            $arquivos[$image->id] = set_arquivo_image($item->_id, $image->arquivo, $item->id_empresa, 1, TRUE, $image->id, 'destaque', FALSE);
+                            //$arquivos[$image->id]['arquivo'] = $image->arquivo;
                         }
                         $arquivos[$image->id]['original'] = $image->arquivo;
                         $arquivos[$image->id]['titulo'] = (isset($image->titulo) && ! empty($image->titulo) ? $image->titulo : $item->nome );
