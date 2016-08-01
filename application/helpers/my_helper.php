@@ -858,7 +858,7 @@ function set_arquivo_image( $id, $arquivo, $id_empresa, $mudou = FALSE, $fs = ''
                     }
                     else
                     {
-                        
+                       	$retorno['arquivo'] = $a;
                     }
                 }
                 else
@@ -909,7 +909,7 @@ function curl_executavel($endereco)
     curl_setopt($ch, CURLOPT_URL, $endereco);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 240);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
     $retorno['item'] = curl_exec($ch);
     $retorno['erro'] = curl_errno( $ch );
     $retorno['erromsg']  = curl_error( $ch );

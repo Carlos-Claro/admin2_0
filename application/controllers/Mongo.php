@@ -29,6 +29,7 @@ class Mongo extends MY_Controller
             if ( isset($_GET['own']) )
             {
                 $valida = FALSE;
+		error_reporting(E_ALL);
 
             }
             else
@@ -143,12 +144,14 @@ class Mongo extends MY_Controller
         return $ordem;
     }
     
-    
+	public function set_sincroniza   (){
+		$this->sincroniza_imoveis();
+	}
     
     public function sincroniza_imoveis()
     {
         $filtro = $this->filtro_padrao();
-        $itens = $this->imoveis_model->get_itens_com_foto($filtro,'imoveis.data_atualizacao','DESC',0,50);
+        $itens = $this->imoveis_model->get_itens_com_foto($filtro,'imoveis.data_atualizacao','DESC',0,1);
         foreach( $itens['itens'] as $item )
         {
             $update = $item;
@@ -160,7 +163,7 @@ class Mongo extends MY_Controller
                 {
                     if ( isset($image->id) )
                     {
-                        if ( $a < 5  )
+                        if ( $a == 0 )
                         {
                             $arquivos[$image->id] = set_arquivo_image($item->_id, $image->arquivo, $item->id_empresa, 1, TRUE, $image->id, 'destaque', TRUE);
                         }
@@ -178,7 +181,8 @@ class Mongo extends MY_Controller
                 $update->images = $arquivos;
                 unset($arquivos);
             }
-            $update->data_atualizacao = date('Y-m-d H:i');
+            $update->data_atualizacao = date('Y-m-d H:i:s', $item->data_atualizacao);
+            $update->data_update = date('Y-m-d H:i:s');
             if ( isset($item->preco) && ! empty($item->preco) )
             {
                 $update->preco = doubleval($item->preco);
@@ -225,11 +229,11 @@ class Mongo extends MY_Controller
             {
                 $this->imoveis_mongo_model->adicionar($update);
             }
-            $data = array('integra_mongo_db' => date('Y-m-d H:i'), 'ordem_rad' => $update->ordem );
+            $data = array('integra_mongo_db' => date('Y-m-d H:i:s'), 'ordem_rad' => $update->ordem );
             $filtro = array('id' => $item->_id);
             $update_imovel = $this->imoveis_model->editar($data,$filtro  );
             var_dump($data,$filtro,$update_imovel);
-        }
+        } $this->set_sincroniza();
     }
 
     private function filtro_padrao()
