@@ -979,8 +979,8 @@ function set_arquivo_image( $id, $arquivo, $id_empresa, $mudou = FALSE, $fs = ''
                     }
                     $erro = 'Arquivo inacessivel: '.$a.', id_empresa: '.$id_empresa.', id_imovel: '.$id.', em: '.date('Y-d-m').', status: '.$curl['info']['http_code'].', ip destino: '.$curl['info']['primary_ip'];
                     armazena_relatorio('images', $erro);
+                    $retorno['arquivo'] = $a;
                 }
-                $retorno['arquivo'] = $a;
             }
             else
             {
