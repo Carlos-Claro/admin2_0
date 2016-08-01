@@ -32,6 +32,7 @@ define('LOCAL_IMAGE', $root);
 define('URL_IMAGE_MUDOU', 'http://www.pow.com.br/powsites/codEmpresa/imo/');
 define('URL_IMAGE_NAO_MUDOU', 'http://www.guiasjp.com/imoveis_imagens/');
 define('URL_RELATORIOS', $root.'/admin2_0/relatorios/');
+define('URL_IMAGE_TEMPORARIA', $root.'/admin2_0/temporario/images/');
 
 $keys_path = '../../json/keys.json';
 if ( file_exists($keys_path) )

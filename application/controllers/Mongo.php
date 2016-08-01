@@ -143,10 +143,10 @@ class Mongo extends MY_Controller
         $ordem = $this->_set_range($pontos, $filtro);
         return $ordem;
     }
-    
-	public function set_sincroniza   (){
-		$this->sincroniza_imoveis();
-	}
+
+    public function set_sincroniza(){
+            $this->sincroniza_imoveis();
+    }
     
     public function sincroniza_imoveis()
     {
@@ -170,9 +170,8 @@ class Mongo extends MY_Controller
                         else
                         {
                             $arquivos[$image->id] = set_arquivo_image($item->_id, $image->arquivo, $item->id_empresa, 1, TRUE, $image->id, 'destaque', FALSE);
-                            //$arquivos[$image->id]['arquivo'] = $image->arquivo;
                         }
-                        $arquivos[$image->id]['original'] = $image->arquivo;
+                        $arquivos[$image->id]['original'] = isset($arquivos[$image->id]['original']) ? $arquivos[$image->id]['original'] : $image->arquivo;
                         $arquivos[$image->id]['titulo'] = (isset($image->titulo) && ! empty($image->titulo) ? $image->titulo : $item->nome );
                         $arquivos[$image->id]['id'] = $image->id;
                         $a++;
@@ -232,8 +231,10 @@ class Mongo extends MY_Controller
             $data = array('integra_mongo_db' => date('Y-m-d H:i:s'), 'ordem_rad' => $update->ordem );
             $filtro = array('id' => $item->_id);
             $update_imovel = $this->imoveis_model->editar($data,$filtro  );
+            
             var_dump($data,$filtro,$update_imovel);
-        } $this->set_sincroniza();
+        } 
+        //$this->set_sincroniza();
     }
 
     private function filtro_padrao()
