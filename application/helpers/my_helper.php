@@ -954,15 +954,8 @@ function set_arquivo_image( $id, $arquivo, $id_empresa, $mudou = FALSE, $fs = ''
                     if ( $gerou )
                     {
                         $a_ = '/'.str_replace('codEmpresa', $id_empresa, substr(URL_INTEGRACAO_LOCAL, 1)).$nome_arquivo;
-                        if ( filesize($a_) > 2000 )
-                        {
-                            $retorno['arquivo'] = $endereco_base.str_replace('codEmpresa', $id_empresa, substr(URL_INTEGRACAO_BASE, 1)).$nome_arquivo;
-                            $retorno['original'] = $endereco_base.str_replace('codEmpresa', $id_empresa, substr(URL_INTEGRACAO_BASE, 1)).$nome_original;
-                        }
-                        else
-                        {
-                            $retorno['arquivo'] = $a;
-                        }
+                        $retorno['arquivo'] = $endereco_base.str_replace('codEmpresa', $id_empresa, substr(URL_INTEGRACAO_BASE, 1)).$nome_arquivo;
+                        $retorno['original'] = $endereco_base.str_replace('codEmpresa', $id_empresa, substr(URL_INTEGRACAO_BASE, 1)).$nome_original;
 
                     }
                     else

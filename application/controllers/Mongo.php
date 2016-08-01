@@ -171,7 +171,7 @@ class Mongo extends MY_Controller
                         {
                             $arquivos[$image->id] = set_arquivo_image($item->_id, $image->arquivo, $item->id_empresa, 1, TRUE, $image->id, 'destaque', FALSE);
                         }
-                        $arquivos[$image->id]['original'] = isset($arquivos[$image->id]['original']) ? $arquivos[$image->id]['original'] : $image->arquivo;
+                        $arquivos[$image->id]['original'] = ( isset($arquivos[$image->id]['original']) ? $arquivos[$image->id]['original'] : $image->arquivo );
                         $arquivos[$image->id]['titulo'] = (isset($image->titulo) && ! empty($image->titulo) ? $image->titulo : $item->nome );
                         $arquivos[$image->id]['id'] = $image->id;
                         $a++;
