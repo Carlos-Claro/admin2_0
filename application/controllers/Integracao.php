@@ -21,6 +21,11 @@ class Integracao extends MY_Controller
             $this->load->model( array('empresas_model','imoveis_model') );
             $this->load->library('MY_XML');
             //$this->load->library('xml_formatos');
+            if ( isset($_GET['debug']) )
+            {
+                error_reporting(-1);
+		ini_set('display_errors', 1);
+            }
 	}
         
         public function testa_cidade()
