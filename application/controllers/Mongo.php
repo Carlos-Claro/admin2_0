@@ -151,7 +151,7 @@ class Mongo extends MY_Controller
     public function sincroniza_imoveis()
     {
         $filtro = $this->filtro_padrao();
-        $itens = $this->imoveis_model->get_itens_com_foto($filtro,'imoveis.data_atualizacao','DESC',0,1);
+        $itens = $this->imoveis_model->get_itens_com_foto($filtro,'imoveis.data_atualizacao DESC, imoveis.id_cidade ASC','DESC, ASC',0,1000);
         foreach( $itens['itens'] as $item )
         {
             $update = $item;

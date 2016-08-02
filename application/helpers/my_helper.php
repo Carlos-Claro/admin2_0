@@ -888,7 +888,7 @@ function set_arquivo_image( $id, $arquivo, $id_empresa, $mudou = FALSE, $fs = ''
             if ( strstr($tipo,'destaque') )
             {
                 $curl = $gera ? curl_executavel($arquivo) : array('info' => array('http_code' => 200));
-                if ( $curl['info']['http_code'] == 200 )
+		if ( $curl['info']['http_code'] == 200 )
                 {
                     $gerou = FALSE;
                     if ( $gera )
