@@ -7,6 +7,11 @@ class Imoveis_Naoencontrei_funcoes extends MY_Controller
 	{
             parent::__construct(FALSE);
             $this->load->model(array('contatos_site_model','imoveis_naoencontrei_model', 'imoveis_model', 'cidades_model'));
+            if ( isset($_GET['debug']) )
+            {
+                error_reporting(-1);
+		ini_set('display_errors', 1);
+            }
 	}
 	
 	public function index()
