@@ -257,13 +257,14 @@ class Mongo extends MY_Controller
     public function deleta_historico()
     {
         $this->load->model('imoveis_historico_model');
-        $filtro = 'data_deleta BETWEEN "'.date( 'Y-m-d H:i', mktime(0, 0, 0,date("m"),date("d")-2,date("Y") ) ).'" AND "'.date('Y-m-d H:i').'"';
+        $filtro = 'data_deleta BETWEEN "'.date( 'Y-m-d H:i', mktime(0, 0, 0,date("m"),date("d")-30,date("Y") ) ).'" AND "'.date('Y-m-d H:i').'"';
         $itens = $this->imoveis_historico_model->get_itens($filtro);
         foreach ( $itens['itens'] as $item )
         {
             $images = str_replace('codEmpresa', $item->id_empresa, URL_INTEGRACAO_LOCAL).'destaque_'.$item->id.'*.*';
             shell_exec('rm -f '.$images);
             $filtro_[] = array('tipo' => 'where', 'campo' => '_id', 'valor' => $item->id);
+            var_dump($filtro);
             $this->imoveis_mongo_model->excluir($filtro_);
             unset($filtro);
         }

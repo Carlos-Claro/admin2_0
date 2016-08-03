@@ -50,6 +50,11 @@ class MY_Controller extends CI_Controller
         {
             $this->_grava_log();	
         } 
+        if ( isset($_GET['debug']) )
+            {
+                error_reporting(-1);
+		ini_set('display_errors', 1);
+            }
     }	
     
     /**
