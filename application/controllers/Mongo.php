@@ -150,90 +150,98 @@ class Mongo extends MY_Controller
     
     public function sincroniza_imoveis()
     {
-        $filtro = $this->filtro_padrao();
-        $itens = $this->imoveis_model->get_itens_com_foto($filtro,'imoveis.data_atualizacao DESC, imoveis.id_cidade ASC','DESC, ASC',0,1000);
-        foreach( $itens['itens'] as $item )
+        $filtro_padrao = $this->filtro_padrao();
+        $itens = $this->imoveis_model->get_itens_com_foto($filtro_padrao,'imoveis.data_atualizacao DESC, imoveis.id_cidade ASC','DESC, ASC',0,1000);
+        if ( isset($itens['itens']) && count($itens['itens']) > 0 )
         {
-            $update = $item;
-            if ( isset($item->images) )
-            {
-                $a = 0;
-                $arquivos = array();
-                foreach( $item->images as $image )
-                {
-                    if ( isset($image->id) )
-                    {
-                        if ( $a == 0 )
-                        {
-                            $arquivos[$image->id] = set_arquivo_image($item->_id, $image->arquivo, $item->id_empresa, 1, TRUE, $image->id, 'destaque', TRUE);
-                        }
-                        else
-                        {
-                            $arquivos[$image->id] = set_arquivo_image($item->_id, $image->arquivo, $item->id_empresa, 1, TRUE, $image->id, 'destaque', FALSE);
-                        }
-                        $arquivos[$image->id]['original'] = ( isset($arquivos[$image->id]['original']) ? $arquivos[$image->id]['original'] : $image->arquivo );
-                        $arquivos[$image->id]['titulo'] = (isset($image->titulo) && ! empty($image->titulo) ? $image->titulo : $item->nome );
-                        $arquivos[$image->id]['id'] = $image->id;
-                        $a++;
-                    }
-                }
-                $update->images = $arquivos;
-                unset($arquivos);
-            }
-            $update->data_atualizacao = date('Y-m-d H:i:s', $item->data_atualizacao);
-            $update->data_update = date('Y-m-d H:i:s');
-            if ( isset($item->preco) && ! empty($item->preco) )
-            {
-                $update->preco = doubleval($item->preco);
-            }
-            if ( isset($item->area) && ! empty($item->area) )
-            {
-                $update->area = doubleval($item->area);
-            }
-            if ( isset($item->area_terreno) && ! empty($item->area_terreno) )
-            {
-                $update->area_terreno = doubleval($item->area_terreno);
-            }
-            if ( isset($item->area_util) && ! empty($item->area_util) )
-            {
-                $update->area_util = doubleval($item->area_util);
-            }
-            if ( isset($item->quartos) && ! empty($item->quartos) )
-            {
-                $update->quartos = (int)$item->quartos;
-            }
-            if ( isset($item->garagens) && ! empty($item->garagens) )
-            {
-                $update->garagens = (int)$item->garagens;
-            }
-            if ( isset($item->banheiros) && ! empty($item->banheiros) )
-            {
-                $update->banheiros = (int)$item->banheiros;
-            }
-            if ( isset($item->latitude) && ! empty($item->latitude) )
-            {
-                $update->latitude = (int)$item->latitude;
-            }
-            if ( isset($item->longitude) && ! empty($item->longitude) )
-            {
-                $update->longitude = (int)$item->longitude;
-            }
-            $update->ordem = $this->_set_ordem($item);
-            $tem = $this->imoveis_mongo_model->get_item($item->_id);
-            if ( isset($tem) && $tem )
-            {
-                $this->imoveis_mongo_model->editar($update);
-            }
-            else
-            {
-                $this->imoveis_mongo_model->adicionar($update);
-            }
-            $data = array('integra_mongo_db' => date('Y-m-d H:i:s'), 'ordem_rad' => $update->ordem );
-            $filtro = array('id' => $item->_id);
-            $update_imovel = $this->imoveis_model->editar($data,$filtro  );
             
-            var_dump($data,$filtro,$update_imovel);
-        } 
+            foreach( $itens['itens'] as $item )
+            {
+                $update = $item;
+                if ( isset($item->images) )
+                {
+                    $a = 0;
+                    $arquivos = array();
+                    foreach( $item->images as $image )
+                    {
+                        if ( isset($image->id) )
+                        {
+                            if ( $a == 0 )
+                            {
+                                $arquivos[$image->id] = set_arquivo_image($item->_id, $image->arquivo, $item->id_empresa, 1, TRUE, $image->id, 'destaque', TRUE);
+                            }
+                            else
+                            {
+                                $arquivos[$image->id] = set_arquivo_image($item->_id, $image->arquivo, $item->id_empresa, 1, TRUE, $image->id, 'destaque', FALSE);
+                            }
+                            $arquivos[$image->id]['original'] = ( isset($arquivos[$image->id]['original']) ? $arquivos[$image->id]['original'] : $image->arquivo );
+                            $arquivos[$image->id]['titulo'] = (isset($image->titulo) && ! empty($image->titulo) ? $image->titulo : $item->nome );
+                            $arquivos[$image->id]['id'] = $image->id;
+                            $a++;
+                        }
+                    }
+                    $update->images = $arquivos;
+                    unset($arquivos);
+                }
+                $update->data_atualizacao = date('Y-m-d H:i:s', $item->data_atualizacao);
+                $update->data_update = date('Y-m-d H:i:s');
+                if ( isset($item->preco) && ! empty($item->preco) )
+                {
+                    $update->preco = doubleval($item->preco);
+                }
+                if ( isset($item->area) && ! empty($item->area) )
+                {
+                    $update->area = doubleval($item->area);
+                }
+                if ( isset($item->area_terreno) && ! empty($item->area_terreno) )
+                {
+                    $update->area_terreno = doubleval($item->area_terreno);
+                }
+                if ( isset($item->area_util) && ! empty($item->area_util) )
+                {
+                    $update->area_util = doubleval($item->area_util);
+                }
+                if ( isset($item->quartos) && ! empty($item->quartos) )
+                {
+                    $update->quartos = (int)$item->quartos;
+                }
+                if ( isset($item->garagens) && ! empty($item->garagens) )
+                {
+                    $update->garagens = (int)$item->garagens;
+                }
+                if ( isset($item->banheiros) && ! empty($item->banheiros) )
+                {
+                    $update->banheiros = (int)$item->banheiros;
+                }
+                if ( isset($item->latitude) && ! empty($item->latitude) )
+                {
+                    $update->latitude = (int)$item->latitude;
+                }
+                if ( isset($item->longitude) && ! empty($item->longitude) )
+                {
+                    $update->longitude = (int)$item->longitude;
+                }
+                $update->ordem = $this->_set_ordem($item);
+                $tem = $this->imoveis_mongo_model->get_item($item->_id);
+                if ( isset($tem) && $tem )
+                {
+                    $this->imoveis_mongo_model->editar($update);
+                }
+                else
+                {
+                    $this->imoveis_mongo_model->adicionar($update);
+                }
+                $data = array('integra_mongo_db' => date('Y-m-d H:i:s'), 'ordem_rad' => $update->ordem );
+                $filtro = array('id' => $item->_id);
+                $update_imovel = $this->imoveis_model->editar($data,$filtro  );
+
+                var_dump($data,$filtro,$update_imovel);
+            } 
+        }
+        else
+        {
+            echo 'nenhum imovel retornado na pesquisa.';var_dump($filtro_padrao);
+        }
         //$this->set_sincroniza();
     }
 
