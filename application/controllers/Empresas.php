@@ -534,10 +534,11 @@ class Empresas extends MY_Controller
 	private function _inicia_filtros($url = '', $valores = array() )
 	{
                 $config['itens'] = array(
-                                        array( 'name' => 'id',              'titulo' => 'ID: ',             'tipo' => 'text', 'valor' => '', 'classe' => 'form-control ui-state-default', 'where' => array( 'tipo' => 'where', 	'campo' => 'empresas.id', 	'valor' => '' ) ),
-                                        array( 'name' => 'razao_social',   'titulo' => 'Razão Social: ',  'tipo' => 'text', 'valor' => '', 'classe' => 'form-control ui-state-default', 'where' => array( 'tipo' => 'like', 	'campo' => 'empresas.empresa_razao_social', 	'valor' => '' ) ),
-                                        array( 'name' => 'empresa_cnpj',   'titulo' => 'CNPJ: ',  'tipo' => 'text', 'valor' => '', 'classe' => 'form-control ui-state-default', 'where' => array( 'tipo' => 'like', 	'campo' => 'empresas.empresa_cnpj', 	'valor' => '' ) ),
-                                        array( 'name' => 'nome_fantasia',   'titulo' => 'Nome fantasia: ',  'tipo' => 'text', 'valor' => '', 'classe' => 'form-control ui-state-default', 'where' => array( 'tipo' => 'like', 	'campo' => 'empresas.empresa_nome_fantasia', 	'valor' => '' ) ),
+                                        array( 'name' => 'id',              'titulo' => 'ID: ',             'tipo' => 'text',   'valor' => '', 'classe' => 'form-control ui-state-default', 'where' => array( 'tipo' => 'where', 	'campo' => 'empresas.id', 	'valor' => '' ) ),
+                                        array( 'name' => 'razao_social',    'titulo' => 'Razão Social: ',   'tipo' => 'text',   'valor' => '', 'classe' => 'form-control ui-state-default', 'where' => array( 'tipo' => 'like', 	'campo' => 'empresas.empresa_razao_social', 	'valor' => '' ) ),
+                                        array( 'name' => 'empresa_cnpj',    'titulo' => 'CNPJ: ',           'tipo' => 'text',   'valor' => '', 'classe' => 'form-control ui-state-default', 'where' => array( 'tipo' => 'like', 	'campo' => 'empresas.empresa_cnpj', 	'valor' => '' ) ),
+                                        array( 'name' => 'nome_fantasia',   'titulo' => 'Nome fantasia: ',  'tipo' => 'text',   'valor' => '', 'classe' => 'form-control ui-state-default', 'where' => array( 'tipo' => 'like', 	'campo' => 'empresas.empresa_nome_fantasia', 	'valor' => '' ) ),
+                                        array( 'name' => 'empresa_dominio', 'titulo' => 'Dominio: ',        'tipo' => 'text',   'valor' => '', 'classe' => 'form-control ui-state-default', 'where' => array( 'tipo' => 'like', 	'campo' => 'empresas.empresa_dominio', 	'valor' => '' ) ),
                                         array( 'name' => 'status',          'titulo' => 'Status atualiza: ','tipo' => 'select', 'valor' => $this->status_atualizada_model->get_select(), 'classe' => 'form-control ui-state-default', 'where' => array( 'tipo' => 'where', 	'campo' => 'empresas.status_atualizada', 		'valor' => '' ) ),
                                         array( 'name' => 'subcategoria',    'titulo' => 'Categoria: ',      'tipo' => 'select', 'valor' => $this->subcategorias_model->get_select(), 'classe' => 'form-control ui-state-default', 'where' => array( 'tipo' => 'where', 	'campo' => 'empresas.id_subcategoria', 		'valor' => '' ) ),
                                         );	
@@ -1033,11 +1034,11 @@ class Empresas extends MY_Controller
 		else 
 		{
 			$data['cabecalho'] = array(
-                                                    (object)array( 'chave' => 'id',     'titulo' => 'ID',       'link' => str_replace(array('[col]','[ordem]'), array('id',( ($extras['ordem'] == 'ASC' && $extras['col'] == 'id') ? 'DESC' : 'ASC' ) ), $extras['url']), 'class' => ( ($extras['col'] == 'id' ) ? 'ui-state-highlight'.( ($extras['col'] == 'id' && $extras['ordem'] == 'ASC') ? ' ui-icon-caract-1-n' : ' ui-icon-caract-1-s' ) : 'ui-state-disabled ui-icon-caract-1-s' ) ),
-                                                    (object)array( 'chave' => 'contrato',     'titulo' => 'Contrato',       'link' => str_replace(array('[col]','[ordem]'), array('contrato',( ($extras['ordem'] == 'ASC' && $extras['col'] == 'contrato') ? 'DESC' : 'ASC' ) ), $extras['url']), 'class' => ( ($extras['col'] == 'contrato' ) ? 'ui-state-highlight'.( ($extras['col'] == 'contrato' && $extras['ordem'] == 'ASC') ? ' ui-icon-caract-1-n' : ' ui-icon-caract-1-s' ) : 'ui-state-disabled ui-icon-caract-1-s' ) ),
-                                                    (object)array( 'chave' => 'subcategoria',     'titulo' => 'Categoria',       'link' => str_replace(array('[col]','[ordem]'), array('subcategoria',( ($extras['ordem'] == 'ASC' && $extras['col'] == 'subcategoria') ? 'DESC' : 'ASC' ) ), $extras['url']), 'class' => ( ($extras['col'] == 'subcategoria' ) ? 'ui-state-highlight'.( ($extras['col'] == 'subcategoria' && $extras['ordem'] == 'ASC') ? ' ui-icon-caract-1-n' : ' ui-icon-caract-1-s' ) : 'ui-state-disabled ui-icon-caract-1-s' ) ),
-                                                    (object)array( 'chave' => 'nome_fantasia',     'titulo' => 'Nome fantasia',       'link' => str_replace(array('[col]','[ordem]'), array('nome_fantasia',( ($extras['ordem'] == 'ASC' && $extras['col'] == 'nome_fantasia') ? 'DESC' : 'ASC' ) ), $extras['url']), 'class' => ( ($extras['col'] == 'nome_fantasia' ) ? 'ui-state-highlight'.( ($extras['col'] == 'nome_fantasia' && $extras['ordem'] == 'ASC') ? ' ui-icon-caract-1-n' : ' ui-icon-caract-1-s' ) : 'ui-state-disabled ui-icon-caract-1-s' ) ),
-                                                    (object)array( 'chave' => 'bloqueado',     'titulo' => 'Status',       'link' => str_replace(array('[col]','[ordem]'), array('bloqueado',( ($extras['ordem'] == 'ASC' && $extras['col'] == 'bloqueado') ? 'DESC' : 'ASC' ) ), $extras['url']), 'class' => ( ($extras['col'] == 'bloqueado' ) ? 'ui-state-highlight'.( ($extras['col'] == 'bloqueado' && $extras['ordem'] == 'ASC') ? ' ui-icon-caract-1-n' : ' ui-icon-caract-1-s' ) : 'ui-state-disabled ui-icon-caract-1-s' ) ),
+                                                    (object)array( 'chave' => 'id',             'titulo' => 'ID',           'link' => str_replace(array('[col]','[ordem]'), array('id',( ($extras['ordem'] == 'ASC' && $extras['col'] == 'id') ? 'DESC' : 'ASC' ) ), $extras['url']), 'class' => ( ($extras['col'] == 'id' ) ? 'ui-state-highlight'.( ($extras['col'] == 'id' && $extras['ordem'] == 'ASC') ? ' ui-icon-caract-1-n' : ' ui-icon-caract-1-s' ) : 'ui-state-disabled ui-icon-caract-1-s' ) ),
+                                                    (object)array( 'chave' => 'contrato',       'titulo' => 'Contrato',     'link' => str_replace(array('[col]','[ordem]'), array('contrato',( ($extras['ordem'] == 'ASC' && $extras['col'] == 'contrato') ? 'DESC' : 'ASC' ) ), $extras['url']), 'class' => ( ($extras['col'] == 'contrato' ) ? 'ui-state-highlight'.( ($extras['col'] == 'contrato' && $extras['ordem'] == 'ASC') ? ' ui-icon-caract-1-n' : ' ui-icon-caract-1-s' ) : 'ui-state-disabled ui-icon-caract-1-s' ) ),
+                                                    (object)array( 'chave' => 'subcategoria',   'titulo' => 'Categoria',    'link' => str_replace(array('[col]','[ordem]'), array('subcategoria',( ($extras['ordem'] == 'ASC' && $extras['col'] == 'subcategoria') ? 'DESC' : 'ASC' ) ), $extras['url']), 'class' => ( ($extras['col'] == 'subcategoria' ) ? 'ui-state-highlight'.( ($extras['col'] == 'subcategoria' && $extras['ordem'] == 'ASC') ? ' ui-icon-caract-1-n' : ' ui-icon-caract-1-s' ) : 'ui-state-disabled ui-icon-caract-1-s' ) ),
+                                                    (object)array( 'chave' => 'nome_fantasia',  'titulo' => 'Nome fantasia','link' => str_replace(array('[col]','[ordem]'), array('nome_fantasia',( ($extras['ordem'] == 'ASC' && $extras['col'] == 'nome_fantasia') ? 'DESC' : 'ASC' ) ), $extras['url']), 'class' => ( ($extras['col'] == 'nome_fantasia' ) ? 'ui-state-highlight'.( ($extras['col'] == 'nome_fantasia' && $extras['ordem'] == 'ASC') ? ' ui-icon-caract-1-n' : ' ui-icon-caract-1-s' ) : 'ui-state-disabled ui-icon-caract-1-s' ) ),
+                                                    (object)array( 'chave' => 'bloqueado',      'titulo' => 'Status',       'link' => str_replace(array('[col]','[ordem]'), array('bloqueado',( ($extras['ordem'] == 'ASC' && $extras['col'] == 'bloqueado') ? 'DESC' : 'ASC' ) ), $extras['url']), 'class' => ( ($extras['col'] == 'bloqueado' ) ? 'ui-state-highlight'.( ($extras['col'] == 'bloqueado' && $extras['ordem'] == 'ASC') ? ' ui-icon-caract-1-n' : ' ui-icon-caract-1-s' ) : 'ui-state-disabled ui-icon-caract-1-s' ) ),
                                                     //(object)array( 'chave' => 'endereco',     'titulo' => 'Endereço',       'link' => str_replace(array('[col]','[ordem]'), array('endereco',( ($extras['ordem'] == 'ASC' && $extras['col'] == 'endereco') ? 'DESC' : 'ASC' ) ), $extras['url']), 'class' => ( ($extras['col'] == 'endereco' ) ? 'ui-state-highlight'.( ($extras['col'] == 'endereco' && $extras['ordem'] == 'ASC') ? ' ui-icon-caract-1-n' : ' ui-icon-caract-1-s' ) : 'ui-state-disabled ui-icon-caract-1-s' ) ),
                                                     //(object)array( 'chave' => 'dominio',     'titulo' => 'Dominio',       'link' => str_replace(array('[col]','[ordem]'), array('dominio',( ($extras['ordem'] == 'ASC' && $extras['col'] == 'dominio') ? 'DESC' : 'ASC' ) ), $extras['url']), 'class' => ( ($extras['col'] == 'dominio' ) ? 'ui-state-highlight'.( ($extras['col'] == 'dominio' && $extras['ordem'] == 'ASC') ? ' ui-icon-caract-1-n' : ' ui-icon-caract-1-s' ) : 'ui-state-disabled ui-icon-caract-1-s' ) ),
                                                     );
@@ -1073,6 +1074,8 @@ class Empresas extends MY_Controller
  		$config['valores'] = $valores;              
  		$config['botoes']  = ' <a href="'.base_url().strtolower(__CLASS__).'/exportar[filtro]'.'" class="btn btn-default">Exportar</a>';
  		$config['botoes']  .= ' <button class="btn btn-info administrar_varios">Administrar vários</button>';
+ 		$config['botoes']  .= ' <button class="btn btn-danger bloquear-empresa">Bloquear empresas selecionadas</button>';
+ 		$config['botoes']  .= ' <button class="btn btn-danger desbloquear-empresa">Desbloquear empresas selecionadas</button>';
  		//$config['botoes'] .= ' <a href="'.base_url().strtolower(__CLASS__).'/adicionar'.'" class="btn btn-primary" >Add Novo</a>';
  		
  		$filtro = $this->filtro->inicia($config);
@@ -1454,4 +1457,63 @@ class Empresas extends MY_Controller
 
             return $data;
 	}
+        
+        /**
+         * Bloqueia a empresa
+         * @version 1.0
+         * @access public
+         * @author Nicolas Woitchik
+         */
+        public function bloquear_empresa()
+        {
+            $selecionadas = $this->input->post('selecionados');
+            $quantidade = 0;
+            foreach($selecionadas as $key => $value)
+            {
+                $item = $this->empresas_model->editar(array('bloqueado' => 1), array('empresas.id' => $value));
+                if ( $item )
+                {
+                    $quantidade++;
+                }
+            }
+
+            if ($quantidade>0)
+            {
+                    print $quantidade.' empresas foram bloqueadas.';
+            }
+            else 
+            {
+                    print 'Nenhuma empresa bloqueada.';
+            }
+        }
+        
+        /**
+         * Desblqueia a empresa
+         * @version 1.0
+         * @access public
+         * @author Nicolas Woitchik
+         */
+        public function desbloquear_empresa()
+        {
+            $selecionadas = $this->input->post('selecionados');
+            $quantidade = 0;
+            foreach($selecionadas as $key => $value)
+            {
+                $item = $this->empresas_model->editar(array('bloqueado' => 0), array('empresas.id' => $value));
+                if ( $item )
+                {
+                    $quantidade++;
+                }
+            }
+
+            if ($quantidade>0)
+            {
+                    print $quantidade.' empresas foram desbloqueadas.';
+            }
+            else 
+            {
+                    print 'Nenhuma empresa desbloqueada.';
+            }
+            
+        }
 }
