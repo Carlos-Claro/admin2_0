@@ -321,7 +321,7 @@ class Imoveis_destaque_bairro extends MY_Controller
             $dados_campo = array( 'data_inicio' => 'data_fim', 'data_fim' => 'data_inicio' );
             $filtro = 'imoveis_destaque_bairro.id = "'.$dados['id'].'" AND imoveis_destaque_bairro.'.$dados_campo[ $dados['campo'] ].$array_sinal[ $dados['campo'] ].' "'.$dados['valor'].'" AND imoveis_destaque_bairro.'.$dados['campo'].' IS NOT NULL';
             $data_item = $this->imoveis_destaque_bairro_model->get_item_por_filtro( $filtro );
-            return (isset($data_item) ? TRUE : NULL);
+            return (is_object($data_item) ? $data_item : FALSE);
         }
         
         public function salvar_campo()
@@ -335,32 +335,38 @@ class Imoveis_destaque_bairro extends MY_Controller
             if ( isset($dados['id']) && ! empty($dados['id']) && $dados['id'] )
             {
                 /**
+                * Verifica se o o campo for data_inicio
+                */
+                if(isset($dados['campo']) && $dados['campo']==='data_inicio')
+                {
+                    $data_item = $this->_valida_data($dados);
+                    /**
+                     * Se $data_item vier falso
+                     */
+                    if( ! $data_item )
+                    {
+                        $retorno['status'] = FALSE;
+                        $retorno['mensagem'] = 'A data de inicio maior que a data de fim';
+
+                    }
+                    else
+                    {
+                        $retorno['status'] = TRUE;
+                    }
+                }
+                /**
                  * Verifica se o campo vindo pelo post é data_fim
                  */
                 if(isset($dados['campo']) && $dados['campo']==='data_fim')
                 {   
                     $data_item = $this->_valida_data($dados);
-                    if($data_item)
-                    {
-                        $retorno['status'] = TRUE;
-                    }
-                    else
+                    /**
+                     * Se $data_item vier falso 
+                     */
+                    if( ! $data_item )
                     {
                         $retorno['status'] = FALSE;
                         $retorno['mensagem'] = 'A data de fim maior que a data de inicio';
-                    }
-                }
-                /**
-                * Se o o campo for data_inicio
-                */
-                if(isset($dados['campo']) && $dados['campo']==='data_inicio')
-                {
-                    $data_item = $this->_valida_data($dados);
-                    if( ! isset($data_item))
-                    {
-                        $retorno['status'] = FALSE;
-                        $retorno['mensagem'] = 'A data de inicio maior que a data de fim';
-
                     }
                     else
                     {

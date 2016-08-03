@@ -69,7 +69,7 @@ class Imoveis_destaque_bairro_Model extends MY_Model {
     	$data['filtro'] = $filtro;
     	$retorno = $this->get_itens_($data);
         
-    	return (isset($retorno['itens'][0]) ? $retorno['itens'][0] : NULL);
+    	return (isset($retorno['itens'][0]) ? $retorno['itens'][0] : FALSE);
     }
 	
     public function get_select( $filtro = array(), $coluna = 'imoveis_destaque_bairro.data_fim', $ordem = 'DESC' )
