@@ -154,7 +154,8 @@ class Mongo extends MY_Controller
         $itens = $this->imoveis_model->get_itens_com_foto($filtro_padrao,'imoveis.data_atualizacao DESC, imoveis.id_cidade ASC','DESC, ASC',0,1000);
         if ( isset($itens['itens']) && count($itens['itens']) > 0 )
         {
-            
+            echo ' Iniciando: '.date('Y-m-d H:i:s');
+            $conta = 0;
             foreach( $itens['itens'] as $item )
             {
                 $update = $item;
@@ -235,12 +236,14 @@ class Mongo extends MY_Controller
                 $filtro = array('id' => $item->_id);
                 $update_imovel = $this->imoveis_model->editar($data,$filtro  );
 
-                var_dump($data,$filtro,$update_imovel);
+                $conta++;
             } 
+            
+            echo ' importados: '.$conta.' '.date('Y-m-d H:i:s');
         }
         else
         {
-            echo 'nenhum imovel retornado na pesquisa.';var_dump($filtro_padrao);
+            echo ' nenhum imovel retornado na pesquisa.';var_dump($filtro_padrao);
         }
         //$this->set_sincroniza();
     }
