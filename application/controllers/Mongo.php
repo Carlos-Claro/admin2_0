@@ -264,7 +264,7 @@ class Mongo extends MY_Controller
             $images = str_replace('codEmpresa', $item->id_empresa, URL_INTEGRACAO_LOCAL).'destaque_'.$item->id.'*.*';
             shell_exec('rm -f '.$images);
             $filtro_[] = array('tipo' => 'where', 'campo' => '_id', 'valor' => $item->id);
-            var_dump($filtro);
+            var_dump($filtro_);
             $this->imoveis_mongo_model->excluir($filtro_);
             unset($filtro);
         }
