@@ -260,7 +260,7 @@ class Mongo extends MY_Controller
                 . 'AND imoveis.invisivel = 0 '
                 //. 'AND ( imoveis.id_cidade = 2 OR imoveis.id_cidade = 1 ) '
                 //. 'AND ( imoveis.latitude is not null AND imoveis.latitude != "" ) '
-                . 'AND ( imoveis.integra_mongo_db < "'.date( 'Y-m-d H:i', mktime(0, 0, 0,date("m"),date("d")-1,date("Y") ) ).'" OR imoveis.integra_mongo_db IS NULL )'
+                . 'AND ( imoveis.integra_mongo_db < "'.date( 'Y-m-d H:i', mktime(0, 0, 0,date("m"),date("d"),date("Y") ) ).'" OR imoveis.integra_mongo_db IS NULL )'
                 ;
         return $filtro;
     }
