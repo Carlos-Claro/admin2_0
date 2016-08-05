@@ -319,9 +319,9 @@ class Imoveis_destaque_bairro extends MY_Controller
             */
             $array_sinal = array( 'data_fim' => '<' , 'data_inicio' => '>' );
             $dados_campo = array( 'data_inicio' => 'data_fim', 'data_fim' => 'data_inicio' );
-            $filtro = 'imoveis_destaque_bairro.id = "'.$dados['id'].'" AND imoveis_destaque_bairro.'.$dados_campo[ $dados['campo'] ].$array_sinal[ $dados['campo'] ].' "'.$dados['valor'].'" AND imoveis_destaque_bairro.'.$dados['campo'].' IS NOT NULL';
-            $data_item = $this->imoveis_destaque_bairro_model->get_item_por_filtro( $filtro );
-            return (is_object($data_item) ? $data_item : FALSE);
+            $filtro = 'imoveis_destaque_bairro.id = "'.$dados['id'].'" AND imoveis_destaque_bairro.'.$dados_campo[ $dados['campo'] ].$array_sinal[ $dados['campo'] ].' "'.$dados['valor'].'"';
+            $data_item = $this->imoveis_destaque_bairro_model->get_total_itens( $filtro );
+            return (($data_item) ? $data_item : FALSE);
         }
         
         public function salvar_campo()
@@ -335,42 +335,25 @@ class Imoveis_destaque_bairro extends MY_Controller
             if ( isset($dados['id']) && ! empty($dados['id']) && $dados['id'] )
             {
                 /**
-                * Verifica se o o campo for data_inicio
-                */
-                if(isset($dados['campo']) && $dados['campo']==='data_inicio')
-                {
-                    $data_item = $this->_valida_data($dados);
-                    /**
-                     * Se $data_item vier falso
-                     */
-                    if( ! $data_item )
-                    {
-                        $retorno['status'] = FALSE;
-                        $retorno['mensagem'] = 'A data de inicio maior que a data de fim';
-
-                    }
-                    else
-                    {
-                        $retorno['status'] = TRUE;
-                    }
-                }
-                /**
                  * Verifica se o campo vindo pelo post é data_fim
                  */
                 if(isset($dados['campo']) && $dados['campo']==='data_fim')
                 {   
-                    $data_item = $this->_valida_data($dados);
-                    /**
-                     * Se $data_item vier falso 
-                     */
-                    if( ! $data_item )
+                    if( ! empty($dados['valor']) )
                     {
-                        $retorno['status'] = FALSE;
-                        $retorno['mensagem'] = 'A data de fim maior que a data de inicio';
-                    }
-                    else
-                    {
-                        $retorno['status'] = TRUE;
+                        $data_item = $this->_valida_data($dados);
+                        /**
+                         * Se $data_item vier falso 
+                         */
+                        if( ! $data_item )
+                        {
+                            $retorno['status'] = FALSE;
+                            $retorno['mensagem'] = 'A data de fim menor que a data de inicio';
+                        }
+                        else
+                        {
+                            $retorno['status'] = TRUE;
+                        }
                     }
                 }
                 if ( is_array($dados['campo']) )
@@ -441,13 +424,13 @@ class Imoveis_destaque_bairro extends MY_Controller
 		$data = $this->input->post(NULL, TRUE);
                 if ( ! $edita )
                 {
-                    if ( isset($data['campo']) && $data['campo'] == 'data_inicio' ) 
+                    if ( isset($data['campo']) && $data['campo'] == 'data_inicio') 
                     {
-                        $data['valor'] = converte_data_mysql($data['valor']);
+                        empty($data['valor']) ? '' :$data['valor'] = converte_data_mysql($data['valor']);
                     }
                     if ( isset($data['campo']) && $data['campo'] == 'data_fim' ) 
                     {
-                        $data['valor'] = converte_data_mysql($data['valor']);
+                        empty($data['valor']) ? '' : $data['valor'] = converte_data_mysql($data['valor']);
                     }
                 }
 		return $data;
