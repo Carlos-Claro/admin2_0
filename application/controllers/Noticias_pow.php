@@ -37,6 +37,7 @@ class Noticias_pow extends MY_Controller
          */
 	public function __construct()
 	{
+            var_dump($_COOKIE['id_empresa']);
             $valida = TRUE;
             if ( LOCALHOST )
             {
