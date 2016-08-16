@@ -410,6 +410,7 @@ class Email_mkt extends MY_Controller
             $filtro[] = 'empresas.id_subcategoria = 138';
             $filtro[] = 'cadastros.news = 1';
             $filtro[] = 'contatos_site.sincronizado = 0';
+            $filtro[] = 'contatos_site.cidade > 0';
             $filtro[] = 'tabela = "imoveis"';
             $contatos = $this->contatos_site_model->get_itens_disparo($filtro);
             $contador = 0;
