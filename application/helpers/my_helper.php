@@ -938,7 +938,7 @@ function set_arquivo_image( $id, $arquivo, $id_empresa, $mudou = FALSE, $fs = ''
             }
             elseif ( $tipo == 'destaque' )
             {
-                $a = ( ( $mudou == 1 ) ? str_replace('codEmpresa', $id_empresa, URL_IMAGE_MUDOU) : URL_IMAGE_NAO_MUDOU);
+                $a = str_replace('codEmpresa', $id_empresa, URL_IMAGE_MUDOU);
                 $a .= $arquivo;
                 //$curl = curl_executavel($a);
                 $curl = $gera ? curl_executavel($a) : array('info' => array('http_code' => 200));
