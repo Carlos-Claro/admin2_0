@@ -501,7 +501,7 @@ class Email_mkt extends MY_Controller
             $tempo_abertura = time();
             $data_abertura = date('Y-m-d H:i');
             $this->load->model(array('cidades_model','imoveis_model'));
-            $this->load->model(array('contatos_site_model','email_lista_model','email_lista_itens_model'));
+            $this->load->model(array('contatos_site_model'));
             $filtro[] = 'contatos_site.data >= '.mktime (0, 0, 0, date("m")-3, date("d"),  date("Y"));
             $filtro[] = 'contatos_site.data <= '.mktime (0, 0, 0, date("m"), date("d")-1,  date("Y"));
             $filtro[] = 'empresas.id_subcategoria = 138';
