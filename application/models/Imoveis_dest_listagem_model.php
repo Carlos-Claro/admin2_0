@@ -72,13 +72,13 @@ class Imoveis_dest_listagem_Model extends MY_Model {
                                 array('nome' => 'imoveis_dest_listagem'),
                                 );
     	$data['filtro'] = $filtro;
-        $data['group'] = 'id';
+        $data['group'] = '';
     	$retorno = $this->get_itens_($data);
-    	
+        
     	return $retorno['itens'][0]->qtde;
     }
     
-    public function get_itens( $filtro = array(), $coluna = 'data_fim', $ordem = 'DESC', $off_set = NULL )
+    public function get_itens( $filtro = array(), $coluna = 'imoveis_dest_listagem.data_fim', $ordem = 'DESC', $off_set = NULL )
     {
     	$data['coluna'] = '	
                             imoveis_dest_listagem.id as id,

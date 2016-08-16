@@ -298,6 +298,7 @@ class Empresas_Model extends MY_Model {
                             empresas.empresa_cnpj as cnpj,
                             status_atualizada.titulo as status,
                             usuarios.nome as atualizou,
+                            IF (categorias.nome = "imobiliário", DATE_FORMAT(empresas.dt_integra,"%d/%m/%Y %H:%i") , "") as data_integra,
                             IF (empresas.bloqueado = 1, "Bloqueado", "Liberado") as bloqueado,
                             IF (empresas.conhece_guia = 1, "Conhecia", "Não Conhecia") as conhece_guia
                             ';

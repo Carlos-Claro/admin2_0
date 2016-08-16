@@ -98,7 +98,7 @@ class Imoveis_destaque_bairro_Model extends MY_Model {
                                 array('nome' => 'imoveis_destaque_bairro'),
                                 );
     	$data['filtro'] = $filtro;
-        $data['group'] = 'id';
+        $data['group'] = '';
     	$retorno = $this->get_itens_($data);
     	
     	return isset($retorno['itens'][0]->qtde) ? $retorno['itens'][0]->qtde : FALSE;
