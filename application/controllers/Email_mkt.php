@@ -500,9 +500,10 @@ class Email_mkt extends MY_Controller
         {
             $tempo_abertura = time();
             $data_abertura = date('Y-m-d H:i');
-            $this->load->model(array('contatos_site_model','cidades_model','imoveis_model'));
+            $this->load->model(array('cidades_model','imoveis_model'));
             $this->load->model(array('contatos_site_model','email_lista_model','email_lista_itens_model'));
-            $filtro[] = 'contatos_site.data >= '.mktime (0, 0, 0, date("m")-1, date("d"),  date("Y"));
+            $filtro[] = 'contatos_site.data >= '.mktime (0, 0, 0, date("m")-3, date("d"),  date("Y"));
+            $filtro[] = 'contatos_site.data <= '.mktime (0, 0, 0, date("m"), date("d")-1,  date("Y"));
             $filtro[] = 'empresas.id_subcategoria = 138';
             $filtro[] = 'cadastros.news = 1';
             $filtro[] = 'contatos_site.sincronizado = 0';
@@ -571,7 +572,16 @@ class Email_mkt extends MY_Controller
             return $retorno;
     }
     
-        
+    public function limpa_envios()
+    {
+        $this->load->model(array('contatos_site_model'));
+        $data = array( 'sincronizado' => 0 );
+        $filtro = 'sincronizado = 1';
+        $a = $this->contatos_site_model->editar($data,$filtro);
+        echo date('Y-d-m H:i').' - '.$a.PHP_EOL;
+    }
+    
+    
        
     private function _filtro($cidades, $tipos, $negocios)
     {
