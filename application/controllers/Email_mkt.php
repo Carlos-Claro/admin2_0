@@ -509,7 +509,7 @@ class Email_mkt extends MY_Controller
             $filtro[] = 'contatos_site.sincronizado = 0';
             $filtro[] = 'contatos_site.tipo_negocio_item IS NOT NULL';
             $filtro[] = 'tabela = "imoveis"';
-            $contatos = $this->contatos_site_model->get_itens_disparo($filtro,'id','DESC',0,2);
+            $contatos = $this->contatos_site_model->get_itens_disparo($filtro,'id','DESC',0,100);
             $contador = 0;
             if ( isset($contatos['itens']) && $contatos['qtde'] > 0 )
             {
