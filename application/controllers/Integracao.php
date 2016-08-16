@@ -61,7 +61,7 @@ class Integracao extends MY_Controller
             {
                 $respostas = $this->my_xml->get_por_empresas( $empresas );
                 echo date('Y-m-d H:i').PHP_EOL;
-                var_dump($respostas);
+                echo json_encode($respostas);
                 echo PHP_EOL;
             }
             else
