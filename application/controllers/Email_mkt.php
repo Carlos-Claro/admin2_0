@@ -525,12 +525,13 @@ class Email_mkt extends MY_Controller
                                         'to' => $contato->email,
                                         'retorno' => TRUE
                                         );
-                        $retorno_disparo = $this->envio($disparo);
+                        //$retorno_disparo = $this->envio($disparo);
+                        echo $corpo_email;
                         $contador++;
                         $ids = explode(',', $contato->id);
                         foreach( $ids as $id )
                         {
-                            $atualiza = $this->contatos_site_model->editar(array('sincronizado' => 1),array( 'id' => $id));
+                  //          $atualiza = $this->contatos_site_model->editar(array('sincronizado' => 1),array( 'id' => $id));
                         }
                     }
                     
@@ -545,7 +546,7 @@ class Email_mkt extends MY_Controller
                                 'to' => 'programacao@pow.com.br',
                                 'retorno' => TRUE
                                 );
-                $retorno_disparo = $this->envio($disparo);
+                //$retorno_disparo = $this->envio($disparo);
             }
             
         }
