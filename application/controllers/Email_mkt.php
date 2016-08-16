@@ -538,17 +538,7 @@ class Email_mkt extends MY_Controller
                     }
                     
                 }
-                $tempo_fechou = time();
-                $data_fechou = date('Y-m-d H:i');
-                $disparo = array(
-                                'iagente' => TRUE,
-                                'assunto' => 'Resultado de disparos',
-                                'mensagem' => 'Total de '.$contatos['qtde'].' com sucesso: '.$contador.' em : '.($tempo_fechou - $tempo_abertura).'s de: '.$data_abertura.' até '.$data_fechou,
-                                'email' => 'Encontre seu novo Imóvel <seu-novo_imovel@rededeportais.com.br>',
-                                'to' => 'programacao@pow.com.br',
-                                'retorno' => TRUE
-                                );
-                $retorno_disparo = $this->envio($disparo);
+                echo 'Total de '.$contatos['qtde'].' com sucesso: '.$contador.' em : '.($tempo_fechou - $tempo_abertura).'s de: '.$data_abertura.' até '.$data_fechou.PHP_EOL;
             }
             
         }
