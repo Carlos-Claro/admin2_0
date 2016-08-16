@@ -73,10 +73,10 @@ class Email_mkt_
         $retorno .= '<center>';
         $retorno .= '<a href="'. $this->_set_link($item, 'e', $dominio).'" title="'.(isset($item->nome) ? $item->nome.' de '.$item->nome_empresa : '' ).'">';
         $retorno .= '<img class="img-responsive" style="width:200px; height:200px;" width="200" height="200" src="';
-        if ( isset($item->images) )
+        if ( isset($item->images) && !empty($item->images) )
         {
-            $arquivo = set_arquivo_image($item->id_imovel, $item->images[0]->arquivo, $item->id_empresa, $item->mudou, TRUE,1,'T5');
-            $retorno .= $arquivo;
+            $arquivo = set_arquivo_image($item->id_imovel, $item->images[0]->arquivo, $item->id_empresa, $item->mudou, TRUE,1,'destaque',TRUE);
+            $retorno .= $arquivo['arquivo'];
         } 
         else
         {
