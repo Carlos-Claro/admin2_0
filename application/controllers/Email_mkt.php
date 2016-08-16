@@ -507,8 +507,9 @@ class Email_mkt extends MY_Controller
             $filtro[] = 'empresas.id_subcategoria = 138';
             $filtro[] = 'cadastros.news = 1';
             $filtro[] = 'contatos_site.sincronizado = 0';
+            $filtro[] = 'contatos_site.tipo_negocio_item IS NOT NULL';
             $filtro[] = 'tabela = "imoveis"';
-            $contatos = $this->contatos_site_model->get_itens_disparo($filtro,'id','DESC',0,100);
+            $contatos = $this->contatos_site_model->get_itens_disparo($filtro,'id','DESC',0,2);
             $contador = 0;
             if ( isset($contatos['itens']) && $contatos['qtde'] > 0 )
             {
@@ -525,13 +526,13 @@ class Email_mkt extends MY_Controller
                                         'to' => $contato->email,
                                         'retorno' => TRUE
                                         );
-                        //$retorno_disparo = $this->envio($disparo);
+                        $retorno_disparo = $this->envio($disparo);
                         echo $corpo_email;
                         $contador++;
                         $ids = explode(',', $contato->id);
                         foreach( $ids as $id )
                         {
-                  //          $atualiza = $this->contatos_site_model->editar(array('sincronizado' => 1),array( 'id' => $id));
+                            $atualiza = $this->contatos_site_model->editar(array('sincronizado' => 1),array( 'id' => $id));
                         }
                     }
                     
@@ -546,7 +547,7 @@ class Email_mkt extends MY_Controller
                                 'to' => 'programacao@pow.com.br',
                                 'retorno' => TRUE
                                 );
-                //$retorno_disparo = $this->envio($disparo);
+                $retorno_disparo = $this->envio($disparo);
             }
             
         }
@@ -623,9 +624,13 @@ class Email_mkt extends MY_Controller
                 $config['itens'][] = array( 'name' => 'group_start',  'tipo' => 'inativo',   'where' => array( 'tipo' => 'group_start',  'campo' => '',    'valor' => '' ) );
                 foreach( $n as $m )
                 {
-                    $tm = trim($m);
-                    $config['valores'][$tm] = 1;
-                    $config['itens'][] = array( 'name' => $tm,  'tipo' => 'inativo',   'where' => array( 'tipo' => 'or_where',  'campo' => 'imoveis.'.$tm,    'valor' => '' ) );
+                    if ( $m )
+                    {
+                        $tm = trim($m);
+                        $config['valores'][$tm] = 1;
+                        $config['itens'][] = array( 'name' => $tm,  'tipo' => 'inativo',   'where' => array( 'tipo' => 'or_where',  'campo' => 'imoveis.'.$tm,    'valor' => '' ) );
+                        
+                    }
                 }
                 $config['valores']['group_end'] = 1;
                 $config['itens'][] = array( 'name' => 'group_end',  'tipo' => 'inativo',   'where' => array( 'tipo' => 'group_end',  'campo' => '',    'valor' => '' ) );
