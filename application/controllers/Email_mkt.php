@@ -19,7 +19,7 @@ class Email_mkt extends MY_Controller
 	public function __construct()
 	{
             parent::__construct(FALSE);
-            $this->load->model(array('email_model', 'email_atributos_model', 'email_tipo_atributo_model'));
+            //$this->load->model(array('email_model', 'email_atributos_model', 'email_tipo_atributo_model'));
 	}
 	
         
