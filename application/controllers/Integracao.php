@@ -60,10 +60,13 @@ class Integracao extends MY_Controller
             if ( $empresas && count($empresas) > 0 )
             {
                 $respostas = $this->my_xml->get_por_empresas( $empresas );
+                echo date('Y-m-d H:i').PHP_EOL;
+                var_dump($respostas);
+                echo PHP_EOL;
             }
             else
             {
-                die('Nenhuma empresas retornada, verifique sua consulta.');
+                echo 'Nenhuma empresas retornada, verifique sua consulta. '.date('Y-m-d H:i').PHP_EOL;
             }
             
         }

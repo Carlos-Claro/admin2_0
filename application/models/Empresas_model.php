@@ -204,7 +204,7 @@ class Empresas_Model extends MY_Model {
                             empresas.empresa_endereco as empresa_endereco,
                             empresas.empresa_cep as empresa_cep,
                             empresas.empresa_bairro as empresa_bairro,
-                            DATE_FORMAT(empresas.dt_integra,"%d/%m/%Y %H:%i") as dt_integra,
+                            DATE_FORMAT(empresas.ultima_integracao,"%d/%m/%Y %H:%i") as ultima_integracao,
                             empresas.bloqueado as bloqueado,
                             empresas.email_log as email_log,
                             empresas.newsletter_ativo as newsletter_ativo,
@@ -298,7 +298,7 @@ class Empresas_Model extends MY_Model {
                             empresas.empresa_cnpj as cnpj,
                             status_atualizada.titulo as status,
                             usuarios.nome as atualizou,
-                            IF (categorias.nome = "imobiliário", DATE_FORMAT(empresas.dt_integra,"%d/%m/%Y %H:%i") , "") as data_integra,
+                            IF (categorias.nome = "imobiliário", DATE_FORMAT(empresas.ultima_integracao,"%d/%m/%Y %H:%i") , "") as ultima_integracao,
                             IF (empresas.bloqueado = 1, "Bloqueado", "Liberado") as bloqueado,
                             IF (empresas.conhece_guia = 1, "Conhecia", "Não Conhecia") as conhece_guia
                             ';
