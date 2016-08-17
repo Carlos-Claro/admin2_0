@@ -523,7 +523,7 @@ class Email_mkt extends MY_Controller
                                         'iagente' => TRUE,
                                         'assunto' => 'Encontre seu novo Imóvel',
                                         'mensagem' => $corpo_email,
-                                        'email' => 'Encontre seu novo Imóvel <seu-novo_imovel@rededeportais.com.br>',
+                                        'email' => 'Encontre seu novo Imóvel <envio@rededeportais.com.br>',
                                         'to' => $contato->email,
                                         'retorno' => TRUE
                                         );
