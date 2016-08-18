@@ -2154,6 +2154,7 @@ class MY_XML {
                      * POW
                      */
                     case 5:
+                    case 27:
                     /**
                      * MinhaPrimeiraCasa
                      */
