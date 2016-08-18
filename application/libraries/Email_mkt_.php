@@ -76,7 +76,7 @@ class Email_mkt_
         if ( isset($item->images) && !empty($item->images) )
         {
             $arquivo = set_arquivo_image($item->id_imovel, $item->images[0]->arquivo, $item->id_empresa, $item->mudou, TRUE,1,'destaque',TRUE);
-            $retorno .= $arquivo['arquivo'];
+            $retorno .= str_replace('http://201.16.246.176/portais_novo/','http://www.powempresas.com/',$arquivo['arquivo']);
         } 
         else
         {
