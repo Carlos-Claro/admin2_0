@@ -86,7 +86,7 @@ class Mongo extends MY_Controller
             $pontos++;
         }
          * 
-         */
+         *
         if ( empty($imovel->logradouro) )
         {
             $pontos++;
