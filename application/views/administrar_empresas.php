@@ -881,7 +881,7 @@
                                         unset($botao);
                                         ?>
                                 </div>
-                                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
                                         <?php 
                                         $botao['classe'] = 'mobile';
                                         $botao['valor'] = set_value('mobile', ( isset($item->mobile) ? $item->mobile : '' ) ) ;
@@ -907,6 +907,16 @@
                                             $botao['valor'] = set_value('menu_guiasjp', ( isset($item->menu_guiasjp) ? $item->menu_guiasjp : '' ) ) ;
                                             $botao['texto']['on'] = 'Tem menu GuiaSJP';
                                             $botao['texto']['off'] = 'Não tem menu GuiaSJP';
+                                            echo set_botao_editavel($botao);
+                                            unset($botao);
+                                            ?>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                                    <?php 
+                                            $botao['classe'] = 'newsletter_ativo';
+                                            $botao['valor'] = set_value('newsletter_ativo', ( isset($item->newsletter_ativo) ? $item->newsletter_ativo : '' ) ) ;
+                                            $botao['texto']['on'] = 'Tem Newsletter';
+                                            $botao['texto']['off'] = 'Não tem Newsletter';
                                             echo set_botao_editavel($botao);
                                             unset($botao);
                                             ?>
