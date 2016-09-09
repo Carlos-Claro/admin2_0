@@ -60,7 +60,7 @@ class Imoveis_mongo_model extends MY_Mongo {
         return isset($retorno) ? $retorno : NULL;
     }
     
-    public function get_ids ($offset = 0)
+    public function get_ids ($off_set = 0)
     {
         $data['coluna']= array('id');
         $data['tabela'] = 'imoveis';
