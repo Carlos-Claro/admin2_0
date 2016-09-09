@@ -325,6 +325,26 @@ class Mongo extends MY_Controller
         var_dump('itens deletados: '. $deletados);
     }
 
+    
+    public function deleta_por_empresa( $id_empresa = FALSE )
+    {
+        if ( $id_empresa )
+        {
+            $filtro[] = array('tipo' => 'where', 'campo' => 'id_empresa', 'valor' => $id_empresa );
+            $resultado_mongo = $this->imoveis_mongo_model->get_itens($filtro, 'ordem', -1, 0, 200000 );
+            $deletados = 0;
+            foreach($resultado_mongo['itens'] as $item)
+            {
+                $deletados++;
+                $this->deleta_registro($item);
+            }
+            echo 'itens deletados: '. $deletados;
+        }
+        else
+        {
+            echo 'Nenhum resultado para esta empresa.';
+        }
+    }
 
     
     /**

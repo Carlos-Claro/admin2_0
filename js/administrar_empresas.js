@@ -18,6 +18,21 @@ var retorno_image = {
 var classe_default = 'form';
 $(function(){
     contador.por_classe('#empresa_descricao', '.contador_descricao');
+    $('.deleta-mongo').on('click',function(){
+        var editavel = $('.editavel').val();
+        if ( editavel == 1 )
+        {
+            var item = $(this).attr('data-item');
+            var conf = confirm('Confirma a exclusão dos imoveis desta empresa, id: ' + item + ' no mongoDB?' );
+            if ( conf )
+            {
+                var url = URL_HTTP + 'mongo/deleta_por_empresa/' + item;
+                $.get(url,function(data){
+                    alert(data);
+                });
+            }
+        }
+    });    
     
     $('.estatistica-dia').on('click', function () {
         $('#modal-base .modal-body').html('');

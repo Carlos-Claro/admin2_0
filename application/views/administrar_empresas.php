@@ -63,6 +63,7 @@
                     ?>
                 <button class="estatistica-dia btn btn-primary" data-item="<?php echo $item->id;?>" type="button">Estatisticas por dia</button>
                 <button class="estatistica-local btn btn-primary" data-item="<?php echo $item->id;?>" type="button">Estatisticas por local</button>
+                <button class="deleta-mongo btn btn-danger" data-item="<?php echo $item->id;?>" type="button">Deletar imoveis do Mongo</button>
             </div>
         </div>
     </div>
