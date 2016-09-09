@@ -783,7 +783,7 @@ Class Mongo_db{
                         $collection = new MongoDB\Collection($this->connect, $this->config[$this->activate]['database'],$collection); //new MongoDB\Collection($this->connect, $this->config[$this->activate]['database'].".".$collection); //$this->db->selectCollection($collection);
                         $documents = $collection
 			->find($this->wheres, $options);
-                        //var_dump($collection,$options);die();
+                        //var_dump($documents);die();
 
                         $this->explain($documents, $collection);
 			

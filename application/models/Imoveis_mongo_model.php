@@ -60,4 +60,17 @@ class Imoveis_mongo_model extends MY_Mongo {
         return isset($retorno) ? $retorno : NULL;
     }
     
+    public function get_ids ()
+    {
+        $data['coluna']= array('id');
+        $data['tabela'] = 'imoveis';
+        //$data['off_set'] = $off_set;
+        $data['qtde_itens'] = 10000000;
+        //$data['filtro'] = $filtro;
+        $data['ordem'] = array('_id' => 'ASC');
+        $retorno = $this->get_itens_($data);
+        return isset($retorno) ? $retorno : NULL;
+        
+    }
+    
 }

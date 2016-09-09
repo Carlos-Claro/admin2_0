@@ -143,7 +143,7 @@ class Imoveis_Model extends MY_Model
         $data['filtro'] = $filtro;
         $data['group'] = 'id';
         $retorno = $this->get_itens_($data);
-
+        
         return $retorno['qtde'];
     }
 
