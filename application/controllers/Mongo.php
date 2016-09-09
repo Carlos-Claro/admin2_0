@@ -281,7 +281,6 @@ class Mongo extends MY_Controller
         $images = str_replace('codEmpresa', $item->id_empresa, URL_INTEGRACAO_LOCAL).'destaque_'.$item->id.'*.*';
         shell_exec('rm -f '.$images);
         $filtro_[] = array('tipo' => 'where', 'campo' => '_id', 'valor' => $item->id);
-        var_dump($filtro_);
         $this->imoveis_mongo_model->excluir($filtro_);
         unset($filtro);
     }
@@ -307,19 +306,23 @@ class Mongo extends MY_Controller
     public function sincroniza_excluidos()
     {
         $resultado_mongo = $this->imoveis_mongo_model->get_ids();
+        $deletados = 0;
         foreach($resultado_mongo['itens'] as $item)
         {
             $f = 'imoveis.id = ' . $item->_id;
             $qtde = $this->imoveis_model->get_total_itens($f);
-            if ( ! $qtde )
+            var_dump($qtde, $item->_id);
+            if ( ! $qtde || ! isset($item->id) )
             {
+                $deletados++;
                 $item->id = $item->_id;
                 $this->deleta_registro($item);
-                var_dump($f, $qtde);
+                var_dump($f);
             }
             unset($f, $qtde);
             //die();
         }
+        var_dump('itens deletados: '. $deletados);
     }
 
 
