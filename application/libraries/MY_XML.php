@@ -1248,8 +1248,8 @@ class MY_XML {
         $retorno['descricao'] = $valor->DescricaoParaOSiteEPortais;
         $retorno['area'] = $valor->AreaTotalConstruida;
         $retorno['area_util'] = $valor->AreaUtil;
-        $retorno['quartos'] = $valor->BanheirosSociais;
-        $retorno['banheiro'] = $valor->Dormitorios;
+        $retorno['quartos'] = $valor->Dormitorios;
+        $retorno['banheiro'] = $valor->BanheirosSociais;
         
         $retorno['area_terreno'] = $valor->AreaDoTerreno;
         $retorno['suites'] = $valor->Suites;
