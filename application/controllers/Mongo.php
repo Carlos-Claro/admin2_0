@@ -309,7 +309,11 @@ class Mongo extends MY_Controller
         $deletados = 0;
         foreach($resultado_mongo['itens'] as $item)
         {
-            $f = 'imoveis.id = ' . $item->_id;
+            $f = 'imoveis.id = ' . $item->_id 
+                . ' AND imoveis.reservaimovel = 0  '
+                . 'AND imoveis.vendido = 0 '
+                . 'AND imoveis.locado = 0 '
+                . 'AND imoveis.invisivel = 0 ';
             $qtde = $this->imoveis_model->get_total_itens($f);
             var_dump($qtde, $item->_id);
             if ( ! $qtde || ! isset($item->id) )
