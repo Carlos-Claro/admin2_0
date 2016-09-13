@@ -55,7 +55,6 @@
  */
 	
 $localhost = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'command_line';
-//die('<center><img src="http://www.pow.com.br/images/painel_indisponivel.png"></center>');
 if ( strstr($localhost,'localhost') )
 {
     define('LOCALHOST', TRUE);
@@ -78,14 +77,6 @@ elseif ( strstr($localhost,'192.168') )
     define('COMMAND_LINE', FALSE);
     define('ENVIRONMENT', 'testing');
     define('MONGODB_COMPOSER', FALSE);
-    
-}
-elseif ( strstr($localhost,'201.16.246.176') ) 
-{
-    define('LOCALHOST', FALSE);
-    define('COMMAND_LINE', FALSE);
-    define('ENVIRONMENT', 'production');
-    define('MONGODB_COMPOSER', TRUE);
     
 }
 else

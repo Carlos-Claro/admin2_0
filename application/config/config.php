@@ -26,7 +26,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $base = str_replace(array('http://'), '', $_SERVER['HTTP_HOST']);
 $endereco_http = explode('/',$base);
 define('ENDERECO_NAO_HTTP', $endereco_http[0]);
-$config['base_url'] = 'http://'.ENDERECO_NAO_HTTP.'/admin2_0';
+if ( LOCALHOST )
+{
+    $config['base_url'] = 'http://'.ENDERECO_NAO_HTTP.'/admin2_0/';
+    
+}
+else
+{
+    $config['base_url'] = 'http://'.ENDERECO_NAO_HTTP.'/';
+    
+}
 
 /*
 |--------------------------------------------------------------------------
