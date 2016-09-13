@@ -20,20 +20,40 @@ if ( strstr($root,'pow') )
 else
 {
     define('LOCAL', 'guiasjp');
-    define('CWD_IMAGE', $root);
-    define('URL_IMAGE','http://'.$_SERVER['HTTP_HOST'].'/');
+    if ( LOCALHOST )
+    {
+        define('CWD_IMAGE', $root.'/admin2_0');
+        define('URL_IMAGE','http://'.$_SERVER['HTTP_HOST'].'/admin2_0/');
+        
+    }
+    else
+    {
+        define('CWD_IMAGE', $root);
+        define('URL_IMAGE','http://'.$_SERVER['HTTP_HOST'].'/');
+        
+    }
 }
 define('CWD_PLOT', $root.'/admin2_0/relatorios/plot/');
 define('URL_IMAGE_PLOT','http://'.$_SERVER['HTTP_HOST'].'/admin2_0/relatorios/plot/');
 define('URL_IMAGE_PUBLICIDADE','http://'.$_SERVER['HTTP_HOST'].'/publicidade/');
 define('URL_INTEGRACAO_LOCAL', $root.'/portais_novo/images/por_empresa/codEmpresa/');
 define('URL_INTEGRACAO_BASE', '/images/por_empresa/codEmpresa/');
-define('LOCAL_IMAGE', $root);
+if ( LOCALHOST )
+{
+    define('LOCAL_IMAGE', $root.'/admin2_0');
+    
+}
+else
+{
+    define('LOCAL_IMAGE', $root);
+    
+}
 define('URL_IMAGE_MUDOU', 'http://www.pow.com.br/powsites/codEmpresa/imo/');
 define('URL_IMAGE_NAO_MUDOU', 'http://www.guiasjp.com/imoveis_imagens/');
 define('URL_IMAGE_NOTICIAS', 'http://www.guiasjp.com/');
 define('URL_RELATORIOS', $root.'/admin2_0/relatorios/');
 define('URL_IMAGE_TEMPORARIA', $root.'/admin2_0/temporario/images/');
+
 
 $keys_path = '../../json/keys.json';
 if ( file_exists($keys_path) )

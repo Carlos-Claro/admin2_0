@@ -545,6 +545,7 @@ class MY_Controller extends CI_Controller
      */
     public function ftp_upload ( $caracteristicas = array(), $nome_arquivo )
     {
+        //var_dump($caracteristicas,$nome_arquivo);die();
         $this->load->library('ftp');
         $keys = json_decode(KEYS);
         $array_ftp = (array)$keys->ftp->{$caracteristicas['ftp']};

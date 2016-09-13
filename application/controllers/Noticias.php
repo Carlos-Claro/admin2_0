@@ -227,7 +227,6 @@ class Noticias extends MY_Controller
                         $id = $this->noticias_model->editar($data, array('noticias.id' => $codigo));
                         $data_log = array('id_noticia' => $codigo, 'id_usuario' => $this->get_id_usuario(), 'acao' => 'editar');
                         $this->noticias_model->adicionar_has($data_log);
-                        //var_dump($images);die();
                         if ( isset($images) )
                         {
                             foreach( $images as $image )
