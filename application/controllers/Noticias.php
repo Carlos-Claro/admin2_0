@@ -37,7 +37,7 @@ class Noticias extends MY_Controller
          * @var array
          */
         private $tamanhos = array(
-                                array('tipo' => 12, 'width' => '600', 'height' => 'auto', 'pasta' => 'images/noticias/[ano]/[mes]/', 'prefixo' => '', 'salva' => TRUE),
+                                array('tipo' => 12, 'width' => '600', 'height' => 'auto', 'pasta' => 'images/noticias/[ano]/[mes]/', 'prefixo' => '', 'salva' => TRUE, 'ftp' => 'guiasjp'),
                                 );
         
         /**
@@ -414,6 +414,8 @@ class Noticias extends MY_Controller
                case "image/jpeg":
                    foreach ( $this->tamanhos as $tamanho )
                    {
+                        
+                       $tamanho['image_local'] = $local_image;
                        $tamanho['pasta'] = str_replace($replace_a, $replace_b, $tamanho['pasta']);
                        $arq = $this->_set_jpg($image_info, $endereco_image, $arquivo, $id_arquivo,$tamanho, $titulo, $id_cadastro);
                    }
@@ -421,6 +423,7 @@ class Noticias extends MY_Controller
                case "image/gif":
                    foreach ( $this->tamanhos as $tamanho )
                    {
+                       $tamanho['image_local'] = $local_image;
                        $tamanho['pasta'] = str_replace($replace_a, $replace_b, $tamanho['pasta']);
                        $arq = $this->_set_gif($image_info, $endereco_image, $arquivo, $id_arquivo, $tamanho, $titulo, $id_cadastro);
                    }
@@ -428,6 +431,7 @@ class Noticias extends MY_Controller
                case "image/png":
                    foreach ( $this->tamanhos as $tamanho )
                    {
+                       $tamanho['image_local'] = $local_image;
                        $tamanho['pasta'] = str_replace($replace_a, $replace_b, $tamanho['pasta']);
                        $arq = $this->_set_png($image_info, $endereco_image, $arquivo, $id_arquivo, $tamanho, $titulo, $id_cadastro);
                    }

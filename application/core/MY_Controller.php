@@ -538,6 +538,24 @@ class MY_Controller extends CI_Controller
     }
     
     /**
+     * faz upload da imagem para a pasta destino
+     * @param type $ftp
+     * @param type $destino
+     * @param type $arquivo_local
+     */
+    public function ftp_upload ( $caracteristicas = array(), $nome_arquivo )
+    {
+        $this->load->library('ftp');
+        $keys = json_decode(KEYS);
+        $array_ftp = (array)$keys->ftp->{$caracteristicas['ftp']};
+        $this->ftp->connect($array_ftp);
+        $this->ftp->mkdir($caracteristicas['pasta']);
+        $retorno_v = $this->ftp->upload($caracteristicas['destino'], $caracteristicas['pasta'].$nome_arquivo, 'ascii', 0775);
+        $this->ftp->close();
+    }
+    
+    
+    /**
      * redimensiona e salva a imagem em formato .jpg
      * @param array $image_info informaçoes da imagem
      * @param string $endereco_image endereço onde a imagem se encontra
@@ -549,7 +567,7 @@ class MY_Controller extends CI_Controller
      * @return boolean $retorno
      * @version 1.0
      * @access public
-     * @author Luiz Eduardo Campos da Silva
+     * @author Carlos Claro
      */
     public function _set_jpg( $image_info, $endereco_image, $arquivo, $id_arquivo, $tamanho, $titulo, $id_cadastro = 0)
     {
@@ -579,6 +597,12 @@ class MY_Controller extends CI_Controller
                 $data_image_pai = array( 'id_image_tipo' => $tamanho['tipo'], 'id_image_arquivo' => $id_image_arquivo, 'id_pai' => $id_arquivo, 'descricao' => $titulo, 'moderada' => 0, 'id_cadastro' => $id_cadastro  );
                 $this->images_model->adicionar_pai($data_image_pai);
             }
+            if ( isset($tamanho['ftp']) )
+            {
+                $tamanho['destino'] = $destino;
+                $this->ftp_upload($tamanho, $nome_arquivo);
+                unlink($destino);
+            }
             $retorno = TRUE;
         }
         else
@@ -601,7 +625,7 @@ class MY_Controller extends CI_Controller
      * @return boolean $retorno
      * @version 1.0
      * @access public
-     * @author Luiz Eduardo Campos da Silva
+     * @author Carlos Claro
      */
     public function _set_gif( $image_info, $endereco_image, $arquivo, $id_arquivo, $tamanho, $titulo, $id_cadastro = 0)
     {
@@ -631,6 +655,12 @@ class MY_Controller extends CI_Controller
                 $id_image_arquivo = $this->images_model->adicionar_arquivo($data_arquivo);
                 $data_image_pai = array( 'id_image_tipo' => $tamanho['tipo'], 'id_image_arquivo' => $id_image_arquivo, 'id_pai' => $id_arquivo, 'descricao' => $titulo, 'moderada' => 0, 'id_cadastro' => $id_cadastro );
                 $this->images_model->adicionar_pai($data_image_pai);
+            }
+            if ( isset($tamanho['ftp']) )
+            {
+                $tamanho['destino'] = $destino;
+                $this->ftp_upload($tamanho, $nome_arquivo);
+                unlink($destino);
             }
             $retorno = TRUE;
         }
@@ -682,6 +712,12 @@ class MY_Controller extends CI_Controller
                 $id_image_arquivo = $this->images_model->adicionar_arquivo($data_arquivo);
                 $data_image_pai = array( 'id_image_tipo' => $tamanho['tipo'], 'id_image_arquivo' => $id_image_arquivo, 'id_pai' => $id_arquivo, 'descricao' => $titulo, 'moderada' => 0, 'id_cadastro' => $id_cadastro  );
                 $this->images_model->adicionar_pai($data_image_pai);
+            }
+            if ( isset($tamanho['ftp']) )
+            {
+                $tamanho['destino'] = $destino;
+                $this->ftp_upload($tamanho, $nome_arquivo);
+                unlink($destino);
             }
             $retorno = TRUE;
         }

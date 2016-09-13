@@ -187,7 +187,7 @@
                     ?>
                         <div class="col-lg-4 col-md-4 col-sm- col-xs-6 image-<?php echo $image->id;?> alert alert-success">
                             <div class="media text-center">
-                                <img src="<?php echo URL_IMAGE.str_replace($replace_a, $replace_b, $image->pasta).$image->arquivo; ?>" class="img-responsive arquivo-exibe-upload media-object">
+                                <img src="<?php echo URL_IMAGE_NOTICIAS.str_replace($replace_a, $replace_b, $image->pasta).$image->arquivo; ?>" class="img-responsive arquivo-exibe-upload media-object">
                                 <div class="media-body">
                                     <h4 class="media-heading text-center"><?php echo ! empty ($image->descricao_pai) ? $image->descricao_pai : '* Sem Legenda';?></h4>
                                     <div class="btn btn-danger remover-image" data-item="<?php echo $image->id;?>" data-noticia="<?php echo $item->id;?>">Remover</div>

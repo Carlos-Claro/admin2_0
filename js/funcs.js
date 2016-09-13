@@ -4,6 +4,7 @@
 var base = new String(document.baseURI);
 var n = base.indexOf("localhost");
 var n2 = base.indexOf("192.168");
+var npow = base.indexOf("pow.com");
 if ( ( n ) >= 0 || ( n2 ) >= 0 )
 {
     base = base.replace('http://','');
@@ -17,7 +18,17 @@ if ( ( n ) >= 0 || ( n2 ) >= 0 )
     console.log(URL_HTTP);
     var local = true;
 }
-else
+else if( (npow) >= 0 )
+{
+    base = base.replace('http://','');
+    u = base.split('/');
+    var URI = 'http://' + u[0] + '/admin2_0/';
+    var URL_HTTP = 'http://' + u[0] + '/admin2_0/';
+    var URL_RAIZ = 'http://' + u[0] + '/';
+    var URL_IMAGES = 'http://' + u[0] + '/';
+    
+}
+else 
 {
     base = base.replace('http://','');
     u = base.split('/');
@@ -25,12 +36,7 @@ else
     var URL_HTTP = 'http://' + u[0] + '/';
     var URL_RAIZ = 'http://' + u[0] + '/';
     var URL_IMAGES = 'http://' + u[0] + '/';
-    /*
-    var URI = 'http://www.guiasjp.com/admin2_0/';
-    var URL_HTTP = 'http://www.guiasjp.com/admin2_0/';
-    var URL_RAIZ = 'http://www.guiasjp.com/';
-    var URL_IMAGES = 'http://www.guiasjp.com/';
-    */
+    
 }
 
 function abre_janela(link, id, titulo)
