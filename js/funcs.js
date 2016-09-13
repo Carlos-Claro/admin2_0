@@ -21,8 +21,8 @@ else
 {
     base = base.replace('http://','');
     u = base.split('/');
-    var URI = 'http://' + u[0] + '/admin2_0/';
-    var URL_HTTP = 'http://' + u[0] + '/admin2_0/';
+    var URI = 'http://' + u[0] + '/';
+    var URL_HTTP = 'http://' + u[0] + '/';
     var URL_RAIZ = 'http://' + u[0] + '/';
     var URL_IMAGES = 'http://' + u[0] + '/';
     /*
