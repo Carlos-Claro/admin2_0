@@ -416,6 +416,7 @@ class Noticias extends MY_Controller
                         
                        $tamanho['image_local'] = $local_image;
                        $tamanho['pasta'] = str_replace($replace_a, $replace_b, $tamanho['pasta']);
+                       var_dump($tamanho['pasta']);
                        $arq = $this->_set_jpg($image_info, $endereco_image, $arquivo, $id_arquivo,$tamanho, $titulo, $id_cadastro);
                    }
                    break;

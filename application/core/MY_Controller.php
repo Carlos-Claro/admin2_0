@@ -545,12 +545,15 @@ class MY_Controller extends CI_Controller
      */
     public function ftp_upload ( $caracteristicas = array(), $nome_arquivo )
     {
-        //var_dump($caracteristicas,$nome_arquivo);die();
         $this->load->library('ftp');
         $keys = json_decode(KEYS);
         $array_ftp = (array)$keys->ftp->{$caracteristicas['ftp']};
-        $this->ftp->connect($array_ftp);
-        $this->ftp->mkdir($caracteristicas['pasta']);
+        $conn = $this->ftp->connect($array_ftp);
+        $files = $this->ftp->list_files($caracteristicas['pasta']);
+        if ( ! $files )
+        {
+            $mk = $this->ftp->mkdir($caracteristicas['pasta']);
+        }
         $retorno_v = $this->ftp->upload($caracteristicas['destino'], $caracteristicas['pasta'].$nome_arquivo, 'ascii', 0775);
         $this->ftp->close();
     }
