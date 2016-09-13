@@ -559,6 +559,23 @@ class MY_Controller extends CI_Controller
     }
     
     
+    public function ftp_delete ( $caracteristicas = array() )
+    {
+        $mk = false;
+        $this->load->library('ftp');
+        $keys = json_decode(KEYS);
+        $array_ftp = (array)$keys->ftp->{$caracteristicas['ftp']};
+        $conn = $this->ftp->connect($array_ftp);
+        $files = $this->ftp->list_files($caracteristicas['arquivo']);
+        if ( $files )
+        {
+            $mk = $this->ftp->delete_file($caracteristicas['arquivo']);
+        }
+        $this->ftp->close();
+        return $mk;
+    }
+    
+    
     /**
      * redimensiona e salva a imagem em formato .jpg
      * @param array $image_info informaçoes da imagem

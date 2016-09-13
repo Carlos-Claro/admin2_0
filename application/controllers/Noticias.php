@@ -462,12 +462,15 @@ class Noticias extends MY_Controller
                $replace_a = array('[ano]','[mes]');
                $replace_b = array($noticia->ano,$noticia->mes);
                $arquivo_ = LOCAL_IMAGE.'/'.str_replace($replace_a, $replace_b, $arquivo->pasta).$arquivo->arquivo;
-               if ( file_exists($arquivo_) )
+               $caracteristicas = array('ftp' => 'guiasjp', 'arquivo' => str_replace($replace_a, $replace_b, $arquivo->pasta).$arquivo->arquivo);
+               $deletou = $this->ftp_delete($caracteristicas);
+               
+               if ( $deletou )
                {
                    $exc = $this->images_model->excluir_pai( 'image_pai.id = '.$post['id'] );
                    if ( $exc )
                    {
-                       unlink($arquivo_);
+                       //unlink($arquivo_);
                        $exc_a = $this->images_model->excluir_arquivo('image_arquivo.id = '.$arquivo->id_arquivo);
                        $retorno['erro'] = FALSE;
                        $retorno['id'] = $post['id'];
