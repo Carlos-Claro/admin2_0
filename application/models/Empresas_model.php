@@ -35,6 +35,7 @@ class Empresas_Model extends MY_Model {
                             logradouros.logradouro as endereco,
                             logradouros.bairro as bairro,
                             hotsite_parametros.noticias as noticias,
+                            hotsite_parametros.inicial_tipo as inicial_tipo,
                             ';
     	$data['tabela'] = array(
                                 array('nome' => 'empresas'),
@@ -220,6 +221,8 @@ class Empresas_Model extends MY_Model {
                             empresas.plano_desejado as plano_desejado,
                             empresas.desconto_pub as desconto_pub,
                             cidades.ddd as cidade_ddd,
+                            hotsite_parametros.inicial_tipo as inicial_tipo, 
+                            hotsite_parametros.inicial_valor as inicial_valor,
                             ';
         $data['tabela'] = array(
                                 array('nome' => 'empresas'),
@@ -228,7 +231,7 @@ class Empresas_Model extends MY_Model {
                                 array('nome' => 'autorizadores', 'where' => 'empresas.id_autorizador = autorizadores.id', 'tipo' => 'LEFT'),
                                 array('nome' => 'logradouros', 'where' => 'empresas.id_logradouro = logradouros.id', 'tipo' => 'LEFT'),
                                 array('nome' => 'cidades', 'where' => 'logradouros.id_cidade = cidades.id', 'tipo' => 'LEFT'),
-
+                                array('nome' => 'hotsite_parametros', 'where' => 'empresas.id = hotsite_parametros.id_empresa', 'tipo' => 'LEFT')
                                 );
 
         $data['filtro'] = 'empresas.id = '.$id;

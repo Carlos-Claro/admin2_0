@@ -418,5 +418,17 @@ $(function(){
             },5000);
         }
     });
+    
+    $('.inicial_tipo').on('change',function(){
+       var empresa  = $("#id_empresa").val();
+       var tipo_inicio = $('#inicial_tipo').val();
+       var sequencia = $('#inicial_tipo').attr('data-sequencia');
+       
+       
+       $.post( URI + 'empresas/get_inicial_valor',{id : empresa,tipo : tipo_inicio,sequencia : sequencia},function(retorno){
+           $('.inicial_valor').html(retorno);
+       }); 
+       
+    });
 });
     

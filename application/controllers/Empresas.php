@@ -59,7 +59,7 @@ class Empresas extends MY_Controller
             $this->load->model(array(
                 'empresas_model', 'empresas_auxiliar_model','subcategorias_model', 'status_atualizada_model','logradouros_model',
                 'cidades_model','empresas_status_ocorrencia_model','empresas_contato_model','setores_model',
-                'ocorrencias_model','interacao_model','pow_cargos_model','sistema_model'));
+                'ocorrencias_model','interacao_model','pow_cargos_model','sistema_model','hotsite_parametros_model'));
             $this->load->library('ocorrencias');
 	}
         
@@ -427,6 +427,8 @@ class Empresas extends MY_Controller
             {
                 $empresa = $this->empresas_model->get_item($id);
                 $retorno['logradouro'] = $this->logradouros_model->get_itens('logradouros.id ='.$empresa->id_logradouro);
+                
+                
             }
             if ( $id_categoria )
             {
@@ -454,6 +456,11 @@ class Empresas extends MY_Controller
             $retorno['destaques'] = $this->imoveis_destaques_model->get_select('imoveis_destaques.id_empresa = '.$id);
             $retorno['dest_listagem'] = $this->imoveis_dest_listagem_model->get_select('imoveis_dest_listagem.id_empresa = '.$id);
             $retorno['destaques_bairro'] = $this->imoveis_destaque_bairro_model->get_itens('imoveis_destaque_bairro.id_empresa = '.$id);
+            
+            $data['id'] = $id;
+            $data['tipo'] = $empresa->inicial_tipo;
+            $retorno['inicial_valor'] = $this->get_inicial_valor($data);
+            
             $retorno['largura'] = array(
                                         (object)array('id' => 772,'descricao' => 772),
                                         (object)array('id' => 950,'descricao' => 950),
@@ -466,6 +473,10 @@ class Empresas extends MY_Controller
             $retorno['pagina_tipo'] = array(
                                         (object)array('id' => 'normal','descricao' => 'Normal'),
                                         (object)array('id' => 'imoveis','descricao' => 'Imoveis'),
+                                        );
+            $retorno['inicial_tipo'] = array(
+                                        (object)array('id' => 'id_pagina','descricao' => 'Pagina criada'),
+                                        (object)array('id' => 'servico','descricao' => 'Pagina automática'),
                                         );
             $retorno['pagina_visivel'] = array(
                                         (object)array('id' => 2,'descricao' => 'Gratis'),
@@ -1527,5 +1538,64 @@ class Empresas extends MY_Controller
                     print 'Nenhuma empresa desbloqueada.';
             }
             
+        }
+        
+        /**
+         * 
+         * @param type $data
+         * [tipo]
+         * [id]
+         * [sequencia]
+         * @return return ou echo
+         */
+        public function get_inicial_valor( $data = array() ) {
+            
+            $return = TRUE;
+            if( ! count($data))
+            {
+                $data = $this->_post();
+                $return = FALSE;
+                
+            }
+            switch ($data['tipo']) {
+                case 'id_pagina':
+                    
+                        $tipo = $this->hotsite_parametros_model->get_select_paginas('id_empresa = '.$data['id']);
+                    
+                    break;
+                case 'servico':
+                    
+                        $tipo = array(
+                            (object)array('id' => 'contato','descricao' => 'Contato'),
+                            (object)array('id' => 'localizacao','descricao' => 'Localização'),
+                            (object)array('id' => 'empregos','descricao' => 'Empregos'),
+                            (object)array('id' => 'busca','descricao' => 'Busca'),
+                            (object)array('id' => 'selecionadas','descricao' => 'Selecionadas'),
+                            (object)array('id' => 'venda','descricao' => 'Venda'),
+                            (object)array('id' => 'locacao','descricao' => 'Locação'),
+                            (object)array('id' => 'agendamento','descricao' => 'Agendamento'),
+                            (object)array('id' => 'noticias','descricao' => 'Noticias'),
+                        );
+                    
+                    break;
+
+            }
+            
+            if($return)
+            {
+                return $tipo;
+            }
+            else
+            {
+                $config['valor'] = $tipo; 
+                $config['nome'] = 'inicial_valor'; 
+                $config['extra'] = 'id="inicial_valor" data-sequencia="'.$data['sequencia'].'" '; 
+                $config['class'] = 'campo-'.$data['sequencia']; 
+                $config['controller'] = 'hotsite_parametros';
+                
+                $retorno = '<label for="inicial_valor">Inicial Valor </label>';
+                $retorno .= form_select($config); 
+                echo $retorno;
+            }
         }
 }

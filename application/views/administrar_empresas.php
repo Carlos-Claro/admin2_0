@@ -1490,6 +1490,35 @@
                                     </div>
                                 </div>
                                 
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                    <div class="form-group inicial_tipo">
+                                        <label for="inicial_tipo">Inicial Tipo</label>
+                                            <?php
+                                                $config['valor'] = $inicial_tipo; 
+                                                $config['nome'] = 'inicial_tipo'; 
+                                                $config['extra'] = 'id="inicial_tipo" data-sequencia="'.$sequencia.'" ';
+                                                $config['class'] = 'campo-'.$sequencia; 
+                                                $config['controller'] = 'hotsite_parametros';
+                                                $config['tabela'] = 'hotsite_parametros';
+                                                echo form_select($config, set_value('inicial_tipo', (isset($item->inicial_tipo) ? $item->inicial_tipo : '') ) ); 
+                                                $sequencia++;
+                                            ?>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                    <div class="form-group inicial_valor">
+                                        <label for="inicial_valor">Inicial Valor</label>
+                                            <?php
+                                                $config['valor'] = $inicial_valor; 
+                                                $config['nome'] = 'inicial_valor'; 
+                                                $config['extra'] = 'id="inicial_valor" data-sequencia="'.$sequencia.'" '; 
+                                                $config['class'] = 'campo-'.$sequencia; 
+                                                $config['controller'] = 'hotsite_parametros';
+                                                echo form_select($config, set_value('inicial_valor', (isset($item->inicial_valor) ? $item->inicial_valor : '') ) ); 
+                                                $sequencia++;
+                                            ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane alert alert-warning" id="images">
