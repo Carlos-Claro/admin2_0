@@ -7,7 +7,7 @@ class Empresas_Contato_Model extends MY_Model {
     {
         // Call the Model constructor
         parent::__construct();		
-        $this->database = array('db' => 'guiasjp', 'table' => 'empresa_contato');
+        $this->database = array('db' => 'guiasjp', 'table' => 'empresas_contato');
     }
 	
     public function adicionar( $data = array() )

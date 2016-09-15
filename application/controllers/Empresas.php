@@ -647,9 +647,8 @@ class Empresas extends MY_Controller
         public function add_contato()
         {
             $data = $this->_post();
-            
-            $campos = $data['campos'];
-            $valores = $data['valores'];
+            $campos = (isset($data['campos']) ? $data['campos'] : '');
+            $valores = (isset($data['valores']) ? $data['valores'] : '');
             
             unset($data['campos']);
             unset($data['valores']);
@@ -664,13 +663,16 @@ class Empresas extends MY_Controller
             if( isset($campos) && isset($valores) )
             {
                 $this->load->model('empresas_contatos_atributos_model');
-                foreach($campos as $key => $value)
+                if(is_array($campos))
                 {
-                    if( !empty($value) && !empty($valores[$key]) )
+                    foreach($campos as $key => $value)
                     {
-                        $dados['campo'] = $value;
-                        $dados['valor'] = $valores[$key];
-                        $this->empresas_contatos_atributos_model->adicionar($dados);
+                        if( !empty($value) && !empty($valores[$key]) )
+                        {
+                            $dados['campo'] = $value;
+                            $dados['valor'] = $valores[$key];
+                            $this->empresas_contatos_atributos_model->adicionar($dados);
+                        }
                     }
                 }
             }
