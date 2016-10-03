@@ -261,26 +261,7 @@ class MY_Controller extends CI_Controller
         if ( ! LOCALHOST )
         {
             
-            if ( ! isset($data['iagente']) )
-            {
-                $config['mailtype'] = 'html';
-                $config['useragent'] = 'GuiaSJP';
-                $config['protocol'] = 'smtp';
-                $config['smtp_host'] = 'smtp.pow.com.br';
-                $config['smtp_user'] = 'autenticacao@pow.com.br';
-                $config['smtp_pass'] = 'c2a0r1l2';
-                $config['smtp_port'] = '587';
-            }
-            else
-            {
-                $config['mailtype'] = 'html';
-                $config['useragent'] = 'GuiaSJP';
-                $config['protocol'] = 'smtp';
-                $config['smtp_host'] = 'smtp1.corporate-mail-us.com';
-                $config['smtp_user'] = 'programacao@pow.com.br';
-                $config['smtp_pass'] = 'powi2015';
-                $config['smtp_port'] = '587';
-            }
+           
             $mail = $this->email->initialize($config);
             $subject = (isset($data['assunto']) && $data['assunto']) ? $data['assunto'] : 'GuiaSJP';		
             $mensagem = (isset($data['mensagem']) && $data['mensagem']) ? $data['mensagem'] : '';
